@@ -13,7 +13,7 @@
 ?>
 <section class="content">
     <div class="container-fluid">
-        <?= $this->Form->create($user) ?>
+        <?= $this->Form->create($user, ['type' => 'file']) ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -101,7 +101,43 @@
                 </div>
             </div>
         </div>
-        
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Comprovantes</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('verification.residencia', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('verification.declaracao', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('verification.identidade_frente', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('verification.identidade_verso', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('verification.autorizacao_pais', ['class' => 'form-control mb-2']);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Currículo</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('resume.curriculo', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('resume.area_atuacao', ['class' => 'form-control mb-2']);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">

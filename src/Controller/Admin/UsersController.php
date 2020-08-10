@@ -86,7 +86,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks'],
+            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks', 'Verifications'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -108,6 +108,7 @@ class UsersController extends AppController
         $resumes = $this->Users->Resumes->find('list', ['limit' => 200]);
         $specialties = $this->Users->Specialties->find('list', ['limit' => 200]);
         $tasks = $this->Users->Tasks->find('list', ['limit' => 200]);
+        $tasks = $this->Users->Verifications->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles', 'edicts', 'ideas', 'characteristics', 'interests', 'resumes', 'specialties', 'tasks'));
     }
 
