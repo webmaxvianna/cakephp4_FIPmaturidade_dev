@@ -91,5 +91,5 @@ Router::prefix('Admin', function (RouteBuilder $routes) {
     // have the `'prefix' => 'Admin'` route element added that
     // will be required when generating URLs for these routes
     $routes->fallbacks(DashedRoute::class);
-    $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
+    $routes->connect('/', ['controller' => 'Dashboards', 'action' => 'index']);
 });
