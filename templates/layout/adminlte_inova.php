@@ -31,11 +31,7 @@
       '/adminlte/plugins/daterangepicker/daterangepicker'
     ]) 
   ?>
-  <?= 
-  $this->Html->css([
-    '/adminlte/plugins/summernote/summernote-bs4'
-  ]) 
-?>
+  <!-- <?= $this->Html->css(['/adminlte/plugins/summernote/summernote-bs4']) ?> -->
 
   <!-- Theme style -->
   <!-- <link rel="stylesheet" href="../../webroot/adminlte/dist/css/adminlte.css"> -->
@@ -193,11 +189,7 @@
     '/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min'
   ]) 
 ?>
-<?= 
-  $this->Html->script([ 
-    '/adminlte/plugins/summernote/summernote-bs4.min'
-  ]) 
-?>
+<!-- <?= $this->Html->script(['/adminlte/plugins/summernote/summernote-bs4.min']) ?> -->
 
 </body>
 </html>
