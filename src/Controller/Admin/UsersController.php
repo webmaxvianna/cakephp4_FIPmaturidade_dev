@@ -192,4 +192,24 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
     }
+
+    public function changeemail($id = null)
+    {
+        $user = $this->Users->get($id);
+        //$user['email'] = ''; 
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $usuario = $this->request->getData(); 
+            $user['email'] = $usuario['new_email']; 
+            $user = $this->Users->patchEntity($user, $usuario);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The e-mail address has been changed.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The e-mail address could not be changed. Please, try again.'));
+        }
+        $this->set(compact('user'));
+    }
 }

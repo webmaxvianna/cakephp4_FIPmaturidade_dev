@@ -27,7 +27,7 @@
           <li class="nav-header"></li>
           <li class="nav-item">
             <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Usuários
               </p>
@@ -36,7 +36,7 @@
           
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'roles', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-id-badge"></i>
               <p>
                 Funções
               </p>
@@ -46,7 +46,7 @@
           <li class="nav-header"></li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'ideas', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-lightbulb"></i>
               <p>
                 Ideias
               </p>
@@ -65,7 +65,7 @@
           
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'tasks', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-tasks"></i>
               <p>
                 Atividades
               </p>
@@ -75,7 +75,7 @@
           <li class="nav-header"></li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'characteristics', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-user-tag"></i>
               <p>
                 Características
               </p>
@@ -84,7 +84,7 @@
           
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'interests', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-user-tag"></i>
               <p>
                 Interesses
               </p>
@@ -93,7 +93,7 @@
           
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'specialties', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-user-tag"></i>
               <p>
                 Especialidades
               </p>
@@ -103,7 +103,7 @@
           <li class="nav-header">Parâmetros</li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'parameters', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-gavel"></i>
               <p>
                 Avaliação
               </p>
@@ -112,7 +112,7 @@
           
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'categories', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-chalkboard-teacher"></i>
               <p>
                 Pitching
               </p>
