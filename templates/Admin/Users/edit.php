@@ -13,6 +13,13 @@
 ?>
 <section class="content">
     <div class="container-fluid">
+        <?php  
+            $myTemplates = [
+                'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
+                'nestingLabel' => '{{hidden}}{{input}}<label class="form-check-label">{{text}}</label>',
+            ];
+            $this->Form->setTemplates($myTemplates);
+        ?>
         <?= $this->Form->create($user, ['type' => 'file']) ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
@@ -101,20 +108,46 @@
                 </div>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
                     <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
-                        <h3 class="card-title">Comprovantes</h3>
+                        <h3 class="card-title">Sobre / Quem é você?</h3>
                     </div>
                     <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('verification.residencia', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('verification.declaracao', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('verification.identidade_frente', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('verification.identidade_verso', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('verification.autorizacao_pais', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('characteristics._ids', [
+                                    'class' => 'form-check-input',
+                                    'options' => $characteristics,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                    ]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Conte-nos sobre seus interesses?</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('interests._ids', [
+                                    'class' => 'form-check-input',
+                                    'options' => $interests,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                    ]);
                             ?>
                         </div>
                     </div>

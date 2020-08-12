@@ -13,7 +13,14 @@
 ?>
 <section class="content">
     <div class="container-fluid">
-        <?= $this->Form->create($user) ?>
+        <?php  
+            $myTemplates = [
+                'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
+                'nestingLabel' => '{{hidden}}{{input}}<label class="form-check-label">{{text}}</label>',
+            ];
+            $this->Form->setTemplates($myTemplates);
+        ?>
+        <?= $this->Form->create($user, ['type' => 'file']) ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -103,6 +110,89 @@
             </div>
         </div>
         
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Sobre / Quem é você?</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('characteristics._ids', [
+                                    'class' => 'form-check-input',
+                                    'options' => $characteristics,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                    ]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Conte-nos sobre seus interesses?</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('interests._ids', [
+                                    'class' => 'form-check-input',
+                                    'options' => $interests,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                    ]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Comprovantes</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('verification.residencia', ['type' => 'file', 'label' => 'Comprovante de residência<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.declaracao', ['type' => 'file', 'label' => 'Declaração<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.identidade_frente', ['type' => 'file', 'label' => 'Documento de identidade - frente (RG ou CPF)<small> (imagem .jpg ou .png)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.identidade_verso', ['type' => 'file', 'label' => 'Documento de identidade - verso (RG ou CPF)<small> (imagem .jpg ou .png)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.autorizacao_pais', ['type' => 'file', 'label' => 'Autorização dos pais<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Currículo</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('resume.curriculo', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('resume.area_atuacao', ['class' => 'form-control mb-2']);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">

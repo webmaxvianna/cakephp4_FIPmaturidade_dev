@@ -55,13 +55,74 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
-            $user = $this->Users->patchEntity($user, $usuario);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $valid_img = array('image/png','image/jpg','image/jpeg','image/bmp');
+            $valid_doc = array('application/pdf');
+            $valid_file = array_merge($valid_img,$valid_doc);
+            $residencia = $this->request->getData('verification.residencia');
+            $declaracao = $this->request->getData('verification.declaracao');
+            $doc_frente = $this->request->getData('verification.identidade_frente');
+            $doc_verso = $this->request->getData('verification.identidade_verso');
+            $autorizacao = $this->request->getData('verification.autorizacao_pais');
+            $userData = $this->request->getData();
+            if (!empty($doc_frente->getClientFilename()) || !empty($doc_verso->getClientFilename()) || !empty($residencia->getClientFilename()) || !empty($declaracao->getClientFilename()) || !empty($autorizacao->getClientFilename())) {
+                
+                if (in_array($doc_frente->getClientMediaType(), $valid_img)) {
+                    $extensao = pathinfo($doc_frente->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_doc_frente = WWW_ROOT . 'img/docs/'. $userData['username'] .'-doc_frente.'.$extensao;
+                    $userData['verification']['identidade_frente'] = '/img/docs/' . $userData['username'] .'-doc_frente.'.$extensao;
+                } else {
+                    $userData['verification']['identidade_frente'] = null;
+                }
 
+                if (in_array($doc_verso->getClientMediaType(), $valid_img)) {
+                    $extensao = pathinfo($doc_verso->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_doc_verso = WWW_ROOT . 'img/docs/'. $userData['username'] .'-doc_verso.'.$extensao;
+                    $userData['verification']['identidade_verso'] = '/img/docs/' . $userData['username'] .'-doc_verso.'.$extensao;
+                } else {
+                    $userData['verification']['identidade_verso'] = null;
+                }  
+                
+                if (in_array($residencia->getClientMediaType(), $valid_file)) {
+                    $extensao = pathinfo($residencia->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_residencia = WWW_ROOT . 'img/docs/'. $userData['username'] .'-residencia.'.$extensao;
+                    $userData['verification']['residencia'] = '/img/docs/' . $userData['username'] .'-residencia.'.$extensao;
+                } else {
+                    $userData['verification']['residencia'] = null;
+                } 
+                
+                if (in_array($declaracao->getClientMediaType(), $valid_file)) {
+                    $extensao = pathinfo($declaracao->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_declaracao = WWW_ROOT . 'img/docs/'. $userData['username'] .'-declaracao.'.$extensao;
+                    $userData['verification']['declaracao'] = '/img/docs/' . $userData['username'] .'-declaracao.'.$extensao;
+                } else {
+                    $userData['verification']['declaracao'] = null;
+                } 
+                
+                if (in_array($autorizacao->getClientMediaType(), $valid_file)) {
+                    $extensao = pathinfo($autorizacao->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_autorizacao = WWW_ROOT . 'img/docs/'. $userData['username'] .'-autorizacao.'.$extensao;
+                    $userData['verification']['autorizacao_pais'] = '/img/docs/' . $userData['username'] .'-autorizacao.'.$extensao;
+                } else {
+                    $userData['verification']['autorizacao_pais'] = null;
+                }               
+            } else {
+                $userData['verification']['autorizacao_pais'] = null;
+                $userData['verification']['declaracao'] = null;
+                $userData['verification']['residencia'] = null;
+                $userData['verification']['identidade_verso'] = null;
+                $userData['verification']['identidade_frente'] = null;
+            }
+            // debug($userData); exit;
+            $userData['nome_completo'] = $userData['nome']." ".$userData['sobrenome'];
+            $user = $this->Users->patchEntity($user, $userData);
+            // debug($user); exit;
+            if ($this->Users->save($user)) {
+                if (isset($caminho_doc_frente)) { $doc_frente->moveTo($caminho_doc_frente); }
+                if (isset($caminho_doc_verso)) { $doc_verso->moveTo($caminho_doc_verso); }
+                if (isset($caminho_residencia)) { $residencia->moveTo($caminho_residencia); }
+                if (isset($caminho_declaracao)) { $declaracao->moveTo($caminho_declaracao); }
+                if (isset($caminho_autorizacao)) { $autorizacao->moveTo($caminho_autorizacao); }
+                $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
@@ -101,15 +162,11 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $edicts = $this->Users->Edicts->find('list', ['limit' => 200]);
-        $ideas = $this->Users->Ideas->find('list', ['limit' => 200]);
         $characteristics = $this->Users->Characteristics->find('list', ['limit' => 200]);
         $interests = $this->Users->Interests->find('list', ['limit' => 200]);
         $resumes = $this->Users->Resumes->find('list', ['limit' => 200]);
         $specialties = $this->Users->Specialties->find('list', ['limit' => 200]);
-        $tasks = $this->Users->Tasks->find('list', ['limit' => 200]);
-        $tasks = $this->Users->Verifications->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles', 'edicts', 'ideas', 'characteristics', 'interests', 'resumes', 'specialties', 'tasks'));
+        $this->set(compact('user', 'roles', 'characteristics', 'interests', 'resumes', 'specialties'));
     }
 
     /**
