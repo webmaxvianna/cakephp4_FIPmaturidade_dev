@@ -73,12 +73,14 @@ class VerificationsTable extends Table
         $validator
             ->scalar('identidade_frente')
             ->maxLength('identidade_frente', 255)
-            ->allowEmptyString('identidade_frente');
+            ->requirePresence('identidade_frente', 'create')
+            ->allowEmptyFile('identidade_frente');
 
         $validator
             ->scalar('identidade_verso')
             ->maxLength('identidade_verso', 255)
-            ->allowEmptyString('identidade_verso');
+            ->requirePresence('identidade_verso', 'create')
+            ->allowEmptyFile('identidade_verso');
 
         $validator
             ->scalar('declaracao')

@@ -8,6 +8,7 @@
 /vendor/*
 /webroot/adminlte/plugins/*
 /webroot/adminlte/dist/img/*
+/webroot/img/*
 
 # OS generated files #
 ######################
