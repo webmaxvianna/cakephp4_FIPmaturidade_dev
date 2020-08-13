@@ -52,7 +52,8 @@ class EdictsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Users', [
+        $this->belongsTo('Owners', [
+            'className' => 'Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
@@ -74,7 +75,7 @@ class EdictsTable extends Table
             'targetForeignKey' => 'task_id',
             'joinTable' => 'edicts_tasks',
         ]);
-        $this->belongsToMany('EdictsUsers', [
+        $this->belongsToMany('Users', [
             'foreignKey' => 'edict_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'edicts_users',

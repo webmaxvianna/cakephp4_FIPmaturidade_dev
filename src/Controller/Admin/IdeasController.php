@@ -21,7 +21,7 @@ class IdeasController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Edicts', 'Users', 'Owner'],
+            'contain' => ['Edicts', 'Users', 'Owners'],
             'limit' => 3,
             'order' => ['Ideas.id' => 'asc']
         ];

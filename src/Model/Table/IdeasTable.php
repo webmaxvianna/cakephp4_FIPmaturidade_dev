@@ -57,7 +57,7 @@ class IdeasTable extends Table
             'foreignKey' => 'edict_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Owner', [
+        $this->belongsTo('Owners', [
             'className' => 'Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',

@@ -26,8 +26,7 @@
                 <thead>
                 <tr>
                 <th><?= $this->Paginator->sort('titulo') ?></th>
-                <th><?= $this->Paginator->sort('link_video') ?></th>  
-                <th><?= $this->Paginator->sort('autor_nome') ?></th>               
+                <th><?= $this->Paginator->sort('user.nome_completo') ?></th>               
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </thead>
@@ -35,8 +34,8 @@
                 <?php foreach ($ideas as $idea): ?>
                 <tr>
                     <td><?= h($idea->titulo) ?></td>
-                    <td><?= h($idea->link_video) ?></td>
                     <td><?= h($idea->owner->nome_completo) ?></td>
+                    <td><?= $this->Html->link('Avaliadores', ['action' => 'vincular_avaliadores', $idea->id], ['class' => 'btn btn-outline-primary btn-sm', 'escape' => false]) ?></td>
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $idea->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $idea->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>

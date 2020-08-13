@@ -123,6 +123,10 @@ $this->Breadcrumbs->add([
                                         <td><?= h($user->pais) ?></td>
                                     </tr>
                                     <tr>
+                                        <th><?= __('Função') ?></th>
+                                        <td><?= h($user->role->funcao) ?></td>
+                                    </tr>
+                                    <tr>
                                         <th><?= __('Status') ?></th>
                                         <td><?= $this->Number->format($user->status) ?></td>
                                     </tr>
@@ -135,49 +139,6 @@ $this->Breadcrumbs->add([
                                         <td><?= h($user->modified) ?></td>
                                     </tr>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Características Relacionadas') ?></h4>
-                                    </div>
-                                    <?php if (!empty($user->characteristics)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($user->characteristics as $characteristics) : ?>
-                                                    <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $characteristics->id ?>">
-                                                        <?= $this->Html->link($characteristics->sobre, ['controller' => 'characteristics', 'action' => 'view', $characteristics->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Interesses Relacionados') ?></h4>
-                                    </div>
-                                    <?php if (!empty($user->interests)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($user->interests as $interests) : ?>
-                                                    <li data-toggle="tooltip" data-placement="left" title="<?php "Id: " . $interests->id ?>">
-                                                        <?php $this->Html->link($interests->interesse, ['controller' => 'interests', 'action' => 'view', $interests->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                            </table>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
                             </div>
                         </div>
 
@@ -205,7 +166,7 @@ $this->Breadcrumbs->add([
                             <div class="col col-md-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4><?= __('Currículos Relacionados') ?></h4>
+                                        <h4><?= __('Editais Relacionados') ?></h4>
                                     </div>
                                     <?php if (!empty($user->resumes)) : ?>
                                         <div class=" card-body">
