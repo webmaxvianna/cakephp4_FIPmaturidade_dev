@@ -36,6 +36,7 @@
                                 echo $this->Form->control('sexo', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('cpf', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('rg', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('foto perfil', ['class' => 'form-control mb-2', 'type' => 'file', 'name' => 'profile_image']);
                             ?>
                         </div>
                     </div>

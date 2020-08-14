@@ -267,14 +267,26 @@ class UsersController extends AppController
             'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks', 'Verifications'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
-            $user = $this->Users->patchEntity($user, $usuario);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $fileObject = $this->request->getData("profile_image");
+            $fileExtension = $fileObject->getClientMediaType();
+            $ext = explode("/", $fileExtension);
+            $filename = md5(uniqid((string)time())).'.'.$ext[1];
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "image/gif");
 
-                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+            if (in_array($fileExtension, $valid_extensions)) {
+                $destination = WWW_ROOT . "photos" . DS . $filename;
+                $fileObject->moveTo($destination);
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                $usuario = $this->request->getData(); 
+                $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+                $usuario["foto"] = "photos" . "/" . $filename;
+                $user = $this->Users->patchEntity($user, $usuario);
+
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been saved.'));
+    
+                    return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+                }
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
