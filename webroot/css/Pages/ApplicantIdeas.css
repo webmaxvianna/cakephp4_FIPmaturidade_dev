@@ -1,0 +1,8 @@
+.nav-tabs.flex-column .nav-link {
+    border-radius: 0 !important;
+}
+
+.nav-tabs.flex-column .nav-link.active {
+    border-left: 3px solid #007bff !important;
+}
+  
