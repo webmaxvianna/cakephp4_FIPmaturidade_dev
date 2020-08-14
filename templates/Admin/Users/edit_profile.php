@@ -189,7 +189,7 @@
                     <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control( 'interests._ids', [
+                                echo $this->Form->control('interests._ids', [
                                     'class' => 'form-check-input',
                                     'options' => $interests,
                                     'type' => 'select',
@@ -227,7 +227,7 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
-                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body3">
                         <h3 class="card-title">Suas especialidades?</h3>
                     </div>
                     <div class="card-body collapse show" id="body4">
@@ -252,7 +252,7 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
-                    <div class="card-header cursor-pointer" data-toggle="collapse">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body3">
                         <h3 class="card-title">Redes Sociais</h3>
                     </div>
                     <div class="card-body collapse show" id="body3">
