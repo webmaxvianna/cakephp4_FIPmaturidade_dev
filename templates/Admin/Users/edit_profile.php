@@ -36,6 +36,7 @@
                                 echo $this->Form->control('sexo', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('cpf', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('rg', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('foto perfil', ['class' => 'form-control mb-2', 'type' => 'file', 'name' => 'profile_image']);
                             ?>
                         </div>
                     </div>
@@ -222,6 +223,33 @@
         <?php endif; ?>
         <!-- Visível apenas para CANDIDATO -->
                 
+        <!-- Visível para AVALIADOR, CONSULTOR E JURADO -->
+        <?php if($userLogged->role->funcao == 'Avaliador' || $userLogged->role->funcao == 'Consultor' || $userLogged->role->funcao == 'Jurado') : ?>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body3">
+                        <h3 class="card-title">Suas especialidades?</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('specialties._ids', [
+                                    'class' => 'form-check-input',
+                                    'options' => $specialties,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                    ]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <!-- Visível para AVALIADOR, CONSULTOR E JURADO -->
+
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
