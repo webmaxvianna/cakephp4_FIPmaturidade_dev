@@ -55,9 +55,10 @@
                                 Documento de Identidade - frente (RG ou CPF): 
                                 <?php
                                     if(isset($user->verification->identidade_frente)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->identidade_frente, ['fullBase' => true, 'target' => '_blank']);
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_frente, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_idCard_front', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o Comprovante do Documento de Identidade (frente)?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
                                     } else {
-                                        echo "Não enviado!";
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_idCard_front', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
                                     }
                                 ?>
                             </p>                            
@@ -65,9 +66,10 @@
                                 Documento de Identidade - verso (RG ou CPF): 
                                 <?php
                                     if(isset($user->verification->identidade_verso)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->identidade_verso, ['fullBase' => true, 'target' => '_blank']);
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_verso, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_idCard_back', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o Comprovante do Documento de Identidade (verso)?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
                                     } else {
-                                        echo "Não enviado!";
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_idCard_back', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
                                     }
                                 ?>
                             </p>
@@ -75,19 +77,10 @@
                                 Comprovante de Residência: 
                                 <?php
                                     if(isset($user->verification->residencia)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->residencia, ['fullBase' => true, 'target' => '_blank']);
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->residencia, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_proof_of_residence', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o Comprovante de Residência?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
                                     } else {
-                                        echo "Não enviado!";
-                                    }
-                                ?>
-                            </p>
-                            <p>
-                                Declaração: 
-                                <?php
-                                    if(isset($user->verification->declaracao)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->declaracao, ['fullBase' => true, 'target' => '_blank']);
-                                    } else {
-                                        echo "Não enviado!";
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_proof_of_residence', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
                                     }
                                 ?>
                             </p>
@@ -95,13 +88,13 @@
                                 Autorização do responsável: 
                                 <?php
                                     if(isset($user->verification->autorizacao_pais)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->autorizacao_pais, ['fullBase' => true, 'target' => '_blank']);
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->autorizacao_pais, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_parental_permission', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o comprovante do Documento de Identidade (frente)?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
                                     } else {
-                                        echo "Não enviado!";
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_parental_permission', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
                                     }
                                 ?>
                             </p>
-                            <a class="btn btn-default" href="<?= $this->Url->build(['action' => 'verification_documents',$userLogged->id])  ?>">Atualizar comprovantes de documentos</a>
                         </div>
                     </div>
                 </div>
