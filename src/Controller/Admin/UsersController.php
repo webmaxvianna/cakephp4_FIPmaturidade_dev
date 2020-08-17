@@ -205,6 +205,29 @@ class UsersController extends AppController
     public function changeImageProfile($id = null)
     {
         $this->set("title_for_layout", "Alterar Foto"); //Titulo da Página
+        $user = $this->Users->get($id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $fileObject = $this->request->getData("profile_image");
+            $fileExtension = $fileObject->getClientMediaType();
+            $ext = explode("/", $fileExtension);
+            $filename = $user->id.'.'.$ext[1];
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "image/gif");
+
+            if (in_array($fileExtension, $valid_extensions)) {
+                $destination = WWW_ROOT . "img" . DS . "usuarios" . DS . $filename;
+                $fileObject->moveTo($destination);
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                $usuario["foto"] = '/img/usuarios/' . $filename;
+                $user = $this->Users->patchEntity($user, $usuario);
+
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('A foto foi alterada.'));
+                    return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+                }
+            }
+            $this->Flash->error(__('Não foi possível alterar a foto.'));
+        }
+        $this->set(compact('user'));
     }
     // ALTERAR PERFIL, SENHA, EMAIL E FOTO DO USUARIO
 
