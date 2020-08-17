@@ -7,8 +7,8 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
-        ['title' => 'Usuários', 'url' => ['controller' => 'users', 'action' => 'index']],
-        ['title' => 'Alterar e-mail']
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => $title_for_layout]
     ]);
 ?>
 <section class="content">
@@ -18,19 +18,19 @@
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
                     <div class="card-header cursor-pointer" data-toggle="collapse" href="#body2">
-                        <h3 class="card-title">Alterar senha</h3>
+                        <h3 class="card-title"><?= $title_for_layout ?></h3>
                     </div>
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('email', ['disabled', 'label' => 'E-mail anterior', 'class' => 'form-control mb-2']);
-                                echo $this->Form->control('new_email', ['label' => 'Novo e-mail', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('password', ['label' => 'Nova senha', 'class' => 'form-control mb-2', 'value' => '']);
+                                echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha', 'class' => 'form-control mb-2', 'type' => 'password']);
                             ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 offset-md-3">
-                    <?= $this->Form->button(__('Alterar e-mail'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
+                    <?= $this->Form->button(__('Alterar senha'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
                 </div>
             </div>
         </div>
