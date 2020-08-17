@@ -14,19 +14,15 @@
           <?= $userLogged->nome_completo ?>&nbsp;&nbsp;<i class="fas fa-chevron-circle-down"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Perfil: <?= strtoupper($userLogged->role->funcao) ?></span>
+          <span class="dropdown-item dropdown-header"><u>Perfil: <?= strtoupper($userLogged->role->funcao) ?></u></span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <?= $this->Html->link('<i class="fas fa-user mr-2"></i>Editar perfil', ['controller' => 'users', 'action' => 'edit_profile', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
-          </a>
+            <?= $this->Html->link('<i class="fas fa-user mr-2"></i>Editar Dados Pessoais', ['controller' => 'users', 'action' => 'edit_profile', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <?= $this->Html->link('<i class="fas fa-unlock-alt mr-2"></i>Alterar senha', ['controller' => 'users', 'action' => 'changePassword', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
-          </a>
+            <?= $this->Html->link('<i class="fas fa-camera mr-2"></i></i>Alterar Foto', ['controller' => 'users', 'action' => 'change_image_profile', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <?= $this->Html->link('<i class="fas fa-envelope mr-2"></i>Alterar email', ['controller' => 'users', 'action' => 'changeEmail', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
-          </a>
+            <?= $this->Html->link('<i class="fas fa-unlock-alt mr-2"></i>Alterar Senha', ['controller' => 'users', 'action' => 'changePassword', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
+          <div class="dropdown-divider"></div>
+            <?= $this->Html->link('<i class="fas fa-envelope mr-2"></i>Alterar Email', ['controller' => 'users', 'action' => 'changeEmail', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
           <div class="dropdown-divider"></div>
             <?= $this->Html->link('<i class="fas fa-sign-out-alt"></i> Sair do sistema', ['controller' => 'users', 'action' => 'logout'], ['class' => 'dropdown-item dropdown-footer', 'escape' => false]) ?>
         </div>

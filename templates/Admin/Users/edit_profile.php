@@ -43,71 +43,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-                <div class="card card-secondary">
-                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body1">
-                        <h3 class="card-title">Comprovantes de Documentos</h3>
-                    </div>
-                    <div class="card-body collapse show" id="body1">
-                        <div class="form-group">
-                            <p>
-                                Documento de Identidade - frente (RG ou CPF): 
-                                <?php
-                                    if(isset($user->verification->identidade_frente)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->identidade_frente, ['fullBase' => true, 'target' => '_blank']);
-                                    } else {
-                                        echo "Não enviado!";
-                                    }
-                                ?>
-                            </p>                            
-                            <p>
-                                Documento de Identidade - verso (RG ou CPF): 
-                                <?php
-                                    if(isset($user->verification->identidade_verso)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->identidade_verso, ['fullBase' => true, 'target' => '_blank']);
-                                    } else {
-                                        echo "Não enviado!";
-                                    }
-                                ?>
-                            </p>
-                            <p>
-                                Comprovante de Residência: 
-                                <?php
-                                    if(isset($user->verification->residencia)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->residencia, ['fullBase' => true, 'target' => '_blank']);
-                                    } else {
-                                        echo "Não enviado!";
-                                    }
-                                ?>
-                            </p>
-                            <p>
-                                Declaração: 
-                                <?php
-                                    if(isset($user->verification->declaracao)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->declaracao, ['fullBase' => true, 'target' => '_blank']);
-                                    } else {
-                                        echo "Não enviado!";
-                                    }
-                                ?>
-                            </p>
-                            <p>
-                                Autorização do responsável: 
-                                <?php
-                                    if(isset($user->verification->autorizacao_pais)) {
-                                        echo $this->Html->link('Ver documento', $user->verification->autorizacao_pais, ['fullBase' => true, 'target' => '_blank']);
-                                    } else {
-                                        echo "Não enviado!";
-                                    }
-                                ?>
-                            </p>
-                            <a class="btn btn-default" href="<?= $this->Url->build(['action' => 'verification_documents',$userLogged->id])  ?>">Atualizar comprovantes de documentos</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Visível apenas para GESTOR -->
         <?php if($userLogged->role->funcao == 'Gestor') : ?>
         <div class="row">
@@ -158,6 +93,64 @@
 
         <!-- Visível apenas para CANDIDATO -->
         <?php if($userLogged->role->funcao == 'Candidato') : ?>
+
+            <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body1">
+                        <h3 class="card-title">Comprovantes de Documentos</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body1">
+                        <div class="form-group">
+                            <p>
+                                Documento de Identidade - frente (RG ou CPF): 
+                                <?php
+                                    if(isset($user->verification->identidade_frente)) {
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_frente, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_idCard_front', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o Comprovante do Documento de Identidade (frente)?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
+                                    } else {
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_idCard_front', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
+                                    }
+                                ?>
+                            </p>                            
+                            <p>
+                                Documento de Identidade - verso (RG ou CPF): 
+                                <?php
+                                    if(isset($user->verification->identidade_verso)) {
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_verso, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_idCard_back', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o Comprovante do Documento de Identidade (verso)?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
+                                    } else {
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_idCard_back', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Comprovante de Residência: 
+                                <?php
+                                    if(isset($user->verification->residencia)) {
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->residencia, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_proof_of_residence', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o Comprovante de Residência?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
+                                    } else {
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_proof_of_residence', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Autorização do responsável: 
+                                <?php
+                                    if(isset($user->verification->autorizacao_pais)) {
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->autorizacao_pais, ['fullBase' => true, 'class' => 'btn btn-success btn-sm', 'target' => '_blank', 'escape' => false]). " ";
+                                        echo $this->Form->postLink('Excluir<i class="far fa-file-excel ml-1"></i>', ['action' => 'delete_parental_permission', $userLogged->id], ['confirm' => __("Tem certeza que deseja excluir o comprovante do Documento de Identidade (frente)?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]);
+                                    } else {
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'add_parental_permission', $userLogged->id], ['fullBase' => true, 'class' => 'btn btn-primary btn-sm', 'target' => '_blank', 'escape' => false]);
+                                    }
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -222,6 +215,33 @@
         <?php endif; ?>
         <!-- Visível apenas para CANDIDATO -->
                 
+        <!-- Visível para AVALIADOR, CONSULTOR E JURADO -->
+        <?php if($userLogged->role->funcao == 'Avaliador' || $userLogged->role->funcao == 'Consultor' || $userLogged->role->funcao == 'Jurado') : ?>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body3">
+                        <h3 class="card-title">Suas especialidades?</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('specialties._ids', [
+                                    'class' => 'form-check-input',
+                                    'options' => $specialties,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                    ]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <!-- Visível para AVALIADOR, CONSULTOR E JURADO -->
+
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
