@@ -21,7 +21,7 @@ class IdeasController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Edicts', 'Users'],
+            'contain' => ['Edicts', 'Users', 'Owners'],
             'limit' => 3,
             'order' => ['Ideas.id' => 'asc']
         ];
@@ -112,5 +112,26 @@ class IdeasController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function vincularAvaliadores($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('O avaliador foi designado com sucesso.'));
+            }
+            else {
+                $this->Flash->error(__('Erro ao designar avaliador.'));
+            }
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $avaliadores = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '4']]);
+        $this->set(compact('idea', 'avaliadores'));
     }
 }

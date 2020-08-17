@@ -27,6 +27,7 @@
                 <tr>
                 <th><?= $this->Paginator->sort('numero') ?></th>
                 <th><?= $this->Paginator->sort('link') ?></th>
+                <th><?= $this->Paginator->sort('owner') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </thead>
@@ -34,7 +35,8 @@
                 <?php foreach ($edicts as $edict) : ?>
                 <tr>
                     <td><?= h($edict->numero) ?></td>
-                    <td><?= h($edict->link) ?></td>
+                    <td><?= h($edict->link) ?></td>                    
+                    <td><?= h($edict->owner->nome_completo) ?></td>
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $edict->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $edict->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
@@ -47,6 +49,7 @@
                 <tr>
                 <th><?= $this->Paginator->sort('numero') ?></th>
                 <th><?= $this->Paginator->sort('link') ?></th>
+                <th><?= $this->Paginator->sort('owner') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </tfoot>

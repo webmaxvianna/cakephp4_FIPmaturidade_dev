@@ -8,7 +8,7 @@
 <?php
     $this->Breadcrumbs->add([
         ['title' => 'Usuários', 'url' => ['controller' => 'users', 'action' => 'index']],
-        ['title' => 'Editar']
+        ['title' => 'Adicionar']
     ]);
 ?>
 <section class="content">
@@ -34,6 +34,8 @@
                                 echo $this->Form->control('sobrenome', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('data_nascimento', ['empty' => true, 'class' => 'form-control mb-2']);
                                 echo $this->Form->control('sexo', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('email', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('foto', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('cpf', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('rg', ['class' => 'form-control mb-2']);
                             ?>
@@ -42,9 +44,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Visível apenas para GESTOR -->
-        <?php if($userLogged->role->funcao == 'Gestor') : ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -55,16 +54,36 @@
                         <div class="form-group">
                             <?php
                                 echo $this->Form->control('username', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('password', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('confirm_password', ['class' => 'form-control mb-2', 'type' => 'password']);
                                 echo $this->Form->control('status', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('confirmacao_email', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('confirmacao_celular', ['class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php endif; ?>
-        <!-- Visível apenas para GESTOR -->
-        
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body3">
+                        <h3 class="card-title">Redes Sociais</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body3">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('facebook', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('linkedin', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('instagram', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('lattes', ['class' => 'form-control mb-2']);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -90,9 +109,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Visível apenas para CANDIDATO -->
-        <?php if($userLogged->role->funcao == 'Candidato') : ?>
+        
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -115,6 +132,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -137,6 +155,27 @@
                 </div>
             </div>
         </div>
+        
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Comprovantes</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('verification.residencia', ['type' => 'file', 'label' => 'Comprovante de residência<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.declaracao', ['type' => 'file', 'label' => 'Declaração<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.identidade_frente', ['type' => 'file', 'label' => 'Documento de identidade - frente (RG ou CPF)<small> (imagem .jpg ou .png)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.identidade_verso', ['type' => 'file', 'label' => 'Documento de identidade - verso (RG ou CPF)<small> (imagem .jpg ou .png)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.autorizacao_pais', ['type' => 'file', 'label' => 'Autorização dos pais<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -153,32 +192,26 @@
                     </div>
                 </div>
             </div>
-        </div>        
-        <?php endif; ?>
-        <!-- Visível apenas para CANDIDATO -->
-                
+        </div>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
-                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body3">
-                        <h3 class="card-title">Redes Sociais</h3>
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Função Administrativa</h3>
                     </div>
-                    <div class="card-body collapse show" id="body3">
+                    <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('facebook', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('linkedin', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('instagram', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('lattes', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('role_id', ['class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 offset-md-3">
-                    <?= $this->Form->button(__('Editar Perfil'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
+                    <?= $this->Form->button(__('Adicionar Usuário'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
                 </div>
             </div>
-        </div>      
+        </div>
         <?= $this->Form->end() ?>
     </div>
 </section>

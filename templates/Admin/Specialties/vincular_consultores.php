@@ -2,7 +2,7 @@
 <?php
     $this->Breadcrumbs->add([
         ['title' => 'Especialidades', 'url' => ['controller' => 'specialties', 'action' => 'index']],
-        ['title' => 'Vincular-Desvincular Avaliadores']
+        ['title' => 'Vincular-Desvincular Consultores']
     ]);
 ?>
 <!-- /.Breadcrumbs -->
@@ -10,10 +10,10 @@
 <h3><?= $specialty->especialidade ?></h3>
 <?= $this->Form->create($specialty) ?>
 <fieldset>
-    <legend>Avaliadores</legend>
+    <legend>Consultores</legend>
     <?php                    
         echo $this->Form->control('users._ids', [
-            'options' => $avaliadores,
+            'options' => $consultores,
             'type' => 'select',
             'multiple' => 'checkbox',
             'label' => false

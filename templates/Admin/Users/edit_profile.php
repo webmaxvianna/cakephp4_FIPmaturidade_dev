@@ -7,8 +7,8 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
-        ['title' => 'Usuários', 'url' => ['controller' => 'users', 'action' => 'index']],
-        ['title' => 'Editar']
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => $title_for_layout]
     ]);
 ?>
 <section class="content">
@@ -37,6 +37,71 @@
                                 echo $this->Form->control('cpf', ['class' => 'form-control mb-2']);
                                 echo $this->Form->control('rg', ['class' => 'form-control mb-2']);
                             ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body1">
+                        <h3 class="card-title">Comprovantes de Documentos</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body1">
+                        <div class="form-group">
+                            <p>
+                                Documento de Identidade - frente (RG ou CPF): 
+                                <?php
+                                    if(isset($user->verification->identidade_frente)) {
+                                        echo $this->Html->link('Ver documento', $user->verification->identidade_frente, ['fullBase' => true, 'target' => '_blank']);
+                                    } else {
+                                        echo "Não enviado!";
+                                    }
+                                ?>
+                            </p>                            
+                            <p>
+                                Documento de Identidade - verso (RG ou CPF): 
+                                <?php
+                                    if(isset($user->verification->identidade_verso)) {
+                                        echo $this->Html->link('Ver documento', $user->verification->identidade_verso, ['fullBase' => true, 'target' => '_blank']);
+                                    } else {
+                                        echo "Não enviado!";
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Comprovante de Residência: 
+                                <?php
+                                    if(isset($user->verification->residencia)) {
+                                        echo $this->Html->link('Ver documento', $user->verification->residencia, ['fullBase' => true, 'target' => '_blank']);
+                                    } else {
+                                        echo "Não enviado!";
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Declaração: 
+                                <?php
+                                    if(isset($user->verification->declaracao)) {
+                                        echo $this->Html->link('Ver documento', $user->verification->declaracao, ['fullBase' => true, 'target' => '_blank']);
+                                    } else {
+                                        echo "Não enviado!";
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Autorização do responsável: 
+                                <?php
+                                    if(isset($user->verification->autorizacao_pais)) {
+                                        echo $this->Html->link('Ver documento', $user->verification->autorizacao_pais, ['fullBase' => true, 'target' => '_blank']);
+                                    } else {
+                                        echo "Não enviado!";
+                                    }
+                                ?>
+                            </p>
+                            <a class="btn btn-default" href="<?= $this->Url->build(['action' => 'verification_documents',$userLogged->id])  ?>">Atualizar comprovantes de documentos</a>
                         </div>
                     </div>
                 </div>

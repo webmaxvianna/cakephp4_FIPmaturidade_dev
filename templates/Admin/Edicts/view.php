@@ -36,7 +36,7 @@ $this->Breadcrumbs->add([
                                     </tr>
                                     <tr>
                                         <th><?= __('Gestor') ?></th>
-                                        <td><?= $edict->has('manager') ? $this->Html->link($edict->manager->nome_completo, ['controller' => 'Managers', 'action' => 'view', $edict->manager->id]) : '' ?></td>
+                                        <td><?= $edict->has('owner') ? $this->Html->link($edict->owner->nome_completo, ['controller' => 'Managers', 'action' => 'view', $edict->owner->id]) : '' ?></td>
                                     </tr>
                                     <tr>
                                         <th><?= __('Última Modificação') ?></th>
@@ -57,12 +57,12 @@ $this->Breadcrumbs->add([
                                     <div class="card-header">
                                         <h4><?= __('Avaliadores Relacionados') ?></h4>
                                     </div>
-                                    <?php if (!empty($edict->appraisers)) : ?>
+                                    <?php if (!empty($edict->users)) : ?>
                                         <div class=" card-body">
                                             <ul>
-                                                <?php foreach ($edict->appraisers as $appraiser) : ?>
-                                                    <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $appraiser->id ?>">
-                                                        <?= $this->Html->link($appraiser->nome_completo, ['controller' => 'appraisers', 'action' => 'view', $appraiser->id]); ?>
+                                                <?php foreach ($edict->users as $user) : ?>
+                                                    <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $user->id ?>">
+                                                        <?= $this->Html->link($user->nome_completo, ['controller' => 'users', 'action' => 'view', $user->id]); ?>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>
@@ -83,49 +83,6 @@ $this->Breadcrumbs->add([
                                                 <?php foreach ($edict->categories as $categories) : ?>
                                                     <li data-toggle="tooltip" data-placement="left" title="<?php "Id: " . $categories->id ?>">
                                                         <?php $this->Html->link($categories->item, ['controller' => 'categories', 'action' => 'view', $categories->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                            </table>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Consultores Relacionados') ?></h4>
-                                    </div>
-                                    <?php if (!empty($edict->consultants)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($edict->consultants as $consultants) : ?>
-                                                    <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $consultants->id ?>">
-                                                        <?= $this->Html->link($consultants->nome_completo, ['controller' => 'consultants', 'action' => 'view', $consultants->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Jurados Relacionados') ?></h4>
-                                    </div>
-                                    <?php if (!empty($edict->jurors)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($edict->jurors as $jurors) : ?>
-                                                    <li data-toggle="tooltip" data-placement="left" title="<?php "Id: " . $jurors->id ?>">
-                                                        <?php $this->Html->link($jurors->nome_completo, ['controller' => 'jurors', 'action' => 'view', $jurors->id]); ?>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>

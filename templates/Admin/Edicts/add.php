@@ -26,7 +26,6 @@
             <!-- form start -->
             <?= $this->Form->create($edict) ?>
                 <div class="card-body">
-
                     <div class="form-group">
                         <?php
                             echo $this->Form->control('numero', ['class' => 'form-control col-3 mb-2', 
@@ -43,11 +42,24 @@
                             'label' => ['text' => 'Edital', 'label' => 'control-label']]);
                             echo $this->Form->control('user_id', ['class' => 'form-control col-3 mb-2', 
                             'options' => $users,
-                            'label' => ['text' => 'Gerente', 'label' => 'control-label']]);
+                            'label' => ['text' => 'Owner', 'label' => 'control-label']]);
                         ?>    
-                    </div>
-                    
+                    </div>                    
                 </div>
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <?php
+                            echo $this->Form->control('users._ids', [
+                                    'options' => $users,
+                                    'type' => 'select',
+                                    'multiple' => 'checkbox',
+                                    'label' => ['text' => 'Related Users', 'label' => 'control-label']]
+                                )
+                        ?>    
+                    </div>                    
+                </div>
+
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <?= $this->Form->button(__('Adicionar Edital'),['class'=>'btn btn-primary w-15']) ?>
