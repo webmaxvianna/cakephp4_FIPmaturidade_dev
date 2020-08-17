@@ -368,4 +368,13 @@ class UsersController extends AppController
         $this->set(compact('user'));
         $this->set("title_for_layout", "Comprovantes de Documentos");
     }
+
+    public function applicantIdeas($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['MyIdeas'],
+        ]);
+
+        $this->set(compact('user'));
+    }
 }
