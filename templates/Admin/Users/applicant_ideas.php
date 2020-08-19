@@ -7,7 +7,7 @@
 ?>
 <?php
 $this->Breadcrumbs->add([
-    ['title' => 'Minhas Ideias', 'url' => ['controller' => 'Users', 'action' => 'applicantIdeas', $user->id]]
+    ['title' => 'Minhas Ideias']
 ]);
 
 $ideas = $user->my_ideas;
