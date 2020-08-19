@@ -230,12 +230,20 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    // ALTERAR PERFIL, SENHA, EMAIL E FOTO DO USUARIO
-
+    // PÁGINA SOBRE IDEIAS DO CANDIDATO
     public function applicantIdeas($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['MyIdeas'],
+            'contain' => ['MyEdicts', 'Edicts','MyIdeas'],
+        ]);
+
+        $this->set(compact('user'));
+    }
+
+    public function addApplicantIdeas($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['MyEdicts', 'Edicts','MyIdeas'],
         ]);
 
         $this->set(compact('user'));

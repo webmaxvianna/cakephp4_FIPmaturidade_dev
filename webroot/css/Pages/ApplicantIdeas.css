@@ -5,4 +5,9 @@
 .nav-tabs.flex-column .nav-link.active {
     border-left: 3px solid #007bff !important;
 }
-  
+
+@media screen and (min-width: 640px){
+    th {
+        max-width: 70px !important;
+    }
+}
