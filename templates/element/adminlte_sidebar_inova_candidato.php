@@ -11,7 +11,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
-          <?= $this->Html->image('/adminlte/dist/img/user2-160x160.jpg', ['url' => ['controller' => 'users', 'action' => 'view', $userLogged['id']], 'class' => 'img-circle elevation-2', 'alt' => 'User Image']) ?>
+          <?= $this->Html->image($userLogged->foto ? $userLogged->foto : 'usuarios/padrao.png', ['url' => ['controller' => 'users', 'action' => 'view', $userLogged->id], 'fullBase' => true, 'class' => 'img-circle elevation-2', 'alt' => 'User Image']) ?>
         </div>
         <div class="info">
           <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $userLogged['id']]); ?>" class="d-block"><?= $userLogged['nome_completo'] ?></a>
@@ -23,9 +23,16 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
           <li class="nav-item">
-            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $user->id]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'dashboards', 'action' => 'index']) ?>" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Início
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $userLogged->id]) ?>" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Perfil
@@ -33,7 +40,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'applicantIdeas', $user->id]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'applicantIdeas', $userLogged->id]) ?>" class="nav-link">
               <i class="nav-icon fas fa-lightbulb"></i>
               <p>
                 Ideias
@@ -41,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'resumes', 'action' => 'view', $user->resume]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'resumes', 'action' => 'view', $userLogged->resume]) ?>" class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Currículo
@@ -49,7 +56,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'verificationDocuments', $user->id]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'verificationDocuments', $userLogged->id]) ?>" class="nav-link">
               <i class="nav-icon fas fa-check-circle"></i>
               <p>
                 Comprovantes
@@ -57,7 +64,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'view', $user->edicts]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'view', $userLogged->edicts]) ?>" class="nav-link">
               <i class="nav-icon fas fa-file-contract"></i>
               <p>
                 Editais
@@ -69,4 +76,4 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+</aside>
