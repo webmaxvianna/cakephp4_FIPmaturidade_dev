@@ -11,7 +11,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
-          <?= $this->Html->image('/adminlte/dist/img/user2-160x160.jpg', ['url' => ['controller' => 'users', 'action' => 'view', $userLogged['id']], 'class' => 'img-circle elevation-2', 'alt' => 'User Image']) ?>
+          <?= $this->Html->image($userLogged->foto ? $userLogged->foto : 'usuarios/padrao.png', ['url' => ['controller' => 'users', 'action' => 'view', $userLogged->id], 'fullBase' => true, 'class' => 'img-circle elevation-2', 'alt' => 'User Image']) ?>
         </div>
         <div class="info">
           <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $userLogged['id']]); ?>" class="d-block"><?= $userLogged['nome_completo'] ?></a>
@@ -24,7 +24,16 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                
-          <li class="nav-header"></li>
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'dashboards', 'action' => 'index']) ?>" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Início
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-header">Atores do Sistema</li>
           <li class="nav-item">
             <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'index']) ?>" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -43,7 +52,7 @@
             </a>
           </li>
                     
-          <li class="nav-header"></li>
+          <li class="nav-header">Instrumentos dos Atores</li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'ideas', 'action' => 'index']) ?>" class="nav-link">
               <i class="nav-icon fas fa-lightbulb"></i>
@@ -53,7 +62,6 @@
             </a>
           </li>
           
-          <li class="nav-header"></li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'index']) ?>" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -72,7 +80,7 @@
             </a>
           </li>
           
-          <li class="nav-header"></li>
+          <li class="nav-header">Dados dos Atores</li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'characteristics', 'action' => 'index']) ?>" class="nav-link">
               <i class="nav-icon fas fa-user-tag"></i>
