@@ -23,8 +23,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-           
-          <li class="nav-item has-treeview">
+          <li class="nav-item">
             <a href="<?= $this->Url->build(['controller' => 'dashboards', 'action' => 'index']) ?>" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
@@ -32,28 +31,49 @@
               </p>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $userLogged->id]) ?>" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Perfil
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'ideas', 'action' => 'index']) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'applicantIdeas', $userLogged->id]) ?>" class="nav-link">
               <i class="nav-icon fas fa-lightbulb"></i>
               <p>
                 Ideias
               </p>
             </a>
           </li>
-
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'index']) ?>" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+            <a href="<?= $this->Url->build(['controller' => 'resumes', 'action' => 'view', $userLogged->resume]) ?>" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Currículo
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'verificationDocuments', $userLogged->id]) ?>" class="nav-link">
+              <i class="nav-icon fas fa-check-circle"></i>
+              <p>
+                Comprovantes
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'view', $userLogged->edicts]) ?>" class="nav-link">
+              <i class="nav-icon fas fa-file-contract"></i>
               <p>
                 Editais
               </p>
             </a>
           </li>
-          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+</aside>
