@@ -17,9 +17,9 @@
                 <p class="lead">Avaliadores</p>
                 <div class="table-responsive">
                     <table class="table">
-                        <?php foreach ($specialty->appraisers as $appraisers) : ?>
+                        <?php foreach ($specialty->users as $users) : ?>
                             <tr>
-                                <td><?= h($appraisers->nome)." ".h($appraisers->sobrenome) ?></td>
+                                <td><?= h($users->nome_completo) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>

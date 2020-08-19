@@ -21,7 +21,7 @@ class EdictsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users'],
+            'contain' => ['Owners'],
         ];
 
         $edicts = $this->paginate($this->Edicts);
@@ -39,7 +39,7 @@ class EdictsController extends AppController
     public function view($id = null)
     {
         $edict = $this->Edicts->get($id, [
-            'contain' => ['Users', 'Categories', 'Parameters', 'Tasks', 'Ideas'],
+            'contain' => ['Owners', 'Users', 'Categories', 'Parameters', 'Tasks', 'Ideas'],
         ]);
 
         $this->set(compact('edict'));
@@ -79,7 +79,7 @@ class EdictsController extends AppController
     public function edit($id = null)
     {
         $edict = $this->Edicts->get($id, [
-            'contain' => ['Users', 'Categories', 'Parameters', 'Tasks'],
+            'contain' => ['Owners', 'Users', 'Categories', 'Parameters', 'Tasks'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $edict = $this->Edicts->patchEntity($edict, $this->request->getData());

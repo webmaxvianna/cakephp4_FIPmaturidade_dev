@@ -80,7 +80,7 @@ class Idea extends Entity
         'created' => true,
         'modified' => true,
         'edict' => true,
-        'user' => true,
+        'owner' => true,
         'users' => true,
         'appraisals' => true,
         'confidentials' => true,

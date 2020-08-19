@@ -61,10 +61,12 @@ class UsersTable extends Table
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
         ]);
-        $this->hasOne('Edicts', [
+        $this->hasMany('MyEdicts', [
+            'className' => 'Edicts',
             'foreignKey' => 'user_id',
         ]);
-        $this->hasMany('Ideas', [
+        $this->hasMany('MyIdeas', [
+            'className' => 'Ideas',
             'foreignKey' => 'user_id',
         ]);
         $this->hasOne('Resumes', [

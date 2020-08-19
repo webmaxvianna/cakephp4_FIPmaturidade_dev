@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title><?= $title_for_layout ?> | Sistema de Maturidade</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -85,7 +85,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h2 class="m-0 text-dark">Sistema de Maturidade</h2>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <!-- Breadcrumbs -->

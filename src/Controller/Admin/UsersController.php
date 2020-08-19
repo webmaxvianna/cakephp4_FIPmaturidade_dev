@@ -40,7 +40,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Roles', 'Edicts', 'Ideas', 'Characteristics', 'Interests', 'Specialties', 'Tasks', 'Resumes', 'Verifications'],
+            'contain' => ['Roles', 'MyEdicts', 'Edicts', 'MyIdeas', 'Ideas', 'Characteristics', 'Interests', 'Specialties', 'Tasks', 'Resumes', 'Verifications'],
         ]);
 
         $this->set(compact('user'));
@@ -68,40 +68,40 @@ class UsersController extends AppController
                 
                 if (in_array($doc_frente->getClientMediaType(), $valid_img)) {
                     $extensao = pathinfo($doc_frente->getClientFilename(), PATHINFO_EXTENSION);
-                    $caminho_doc_frente = WWW_ROOT . 'img/docs/'. $userData['username'] .'-doc_frente.'.$extensao;
-                    $userData['verification']['identidade_frente'] = '/img/docs/' . $userData['username'] .'-doc_frente.'.$extensao;
+                    $caminho_doc_frente = WWW_ROOT . 'img/docs/'. $userLogged->id .'-doc_frente.'.$extensao;
+                    $userData['verification']['identidade_frente'] = '/img/docs/' . $userLogged->id .'-doc_frente.'.$extensao;
                 } else {
                     $userData['verification']['identidade_frente'] = null;
                 }
 
                 if (in_array($doc_verso->getClientMediaType(), $valid_img)) {
                     $extensao = pathinfo($doc_verso->getClientFilename(), PATHINFO_EXTENSION);
-                    $caminho_doc_verso = WWW_ROOT . 'img/docs/'. $userData['username'] .'-doc_verso.'.$extensao;
-                    $userData['verification']['identidade_verso'] = '/img/docs/' . $userData['username'] .'-doc_verso.'.$extensao;
+                    $caminho_doc_verso = WWW_ROOT . 'img/docs/'. $userLogged->id .'-doc_verso.'.$extensao;
+                    $userData['verification']['identidade_verso'] = '/img/docs/' . $userLogged->id .'-doc_verso.'.$extensao;
                 } else {
                     $userData['verification']['identidade_verso'] = null;
                 }  
                 
                 if (in_array($residencia->getClientMediaType(), $valid_file)) {
                     $extensao = pathinfo($residencia->getClientFilename(), PATHINFO_EXTENSION);
-                    $caminho_residencia = WWW_ROOT . 'img/docs/'. $userData['username'] .'-residencia.'.$extensao;
-                    $userData['verification']['residencia'] = '/img/docs/' . $userData['username'] .'-residencia.'.$extensao;
+                    $caminho_residencia = WWW_ROOT . 'img/docs/'. $userLogged->id .'-residencia.'.$extensao;
+                    $userData['verification']['residencia'] = '/img/docs/' . $userLogged->id .'-residencia.'.$extensao;
                 } else {
                     $userData['verification']['residencia'] = null;
                 } 
                 
                 if (in_array($declaracao->getClientMediaType(), $valid_file)) {
                     $extensao = pathinfo($declaracao->getClientFilename(), PATHINFO_EXTENSION);
-                    $caminho_declaracao = WWW_ROOT . 'img/docs/'. $userData['username'] .'-declaracao.'.$extensao;
-                    $userData['verification']['declaracao'] = '/img/docs/' . $userData['username'] .'-declaracao.'.$extensao;
+                    $caminho_declaracao = WWW_ROOT . 'img/docs/'. $userLogged->id .'-declaracao.'.$extensao;
+                    $userData['verification']['declaracao'] = '/img/docs/' . $userLogged->id .'-declaracao.'.$extensao;
                 } else {
                     $userData['verification']['declaracao'] = null;
                 } 
                 
                 if (in_array($autorizacao->getClientMediaType(), $valid_file)) {
                     $extensao = pathinfo($autorizacao->getClientFilename(), PATHINFO_EXTENSION);
-                    $caminho_autorizacao = WWW_ROOT . 'img/docs/'. $userData['username'] .'-autorizacao.'.$extensao;
-                    $userData['verification']['autorizacao_pais'] = '/img/docs/' . $userData['username'] .'-autorizacao.'.$extensao;
+                    $caminho_autorizacao = WWW_ROOT . 'img/docs/'. $userLogged->id .'-autorizacao.'.$extensao;
+                    $userData['verification']['autorizacao_pais'] = '/img/docs/' . $userLogged->id .'-autorizacao.'.$extensao;
                 } else {
                     $userData['verification']['autorizacao_pais'] = null;
                 }               
@@ -231,43 +231,141 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function changepass($id = null)
+    public function changePassword($id = null)
     {
-        $user = $this->Users->get($id);
-        $user['password'] = ''; 
-        
+        $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            //$usuario[''] = $usuario['nome']." ".$usuario['sobrenome'];
-            $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The password has been changed.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
             }
             $this->Flash->error(__('The password could not be changed. Please, try again.'));
         }
         $this->set(compact('user'));
+        $this->set("title_for_layout", "Alterar Senha"); //Titulo da Página
     }
 
-    public function changeemail($id = null)
+    public function changeEmail($id = null)
     {
-        $user = $this->Users->get($id);
-        //$user['email'] = ''; 
-        
+        $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $user['email'] = $usuario['new_email']; 
-            $user = $this->Users->patchEntity($user, $usuario);
+            $user = $this->Users->patchEntity($user, $this->request->getData()); 
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The e-mail address has been changed.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
             }
             $this->Flash->error(__('The e-mail address could not be changed. Please, try again.'));
         }
         $this->set(compact('user'));
+        $this->set("title_for_layout", "Alterar Email"); //Titulo da Página
+    }
+
+    public function editProfile($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks', 'Verifications'],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $usuario = $this->request->getData(); 
+            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $user = $this->Users->patchEntity($user, $usuario);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $characteristics = $this->Users->Characteristics->find('list', ['limit' => 200]);
+        $interests = $this->Users->Interests->find('list', ['limit' => 200]);
+        $resumes = $this->Users->Resumes->find('list', ['limit' => 200]);
+        $specialties = $this->Users->Specialties->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'roles', 'characteristics', 'interests', 'resumes', 'specialties'));
+        $this->set("title_for_layout", "Editar Perfil"); //Titulo da Página
+    }
+
+    public function verificationDocuments($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['Verifications'],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $valid_img = array('image/png','image/jpg','image/jpeg','image/bmp');
+            $valid_doc = array('application/pdf');
+            $valid_file = array_merge($valid_img,$valid_doc);
+            $residencia = $this->request->getData('verification.residencia');
+            $declaracao = $this->request->getData('verification.declaracao');
+            $doc_frente = $this->request->getData('verification.identidade_frente');
+            $doc_verso = $this->request->getData('verification.identidade_verso');
+            $autorizacao = $this->request->getData('verification.autorizacao_pais');
+            $userData = $this->request->getData();
+            // debug($this->request->getData()); exit;
+            if (!empty($doc_frente->getClientFilename()) || !empty($doc_verso->getClientFilename()) || !empty($residencia->getClientFilename()) || !empty($declaracao->getClientFilename()) || !empty($autorizacao->getClientFilename())) {
+                
+                if (in_array($doc_frente->getClientMediaType(), $valid_img)) {
+                    $extensao = pathinfo($doc_frente->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_doc_frente = WWW_ROOT . 'img/docs/'. $userLogged->id .'-doc_frente.'.$extensao;
+                    $userData['verification']['identidade_frente'] = '/img/docs/' . $userLogged->id .'-doc_frente.'.$extensao;
+                } else {
+                    $userData['verification']['identidade_frente'] = null;
+                }
+
+                if (in_array($doc_verso->getClientMediaType(), $valid_img)) {
+                    $extensao = pathinfo($doc_verso->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_doc_verso = WWW_ROOT . 'img/docs/'. $userLogged->id .'-doc_verso.'.$extensao;
+                    $userData['verification']['identidade_verso'] = '/img/docs/' . $userLogged->id .'-doc_verso.'.$extensao;
+                } else {
+                    $userData['verification']['identidade_verso'] = null;
+                }  
+                
+                if (in_array($residencia->getClientMediaType(), $valid_file)) {
+                    $extensao = pathinfo($residencia->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_residencia = WWW_ROOT . 'img/docs/'. $userLogged->id .'-residencia.'.$extensao;
+                    $userData['verification']['residencia'] = '/img/docs/' . $userLogged->id .'-residencia.'.$extensao;
+                } else {
+                    $userData['verification']['residencia'] = null;
+                } 
+                
+                if (in_array($declaracao->getClientMediaType(), $valid_file)) {
+                    $extensao = pathinfo($declaracao->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_declaracao = WWW_ROOT . 'img/docs/'. $userLogged->id .'-declaracao.'.$extensao;
+                    $userData['verification']['declaracao'] = '/img/docs/' . $userLogged->id .'-declaracao.'.$extensao;
+                } else {
+                    $userData['verification']['declaracao'] = null;
+                } 
+                
+                if (in_array($autorizacao->getClientMediaType(), $valid_file)) {
+                    $extensao = pathinfo($autorizacao->getClientFilename(), PATHINFO_EXTENSION);
+                    $caminho_autorizacao = WWW_ROOT . 'img/docs/'. $userLogged->id .'-autorizacao.'.$extensao;
+                    $userData['verification']['autorizacao_pais'] = '/img/docs/' . $userLogged->id .'-autorizacao.'.$extensao;
+                } else {
+                    $userData['verification']['autorizacao_pais'] = null;
+                }               
+            } else {
+                // $userData['verification']['autorizacao_pais'] = null;
+                // $userData['verification']['declaracao'] = null;
+                // $userData['verification']['residencia'] = null;
+                // $userData['verification']['identidade_verso'] = null;
+                // $userData['verification']['identidade_frente'] = null;
+            }
+            debug($userData); exit;
+            $user = $this->Users->patchEntity($user, $userData);
+            // debug($user); exit;
+            if ($this->Users->save($user)) {
+                if (isset($caminho_doc_frente)) { $doc_frente->moveTo($caminho_doc_frente); }
+                if (isset($caminho_doc_verso)) { $doc_verso->moveTo($caminho_doc_verso); }
+                if (isset($caminho_residencia)) { $residencia->moveTo($caminho_residencia); }
+                if (isset($caminho_declaracao)) { $declaracao->moveTo($caminho_declaracao); }
+                if (isset($caminho_autorizacao)) { $autorizacao->moveTo($caminho_autorizacao); }
+                $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect(['action' => 'edit_profile', $userLogged->id]);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+        $this->set("title_for_layout", "Comprovantes de Documentos");
     }
 }
