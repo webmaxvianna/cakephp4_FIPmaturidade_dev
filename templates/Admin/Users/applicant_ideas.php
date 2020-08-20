@@ -123,9 +123,16 @@ foreach ($user->my_ideas as $idea) {
                                                 <div class=" col-12">
                                                     <div class="card card-primary">
                                                         <div class="card-header">
-                                                            <h4 class="mb-0">
-                                                                <i class="fas fa-briefcase"></i> Sumário Executivo
-                                                            </h4>
+                                                            <div class="row">
+                                                                <div class="col-12 col-sm-6">
+                                                                    <h4>
+                                                                        <i class="fas fa-briefcase"></i> Sumário Executivo
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <?= $this->Html->link('<i class="far fa-edit"></i> Editar', ['action' => 'editApplicantIdea', $idea->id], ['class' => 'btn btn-warning btn-sm float-left float-sm-right', 'escape' => false]) ?>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="card-body table-responsive">
                                                             <table class="table table-sm">

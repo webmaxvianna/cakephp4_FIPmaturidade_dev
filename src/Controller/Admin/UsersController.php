@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
+use App\Controller\Admin\IdeasController;
 
 class UsersController extends AppController
 {
@@ -34,8 +36,8 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -61,8 +63,8 @@ class UsersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -128,8 +130,8 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $usuario['role_id'] = '3';
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
@@ -148,7 +150,7 @@ class UsersController extends AppController
     // ALTERAR PERFIL, SENHA, EMAIL E FOTO DO USUARIO
     public function changePassword($id = null)
     {
-        $user = $this->Users->get($id);        
+        $user = $this->Users->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -163,9 +165,9 @@ class UsersController extends AppController
 
     public function changeEmail($id = null)
     {
-        $user = $this->Users->get($id);        
+        $user = $this->Users->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData()); 
+            $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The e-mail address has been changed.'));
                 return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
@@ -183,8 +185,8 @@ class UsersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -210,7 +212,7 @@ class UsersController extends AppController
             $fileObject = $this->request->getData("profile_image");
             $fileExtension = $fileObject->getClientMediaType();
             $ext = explode("/", $fileExtension);
-            $filename = $user->id.'.'.$ext[1];
+            $filename = $user->id . '.' . $ext[1];
             $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "image/gif");
 
             if (in_array($fileExtension, $valid_extensions)) {
@@ -234,7 +236,7 @@ class UsersController extends AppController
     public function applicantIdeas($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['MyEdicts', 'Edicts','MyIdeas'],
+            'contain' => ['MyEdicts', 'Edicts', 'MyIdeas'],
         ]);
 
         $this->set(compact('user'));
@@ -243,9 +245,39 @@ class UsersController extends AppController
     public function addApplicantIdeas($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['MyEdicts', 'Edicts','MyIdeas'],
+            'contain' => ['MyEdicts', 'Edicts', 'MyIdeas'],
         ]);
 
         $this->set(compact('user'));
+    }
+
+    public function editApplicantIdea($id = null, $idIdea = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['MyIdeas'],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
+            $user = $this->Users->patchEntity($user, $usuario);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+
+        for ($i = 0; $i < count($user->MyIdeas); $i++) {
+            if ($idIdea == $user->MyIdeas[$i]->id) {
+                $ideas = $user->MyIdeas[$i];
+                break;
+            }
+        }
+
+        var_dump($ideas);
+        $this->set(compact('user', 'ideas'));
+        $this->set("title_for_layout", "Editar Sumário"); //Titulo da Página
     }
 }
