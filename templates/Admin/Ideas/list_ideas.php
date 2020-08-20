@@ -6,20 +6,19 @@
  */
 ?>
 <?php
-$this->Breadcrumbs->add([
-    ['title' => 'Minhas Ideias']
-]);
 
-$ideas = $user->my_ideas;
-$edicts;
+$filteredEdicts;
 
-foreach ($user->my_ideas as $idea) {
-    foreach ($user->edicts as $edict) {
+foreach ($ideas as $idea) {
+    foreach ($edicts as $edict) {
         if ($idea->edict_id == $edict->id)
-            $edicts[$idea->id] = $edict;
+            $filteredEdicts[$idea->id] = $edict;
     }
 }
 
+$this->Breadcrumbs->add([
+    ['title' => 'Minhas Ideias']
+]);
 ?>
 <!-- Main content -->
 <section class="content" id="ApplicantIdeas">
@@ -59,7 +58,7 @@ foreach ($user->my_ideas as $idea) {
                                             <div class="row">
                                                 <div class="col-12 col-sm-8">
                                                     <h3 class="mb-3">
-                                                        <?= $idea->titulo ?> - Edital <?= $edicts[$idea->id]->numero ?>
+                                                        <?= $idea->titulo ?> - Edital <?= $filteredEdicts[$idea->id]->numero ?>
                                                         <span class="badge badge-pill badge-<?php if ($idea->status == 1) echo 'primary'; ?>" style="transform: translateY(-3px); font-size: 1rem;"><?= $idea->status ?></span>
                                                     </h3>
                                                 </div>
@@ -130,7 +129,7 @@ foreach ($user->my_ideas as $idea) {
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-12 col-sm-6">
-                                                                    <?= $this->Html->link('<i class="far fa-edit"></i> Editar', ['action' => 'editApplicantIdea', $idea->id], ['class' => 'btn btn-warning btn-sm float-left float-sm-right', 'escape' => false]) ?>
+                                                                    <?= $this->Html->link('<i class="far fa-edit"></i> Editar', ['controller'=> 'Ideas','action' => 'editSumario', $idea->id], ['class' => 'btn btn-warning btn-sm float-left float-sm-right', 'escape' => false]) ?>
                                                                 </div>
                                                             </div>
                                                         </div>

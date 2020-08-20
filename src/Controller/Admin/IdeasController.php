@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
+use Cake\Controller\Controller;
 
 /**
  * Ideas Controller
@@ -133,5 +134,45 @@ class IdeasController extends AppController
 
         $avaliadores = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '4']]);
         $this->set(compact('idea', 'avaliadores'));
+    }
+
+    public function listIdeas() {
+        $filteredIdeas = $this->Ideas->find('all', [
+            'contain' => [
+                'Owners'
+            ],
+            'conditions' => [
+                'user_id =' => $this->Auth->user('id')
+            ]
+        ]);
+
+        $ideas = $this->paginate($filteredIdeas);
+        $edicts = $this->Ideas->Edicts->find('all', ['limit' => 200]);
+        $this->set(compact('ideas', 'edicts'));
+    }
+
+    public function editSumario($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+
+        if($idea['user_id'] != $this->Auth->user('id'))
+        {
+            $this->Flash->error(__('Access Denied.'));
+
+            return $this->redirect(['action' => 'listIdeas', $this->Auth->user('id')]);
+        }
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('The idea has been saved.'));
+
+                return $this->redirect(['action' => 'listIdeas']);
+            }
+            $this->Flash->error(__('The idea could not be saved. Please, try again.'));
+        }
+        $this->set(compact('idea'));
     }
 }
