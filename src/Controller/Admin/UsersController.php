@@ -57,7 +57,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks'],
+            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks', 'Verifications'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -215,13 +215,13 @@ class UsersController extends AppController
 
             if (in_array($fileExtension, $valid_extensions)) {
                 $destination = WWW_ROOT . "img" . DS . "usuarios" . DS . $filename;
-                $fileObject->moveTo($destination);
                 $user = $this->Users->patchEntity($user, $this->request->getData());
                 $usuario["foto"] = '/img/usuarios/' . $filename;
                 $user = $this->Users->patchEntity($user, $usuario);
 
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('A foto foi alterada.'));
+                    $fileObject->moveTo($destination);
                     return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
                 }
             }
@@ -231,4 +231,103 @@ class UsersController extends AppController
     }
     // ALTERAR PERFIL, SENHA, EMAIL E FOTO DO USUARIO
 
+
+    // ADICIONAR E EXCLIUR COMPROVANTES DE DOCUMENTOS
+    public function changeParentalPermission($id = null)
+    {
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->autorizacao_pais)) {
+                $imagedb = WWW_ROOT . $user->verification->autorizacao_pais;
+            }
+            $file = $this->request->getData('verification.autorizacao_pais');
+            $userData = $this->request->getData();
+            $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+            $userData['verification']['autorizacao_pais'] = '/docs/' . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
+            $user = $this->Users->patchEntity($user, $userData);
+            if ($this->Users->save($user)) {
+                if (isset($imagedb)) { unlink($imagedb); }                
+                $this->Flash->success(__('O verso do Comprovante de Identidade foi salvo.'));
+                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
+                $file->moveTo($path);
+                return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('O verso do Comprovante de Identidade não foi salvo.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function changeProofOfResidence($id = null)
+    {
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->residencia)) {
+                $imagedb = WWW_ROOT . $user->verification->residencia;
+            }
+            $file = $this->request->getData('verification.residencia');
+            $userData = $this->request->getData();
+            $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+            $userData['verification']['residencia'] = '/docs/' . $user->id . '-' . $user->username . '-residencia.' . $ext;
+            $user = $this->Users->patchEntity($user, $userData);
+            if ($this->Users->save($user)) {
+                if (isset($imagedb)) { unlink($imagedb); }                
+                $this->Flash->success(__('O verso do Comprovante de Identidade foi salvo.'));
+                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-residencia.' . $ext;
+                $file->moveTo($path);
+                return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('O verso do Comprovante de Identidade não foi salvo.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function changeIdentityCardFront($id = null)
+    {
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->identidade_frente)) {
+                $imagedb = WWW_ROOT . $user->verification->identidade_frente;
+            }
+            $file = $this->request->getData('verification.identidade_frente');
+            $userData = $this->request->getData();
+            $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+            $userData['verification']['identidade_frente'] = '/docs/' . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
+            $user = $this->Users->patchEntity($user, $userData);
+            if ($this->Users->save($user)) {
+                if (isset($imagedb)) { unlink($imagedb); }                
+                $this->Flash->success(__('O verso do Comprovante de Identidade foi salvo.'));
+                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
+                $file->moveTo($path);
+                return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('O verso do Comprovante de Identidade não foi salvo.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function changeIdentityCardBack($id = null)
+    {
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->identidade_verso)) {
+                $imagedb = WWW_ROOT . $user->verification->identidade_verso;
+            }
+            $file = $this->request->getData('verification.identidade_verso');
+            $userData = $this->request->getData();
+            $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+            $userData['verification']['identidade_verso'] = '/docs/' . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
+            $user = $this->Users->patchEntity($user, $userData);
+            if ($this->Users->save($user)) {
+                if (isset($imagedb)) { unlink($imagedb); }  
+                $this->Flash->success(__('O verso do Comprovante de Identidade foi salvo.'));
+                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
+                $file->moveTo($path);
+                return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('O verso do Comprovante de Identidade não foi salvo.'));
+        }
+        $this->set(compact('user'));
+    }
+    // ADICIONAR E EXCLIUR COMPROVANTES DE DOCUMENTOS
+    
 }
