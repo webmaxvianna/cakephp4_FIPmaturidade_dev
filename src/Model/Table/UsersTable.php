@@ -145,17 +145,19 @@ class UsersTable extends Table
 
         $validator
             ->email('email')
-            ->allowEmptyString('email');
+            ->notEmptyString('email');
 
         $validator
             ->scalar('username')
             ->maxLength('username', 50)
-            ->regex('username', '/^[^\sA-Z]+[a-z0-9]+(^\s+[^\s]+)*$/', 'username não é válido');
+            ->minLength('username', 3, 'o username deverá ter 3 ou mais caracteres')
+            ->regex('username', '/^(?=[a-zA-Z0-9._]{4,50}$)(?!.*[_.]{2})[^_.].*[^_.]$/', 'username não é válido. digite apenas letras minúsculas e números');
 
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
-            ->allowEmptyString('password');
+            ->minLength('password', 6, 'a senha deverá ter 6 ou mais caracteres')
+            ->notEmptyString('password');
         
         $validator
             ->add(

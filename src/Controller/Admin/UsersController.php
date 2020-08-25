@@ -113,7 +113,7 @@ class UsersController extends AppController
 
     public function logout()
     {
-        $this->Flash->success('Você foi desconectado do sistema.');
+        $this->Flash->success_sm('Você foi desconectado do sistema.');
         return $this->redirect($this->Auth->logout());
     }
     // LOGIN E LOGOUT
@@ -132,11 +132,11 @@ class UsersController extends AppController
             $usuario['role_id'] = '3';
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('O candidato foi cadastrado.'));
+                $this->Flash->success_sm(__('O candidato foi cadastrado.'));
                 $this->getMailer('Users')->send('newApplicant', [$user]); // Envio de email para Novo candidato
                 return $this->redirect(['controller' => 'users', 'action' => 'login']);
             }
-            $this->Flash->error(__('O candidato não foi cadastrado. Por favor, tente novamente.'));
+            $this->Flash->error_sm(__('O candidato não foi cadastrado. Por favor, tente novamente.'));
         }
         $this->set(compact('user'));
         $this->set("title_for_layout", "Novo Candidato"); //Titulo da Página
@@ -146,13 +146,13 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id)->toArray();
         $this->getMailer('Users')->send('sendConfirmationEmail', [$user]); // Envio de email para confirmação de endereço de email
-        $this->Flash->success(__('Enviamos um link para confirmação de email.'));
+        $this->Flash->success(__('Enviamos ,para "' . $user['email'] . '", um link para confirmação de email.'));
         return $this->redirect($this->referer());
     }
 
     public function confirmEmail()
     {   
-        debug($this->request->getQuery());exit;
+        // debug($this->request->getQuery());exit;
         $q_email = $this->request->getQuery('email');
         $q_username = $this->request->getQuery('user');
         $user = $this->Users->findByEmail($q_email)->toList();
@@ -181,11 +181,11 @@ class UsersController extends AppController
             $user = $this->Users->findByEmailOrUsername($keyword, $keyword)->toArray();
             // debug($user);exit;
             if (empty($user)) {
-                $this->Flash->error(__('Os dados informados não foram encontrados. Por favor, tente novamente.'));
+                $this->Flash->error_sm(__('Os dados informados não foram encontrados. Por favor, tente novamente.'));
                 return $this->redirect(['controller' => 'users', 'action' => 'recoveryPassword']);
             } else {
                 $this->getMailer('Users')->send('recoveryPassword', [$user]); // Envio de email para recuperação de senha
-                $this->Flash->success(__('Enviamos um link para alteração de senha em sua conta de email.'));
+                $this->Flash->success_sm(__('Enviamos um link para alteração de senha em sua conta de email.'));
                 return $this->redirect(['controller' => 'users', 'action' => 'recoveryPassword']);
             }
         }
@@ -203,27 +203,28 @@ class UsersController extends AppController
             // debug($this->request->getData());exit; 
             $id = $this->request->getData('id');
             if ($this->request->getData('password') == '') {
-                $this->Flash->error(__('Senha não alterada.'));
+                $this->Flash->error_sm(__('Senha não alterada.'));
                 return $this->redirect(['controller' => 'users', 'action' => 'login']);
             }
             $user = $this->Users->get($id);
             $user = $this->Users->patchEntity($user, $this->request->getData());
             // debug($user);exit;
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('Senha alterada!'));
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success_sm(__('Senha alterada!'));
+                return $this->redirect(['controller' => 'users', 'action' => 'login']);
             }
-            $this->Flash->error(__('Senha não foi alterada. Por favor, Tente novamente.'));
+            $this->Flash->error_sm(__('Senha não foi alterada. Por favor, Tente novamente.'));
+            return $this->redirect($this->referer());
         } else {
             $user = $this->Users->findByEmail($q_email)->toArray();
             if(isset($user)){
                 $hash = substr($user[0]['password'], 0, 30);
                 if ($hash != $q_token) {
-                    $this->Flash->error(__('Você não tem permissão para alterar essa senha.'));
+                    $this->Flash->error_sm(__('Você não tem permissão para alterar essa senha.'));
                     return $this->redirect(['controller' => 'users', 'action' => 'login']);
                 }
             } else {
-                $this->Flash->error(__('Email não encontrado.'));
+                $this->Flash->error_sm(__('Email não encontrado.'));
                 return $this->redirect(['controller' => 'users', 'action' => 'login']);
             }
         }

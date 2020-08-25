@@ -17,6 +17,7 @@
             $myTemplates = [
                 'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
                 'nestingLabel' => '{{hidden}}{{input}}<label class="form-check-label">{{text}}</label>',
+                'error' => '<div class="error invalid-feedback">{{content}}</div>',
             ];
             $this->Form->setTemplates($myTemplates);
         ?>

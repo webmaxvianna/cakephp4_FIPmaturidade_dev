@@ -25,6 +25,7 @@
               echo $this->Form->control('id', ['type' => 'hidden', 'value' => $id, 'class' => 'form-control mb-2']);
               echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
           ?>
+          <div class="mb-4"><small><code>a senha deverá ter 6 ou mais caracteres</code></small></div>
           <div class="col-md-6 offset-md-3">
               <?= $this->Form->button(__('Alterar'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
           </div>

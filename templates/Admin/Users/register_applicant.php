@@ -10,8 +10,16 @@
 
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg lead">Cadastrar novo candidato</p>
-
+      <p class="login-box-msg lead">Cadastrar novo candidato</p> 
+      <?php  
+        $myTemplates = [
+            'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
+            'nestingLabel' => '{{hidden}}{{input}}<label class="form-check-label">{{text}}</label>',
+            'error' => '<div class="error invalid-feedback">{{content}}</div>',
+        ];
+        $this->Form->setTemplates($myTemplates);
+        $this->Form->setConfig('errorClass', 'is-invalid');
+      ?>
       <?= $this->Form->create($user) ?>
         <div class="">
           <?php

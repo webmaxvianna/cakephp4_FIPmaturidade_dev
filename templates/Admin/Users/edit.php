@@ -13,6 +13,15 @@
 ?>
 <section class="content">
     <div class="container-fluid">
+        <?php  
+            $myTemplates = [
+                'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
+                'nestingLabel' => '{{hidden}}{{input}}<label class="form-check-label">{{text}}</label>',
+                'error' => '<div class="error invalid-feedback">{{content}}</div>',
+            ];
+            $this->Form->setTemplates($myTemplates);
+            $this->Form->setConfig('errorClass', 'is-invalid');
+        ?>
         <?= $this->Form->create($user) ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
