@@ -150,7 +150,7 @@ class UsersTable extends Table
         $validator
             ->scalar('username')
             ->maxLength('username', 50)
-            ->allowEmptyString('username');
+            ->regex('username', '/^[^\sA-Z]+[a-z0-9]+(^\s+[^\s]+)*$/', 'username não é válido');
 
         $validator
             ->scalar('password')
@@ -162,7 +162,7 @@ class UsersTable extends Table
                 'confirm_password',
                 'compareWith', [
                     'rule' => ['compareWith', 'password'],
-                    'message' => 'Senhas não são iguais.'
+                    'message' => 'senhas não são iguais.'
                 ]
             );
 
@@ -275,8 +275,14 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['email']), [
+            'errorField' => 'email', 
+            'message' => 'Este email já encontra-se em uso.'
+            ]);
+        $rules->add($rules->isUnique(['username']), [
+            'errorField' => 'username', 
+            'message' => 'Este username já encontra-se em uso.'
+            ]);
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
