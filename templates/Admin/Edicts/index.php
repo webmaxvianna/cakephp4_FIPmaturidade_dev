@@ -17,7 +17,9 @@
         <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <?= $this->Html->link("Novo Edital", ['action' => 'add'], ['class' => 'btn btn-sm btn-primary float-right']) ?>
+                <?php if($userLogged->role_id == 1) { ?>
+                    <?= $this->Html->link("Novo Edital", ['action' => 'add'], ['class' => 'btn btn-sm btn-primary float-right']) ?>
+                <?php } ?>
                 <h3 class="card-title">Lista de Editais</h3>
             </div>
             <!-- /.card-header -->
