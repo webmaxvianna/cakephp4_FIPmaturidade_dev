@@ -20,6 +20,9 @@ class ParametersController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $parameters = $this->paginate($this->Parameters);
 
         $this->set(compact('parameters'));
@@ -34,6 +37,9 @@ class ParametersController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $parameter = $this->Parameters->get($id, [
             'contain' => ['Edicts', 'Appraisals'],
         ]);
@@ -48,6 +54,9 @@ class ParametersController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $parameter = $this->Parameters->newEmptyEntity();
         if ($this->request->is('post')) {
             $parameter = $this->Parameters->patchEntity($parameter, $this->request->getData());
@@ -71,6 +80,9 @@ class ParametersController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $parameter = $this->Parameters->get($id, [
             'contain' => ['Edicts'],
         ]);
@@ -96,6 +108,9 @@ class ParametersController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $parameter = $this->Parameters->get($id);
         if ($this->Parameters->delete($parameter)) {

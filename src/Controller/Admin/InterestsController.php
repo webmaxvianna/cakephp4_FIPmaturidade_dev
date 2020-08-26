@@ -20,6 +20,9 @@ class InterestsController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->paginate = [
             'order' => ['Interests.interesse' => 'asc']
         ];
@@ -38,6 +41,9 @@ class InterestsController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $interest = $this->Interests->get($id, [
             'contain' => ['Users'],
         ]);
@@ -52,6 +58,9 @@ class InterestsController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $interest = $this->Interests->newEmptyEntity();
         if ($this->request->is('post')) {
             $interest = $this->Interests->patchEntity($interest, $this->request->getData());
@@ -75,6 +84,9 @@ class InterestsController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $interest = $this->Interests->get($id, [
             'contain' => ['Users'],
         ]);
@@ -100,6 +112,9 @@ class InterestsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $interest = $this->Interests->get($id);
         if ($this->Interests->delete($interest)) {

@@ -20,6 +20,9 @@ class SpecialtiesController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialties = $this->paginate($this->Specialties);
 
         $this->set(compact('specialties'));
@@ -34,6 +37,9 @@ class SpecialtiesController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -48,6 +54,9 @@ class SpecialtiesController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->newEmptyEntity();
         if ($this->request->is('post')) {
             $specialty = $this->Specialties->patchEntity($specialty, $this->request->getData());
@@ -71,6 +80,9 @@ class SpecialtiesController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -96,6 +108,9 @@ class SpecialtiesController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $specialty = $this->Specialties->get($id);
         if ($this->Specialties->delete($specialty)) {
@@ -109,6 +124,9 @@ class SpecialtiesController extends AppController
 
     public function vincularAvaliadores($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -134,6 +152,9 @@ class SpecialtiesController extends AppController
 
     public function vincularConsultores($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -159,6 +180,9 @@ class SpecialtiesController extends AppController
 
     public function vincularJurados($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);

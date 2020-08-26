@@ -39,8 +39,10 @@
                     <td><?= h($edict->owner->nome_completo) ?></td>
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $edict->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
-                        <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $edict->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
-                        <?= $this->Form->postLink('<i class="far fa-trash-alt"></i> excluir', ['action' => 'delete', $edict->id], ['confirm' => __("Are you sure you want to delete '".$edict->numero."'?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]) ?>
+                        <?php if($userLogged->role_id == 1) { ?>
+                            <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $edict->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
+                            <?= $this->Form->postLink('<i class="far fa-trash-alt"></i> excluir', ['action' => 'delete', $edict->id], ['confirm' => __("Are you sure you want to delete '".$edict->numero."'?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]) ?>
+                        <?php } ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

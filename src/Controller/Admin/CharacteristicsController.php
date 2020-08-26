@@ -20,6 +20,9 @@ class CharacteristicsController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $characteristics = $this->paginate($this->Characteristics);
 
         $this->set(compact('characteristics'));
@@ -34,6 +37,9 @@ class CharacteristicsController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $characteristic = $this->Characteristics->get($id, [
             'contain' => ['Users'],
         ]);
@@ -48,6 +54,9 @@ class CharacteristicsController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $characteristic = $this->Characteristics->newEmptyEntity();
         if ($this->request->is('post')) {
             $characteristic = $this->Characteristics->patchEntity($characteristic, $this->request->getData());
@@ -71,6 +80,9 @@ class CharacteristicsController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $characteristic = $this->Characteristics->get($id, [
             'contain' => ['Users'],
         ]);
@@ -96,6 +108,9 @@ class CharacteristicsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $characteristic = $this->Characteristics->get($id);
         if ($this->Characteristics->delete($characteristic)) {
