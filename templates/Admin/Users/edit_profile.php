@@ -20,6 +20,7 @@
                 'error' => '<div class="error invalid-feedback">{{content}}</div>',
             ];
             $this->Form->setTemplates($myTemplates);
+            $this->Form->setConfig('errorClass', 'is-invalid');
         ?>
         <?= $this->Form->create($user, ['type' => 'file']) ?>
         <div class="row">

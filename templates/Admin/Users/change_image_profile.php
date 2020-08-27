@@ -13,6 +13,13 @@
 ?>
 <section class="content">
     <div class="container-fluid">
+        <?php  
+            $myTemplates = [
+                'error' => '<div class="error invalid-feedback">{{content}}</div>',
+            ];
+            $this->Form->setTemplates($myTemplates);
+            $this->Form->setConfig('errorClass', 'is-invalid');
+        ?>
         <?= $this->Form->create($user, ['type' => 'file']) ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
@@ -23,7 +30,7 @@
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('foto perfil', ['class' => 'form-control mb-2', 'type' => 'file', 'name' => 'profile_image']);
+                                echo $this->Form->control('foto', ['class' => 'form-control mb-2', 'type' => 'file']);
                             ?>
                         </div>
                     </div>
