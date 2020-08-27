@@ -52,6 +52,9 @@ class EdictsController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $edict = $this->Edicts->newEmptyEntity();
         if ($this->request->is('post')) {
             $edict = $this->Edicts->patchEntity($edict, $this->request->getData());
@@ -78,6 +81,9 @@ class EdictsController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $edict = $this->Edicts->get($id, [
             'contain' => ['Owners', 'Users', 'Categories', 'Parameters', 'Tasks'],
         ]);
@@ -106,6 +112,9 @@ class EdictsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $edict = $this->Edicts->get($id);
         if ($this->Edicts->delete($edict)) {

@@ -20,6 +20,9 @@ class SpecialtiesController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialties = $this->paginate($this->Specialties);
 
         $this->set(compact('specialties'));
@@ -34,6 +37,9 @@ class SpecialtiesController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -48,15 +54,18 @@ class SpecialtiesController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->newEmptyEntity();
         if ($this->request->is('post')) {
             $specialty = $this->Specialties->patchEntity($specialty, $this->request->getData());
             if ($this->Specialties->save($specialty)) {
-                $this->Flash->success(__('The specialty has been saved.'));
+                $this->Flash->success(__('A especialidade foi salva.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The specialty could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $users = $this->Specialties->Users->find('list', ['limit' => 200]);
         $this->set(compact('specialty', 'users'));
@@ -71,17 +80,20 @@ class SpecialtiesController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $specialty = $this->Specialties->patchEntity($specialty, $this->request->getData());
             if ($this->Specialties->save($specialty)) {
-                $this->Flash->success(__('The specialty has been saved.'));
+                $this->Flash->success(__('A especialidade foi salva.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The specialty could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $users = $this->Specialties->Users->find('list', ['limit' => 200]);
         $this->set(compact('specialty', 'users'));
@@ -96,12 +108,15 @@ class SpecialtiesController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $specialty = $this->Specialties->get($id);
         if ($this->Specialties->delete($specialty)) {
-            $this->Flash->success(__('The specialty has been deleted.'));
+            $this->Flash->success(__('A especialidade foi excluída.'));
         } else {
-            $this->Flash->error(__('The specialty could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -109,6 +124,9 @@ class SpecialtiesController extends AppController
 
     public function vincularAvaliadores($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -117,10 +135,10 @@ class SpecialtiesController extends AppController
             // debug($this->request->getData());         
             $specialty = $this->Specialties->patchEntity($specialty, $this->request->getData());
             if ($this->Specialties->save($specialty)) {
-                $this->Flash->success(__('The specialty has been saved.'));
+                $this->Flash->success(__('A especialidade foi salva.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The specialty could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         $this->loadModel('Roles');
@@ -134,6 +152,9 @@ class SpecialtiesController extends AppController
 
     public function vincularConsultores($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -142,10 +163,10 @@ class SpecialtiesController extends AppController
             debug($this->request->getData());exit;         
             $specialty = $this->Specialties->patchEntity($specialty, $this->request->getData());
             if ($this->Specialties->save($specialty)) {
-                $this->Flash->success(__('The specialty has been saved.'));
+                $this->Flash->success(__('A especialidade foi salva.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The specialty could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         $this->loadModel('Roles');
@@ -159,6 +180,9 @@ class SpecialtiesController extends AppController
 
     public function vincularJurados($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $specialty = $this->Specialties->get($id, [
             'contain' => ['Users'],
         ]);
@@ -167,10 +191,10 @@ class SpecialtiesController extends AppController
             //debug($this->request->getData());exit;         
             $specialty = $this->Specialties->patchEntity($specialty, $this->request->getData());
             if ($this->Specialties->save($specialty)) {
-                $this->Flash->success(__('The specialty has been saved.'));
+                $this->Flash->success(__('A especialidade foi salva.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The specialty could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         $this->loadModel('Roles');

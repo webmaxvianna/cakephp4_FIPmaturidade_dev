@@ -23,7 +23,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'ideas', 'action' => 'index']) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'ideas', 'action' => 'indexCandidatos', $userLogged['id']]) ?>" class="nav-link">
               <i class="nav-icon fas fa-lightbulb"></i>
               <p>
                 Ideias

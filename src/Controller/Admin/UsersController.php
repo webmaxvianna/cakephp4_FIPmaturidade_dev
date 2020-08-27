@@ -13,6 +13,9 @@ class UsersController extends AppController
     // CRUD PADRAO DO CAKEPHP
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->paginate = [
             'contain' => ['Roles'],
             'limit' => 5,
@@ -32,6 +35,9 @@ class UsersController extends AppController
 
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -56,6 +62,9 @@ class UsersController extends AppController
 
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $user = $this->Users->get($id, [
             'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks', 'Verifications'],
         ]);
@@ -83,6 +92,9 @@ class UsersController extends AppController
 
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {

@@ -20,6 +20,9 @@ class TasksController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $tasks = $this->paginate($this->Tasks);
 
         $this->set(compact('tasks'));
@@ -34,6 +37,9 @@ class TasksController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $task = $this->Tasks->get($id, [
             'contain' => ['Edicts', 'Users', 'Evidences'],
         ]);
@@ -48,6 +54,9 @@ class TasksController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $task = $this->Tasks->newEmptyEntity();
         if ($this->request->is('post')) {
             $task = $this->Tasks->patchEntity($task, $this->request->getData());
@@ -72,6 +81,9 @@ class TasksController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $task = $this->Tasks->get($id, [
             'contain' => ['Edicts', 'Users'],
         ]);
@@ -98,6 +110,9 @@ class TasksController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $task = $this->Tasks->get($id);
         if ($this->Tasks->delete($task)) {
