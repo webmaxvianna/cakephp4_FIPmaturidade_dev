@@ -61,11 +61,11 @@ class CharacteristicsController extends AppController
         if ($this->request->is('post')) {
             $characteristic = $this->Characteristics->patchEntity($characteristic, $this->request->getData());
             if ($this->Characteristics->save($characteristic)) {
-                $this->Flash->success(__('The characteristic has been saved.'));
+                $this->Flash->success(__('A característica foi salva.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The characteristic could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $users = $this->Characteristics->Users->find('list', ['limit' => 200]);
         $this->set(compact('characteristic', 'users'));
@@ -89,11 +89,11 @@ class CharacteristicsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $characteristic = $this->Characteristics->patchEntity($characteristic, $this->request->getData());
             if ($this->Characteristics->save($characteristic)) {
-                $this->Flash->success(__('The characteristic has been saved.'));
+                $this->Flash->success(__('A característica foi salva.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The characteristic could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $users = $this->Characteristics->Users->find('list', ['limit' => 200]);
         $this->set(compact('characteristic', 'users'));
@@ -114,9 +114,9 @@ class CharacteristicsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $characteristic = $this->Characteristics->get($id);
         if ($this->Characteristics->delete($characteristic)) {
-            $this->Flash->success(__('The characteristic has been deleted.'));
+            $this->Flash->success(__('A característica foi excluída.'));
         } else {
-            $this->Flash->error(__('The characteristic could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
