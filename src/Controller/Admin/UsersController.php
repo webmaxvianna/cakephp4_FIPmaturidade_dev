@@ -256,7 +256,9 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData()); 
+            $userData = $this->request->getData();
+            $userData['confirmacao_email'] = 0;
+            $user = $this->Users->patchEntity($user, $userData); 
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('O email foi alterado.'));
                 return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
