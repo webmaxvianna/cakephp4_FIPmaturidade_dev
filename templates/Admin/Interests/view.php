@@ -19,7 +19,7 @@ $this->Breadcrumbs->add([
                     <div class="card-header">
                         <h4 class="mb-0">
                             <i class="fas fa-user-tie"></i>
-                            &nbsp;<?= h($interest->interesse) . " / Id: " . h($interest->id) ?>
+                            &nbsp;<?= h($interest->interesse) ?>
                             <small class="float-right">Criado em: <?= h($interest->created) ?></small>
                         </h4>
                     </div>
@@ -47,12 +47,12 @@ $this->Breadcrumbs->add([
                                     <div class="card-header">
                                         <h4><?= __('Candidatos Relacionados') ?></h4>
                                     </div>
-                                    <?php if (!empty($interest->applicants)) : ?>
+                                    <?php if (!empty($interest->users)) : ?>
                                         <div class=" card-body">
                                             <ul>
-                                                <?php foreach ($interest->applicants as $applicants) : ?>
+                                                <?php foreach ($interest->users as $applicants) : ?>
                                                     <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $applicants->id ?>">
-                                                        <?= $this->Html->link($applicants->nome_completo, ['controller' => 'applicants', 'action' => 'view', $applicants->id]); ?>
+                                                        <?= $applicants->nome_completo ?>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>

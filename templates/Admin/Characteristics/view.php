@@ -19,7 +19,7 @@ $this->Breadcrumbs->add([
                     <div class="card-header">
                         <h4 class="mb-0">
                             <i class="fas fa-user-tie"></i>
-                            &nbsp;<?="Id: " . h($characteristic->id) ?>
+                            &nbsp;<?=h($characteristic->sobre) ?>
                             <small class="float-right">Criado em: <?= h($characteristic->created) ?></small>
                         </h4>
                     </div>
@@ -47,12 +47,12 @@ $this->Breadcrumbs->add([
                                     <div class="card-header">
                                         <h4><?= __('Candidatos Relacionados') ?></h4>
                                     </div>
-                                    <?php if (!empty($characteristic->applicants)) : ?>
+                                    <?php if (!empty($characteristic->users)) : ?>
                                         <div class=" card-body">
                                             <ul>
-                                                <?php foreach ($characteristic->applicants as $applicants) : ?>
+                                                <?php foreach ($characteristic->users as $applicants) : ?>
                                                     <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $applicants->id ?>">
-                                                        <?= $this->Html->link($applicants->nome_completo, ['controller' => 'applicants', 'action' => 'view', $applicants->id]); ?>
+                                                        <?= $applicants->nome_completo ?>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>

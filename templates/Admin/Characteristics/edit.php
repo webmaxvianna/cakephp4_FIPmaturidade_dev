@@ -19,7 +19,7 @@
         <!-- general form elements disabled -->
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Adicionar Característica</h3>
+                <h3 class="card-title">Editar Característica</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -33,8 +33,8 @@
                             ]);
                         ?>    
                     </div>
-                    <div class="col-md-6 offset-md-3">
-                        <?= $this->Form->button(__('Adicionar Característica'),['class'=>'btn btn-primary btn-block']) ?>                    
+                    <div class="col-md-3 offset-md-0">
+                        <?= $this->Form->button(__('Editar Característica'),['class'=>'btn btn-primary btn-block']) ?>                    
                     </div>
                 </div>
                 <!-- /.card-body -->

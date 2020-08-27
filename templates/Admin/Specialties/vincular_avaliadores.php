@@ -7,18 +7,46 @@
 ?>
 <!-- /.Breadcrumbs -->
 
-<h3><?= $specialty->especialidade ?></h3>
-<?= $this->Form->create($specialty) ?>
-<fieldset>
-    <legend>Avaliadores</legend>
-    <?php                    
-        echo $this->Form->control('users._ids', [
-            'options' => $avaliadores,
-            'type' => 'select',
-            'multiple' => 'checkbox',
-            'label' => false
-            ]);
-    ?>
-</fieldset>
-<?= $this->Form->button(__('Submit')) ?>
-<?= $this->Form->end() ?>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><?= $specialty->especialidade ?></h3>
+                <?= $this->Form->create($specialty) ?>
+              </div>
+              <div class="card-body">
+              <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                    <th>Avaliadores:</th>
+                  </tr>
+               </thead>
+               <tbody>
+                <tr>
+                    <th>
+                    <fieldset>
+                    <?php                    
+                        echo $this->Form->control('users._ids', [
+                            'options' => $avaliadores,
+                            'type' => 'select',
+                            'multiple' => 'checkbox',
+                            'label' => false
+                            ]);
+                    ?>
+                    </fieldset>
+                    </th>
+                </tr>
+                <tr>
+                    <th><?= $this->Form->button(__('Alterar'),['class'=>'btn btn-primary']) ?></th>
+                </tr>
+                </tbody>
+              </table>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>

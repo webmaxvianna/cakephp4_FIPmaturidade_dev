@@ -32,7 +32,7 @@
                             'label' => ['text' => 'Sobre', 'label' => 'control-label']]);
                         ?>    
                     </div>
-                    <div class="col-md-6 offset-md-3">
+                    <div class="col-md-3 offset-md-0">
                         <?= $this->Form->button(__('Adicionar Característica'),['class'=>'btn btn-primary btn-block']) ?>                    
                     </div>
                 </div>
