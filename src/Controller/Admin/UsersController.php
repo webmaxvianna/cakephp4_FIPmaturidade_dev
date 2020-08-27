@@ -297,22 +297,29 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $fileObject = $this->request->getData("profile_image");
-            $fileExtension = $fileObject->getClientMediaType();
-            $ext = explode("/", $fileExtension);
-            $filename = $user->id.'.'.$ext[1];
-            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "image/gif");
-
-            if (in_array($fileExtension, $valid_extensions)) {
-                $destination = WWW_ROOT . "img" . DS . "usuarios" . DS . $filename;
-                $user = $this->Users->patchEntity($user, $this->request->getData());
-                $usuario["foto"] = '/img/usuarios/' . $filename;
-                $user = $this->Users->patchEntity($user, $usuario);
-
+            $userData = $this->request->getData();
+            $fileObject = $this->request->getData("foto");
+            $imgSize = getimagesize($fileObject->getStream()->getMetadata('uri'));
+            if ($imgSize[0] != $imgSize[1]) {
+                $this->Flash->warning(__('A foto precisa ter os mesmos tamanhos de altura e largura.'));
+                return $this->redirect($this->referer());
+            }
+            if ($fileObject->getSize() > (1024*1024)) {
+                $img_size = intdiv($fileObject->getSize(), 1024);
+                $this->Flash->warning(__("Sua foto tem $img_size KB. A foto deverá ser menor que 1024 KB."));
+                return $this->redirect($this->referer());
+            }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg");
+            if (in_array($fileObject->getClientMediaType(), $valid_extensions)) {
+                $ext = pathinfo($fileObject->getClientFilename(), PATHINFO_EXTENSION);
+                $destination = WWW_ROOT . "img" . DS . "usuarios" . DS . $user->id . '.' . $ext;
+                $userData["foto"] = '/img/usuarios/' . $user->id . '.' . $ext;
+                $user = $this->Users->patchEntity($user, $userData);
                 if ($this->Users->save($user)) {
+                    unlink($destination);
                     $this->Flash->success(__('A foto foi alterada.'));
                     $fileObject->moveTo($destination);
-                    return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+                    return $this->redirect(['controller' => 'users', 'action' => 'changeImageProfile',$user->id]);
                 }
             }
             $this->Flash->error(__('Não foi possível alterar a foto.'));
