@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
-use App\Controller\Admin\IdeasController;
 
 class UsersController extends AppController
 {
@@ -231,4 +230,16 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
     }
+
+    // PÁGINA SOBRE IDEIAS DO CANDIDATO
+    public function applicantIdeas($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['MyEdicts', 'Edicts', 'MyIdeas'],
+        ]);
+
+        $this->set(compact('user'));
+    }
+
+
 }
