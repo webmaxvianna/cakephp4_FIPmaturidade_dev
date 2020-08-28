@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'resumes', 'action' => 'view', $userLogged->resume]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'resumes', 'action' => 'view', $user->resume]) ?>" class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Currículo
@@ -53,7 +53,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'view', $userLogged->edicts]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'view', end($user->my_edicts)->id]) ?>" class="nav-link">
               <i class="nav-icon fas fa-file-contract"></i>
               <p>
                 Editais
