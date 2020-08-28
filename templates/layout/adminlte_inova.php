@@ -40,7 +40,8 @@
   <?= 
     $this->Html->css([
       '/adminlte/dist/css/adminlte',
-      '/adminlte/dist/css/ionicons.min'
+      '/adminlte/dist/css/ionicons.min',
+      './Pages/ApplicantIdeas'
     ]) 
   ?>
   <?= 
