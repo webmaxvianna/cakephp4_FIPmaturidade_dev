@@ -53,8 +53,8 @@ class VerificationsFixture extends TestFixture
                 'autorizacao_pais' => 'Lorem ipsum dolor sit amet',
                 'foto_perfil' => 'Lorem ipsum dolor sit amet',
                 'user_id' => 1,
-                'created' => '2020-07-29 13:32:24',
-                'modified' => '2020-07-29 13:32:24',
+                'created' => '2020-08-20 15:24:12',
+                'modified' => '2020-08-20 15:24:12',
             ],
         ];
         parent::init();

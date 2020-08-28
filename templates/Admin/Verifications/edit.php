@@ -28,7 +28,10 @@
                             echo $this->Form->control('residencia', [
                                 'class' => 'form-control mb-2' 
                             ]);
-                            echo $this->Form->control('identidade', [
+                            echo $this->Form->control('identidade_frente', [
+                                'class' => 'form-control mb-2' 
+                            ]);
+                            echo $this->Form->control('identidade_verso', [
                                 'class' => 'form-control mb-2' 
                             ]);
                             echo $this->Form->control('declaracao', [
@@ -37,10 +40,10 @@
                             echo $this->Form->control('autorizacao_pais', [
                                 'class' => 'form-control mb-2' 
                             ]);
-                            echo $this->Form->control('foto', [
+                            echo $this->Form->control('foto_perfil', [
                                 'class' => 'form-control mb-2' 
                             ]);
-                            echo $this->Form->control('applicant_id', ['class' => 'form-control mb-2', 'options' => $applicants]);
+                            echo $this->Form->control('user_id', ['class' => 'form-control mb-2', 'options' => $users]);
                         ?>
                     </fieldset>
                     <?= $this->Form->button(__('Enviar'), [

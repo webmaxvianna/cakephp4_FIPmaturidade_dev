@@ -33,7 +33,12 @@ class AppController extends Controller
                 ]
             ]);
 
-        $this->Auth->allow('registerApplicant');
+        $this->Auth->allow([
+            'registerApplicant', 
+            'recoveryPassword',
+            'resetPassword',
+            'confirmEmail'
+            ]);
 
         $loggedId = $this->Auth->user('id');        
         if (isset($loggedId)) {

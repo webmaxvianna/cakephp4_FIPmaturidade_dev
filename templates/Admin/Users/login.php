@@ -10,13 +10,13 @@
   </div>
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg lead">Acesso ao Sistema de Maturidade</p>
 
       <?= $this->Form->create() ?>
         <div class="">
           <?php
-              echo $this->Form->control('username', ['class' => 'form-control mb-2']);
-              echo $this->Form->control('password', ['class' => 'form-control mb-2']);
+              echo $this->Form->control('username', ['label' => 'Nome de usuário <small>(username)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+              echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
           ?>
           <div class="col-md-6 offset-md-3">
               <?= $this->Form->button(__('Acessar'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
@@ -25,10 +25,10 @@
       <?= $this->Form->end() ?>
     <hr/>
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+      <?= $this->Html->link('Esqueci minha senha', ['action' => 'recoveryPassword'], ['class' => 'text-center']) ?>
       </p>
       <p class="mb-0">
-        <?= $this->Html->link('Register a new membership', ['action' => 'registerApplicant'], ['class' => 'text-center']) ?>
+        <?= $this->Html->link('Cadastrar novo candidato', ['action' => 'registerApplicant'], ['class' => 'text-center']) ?>
       </p>
     </div>
     <!-- /.login-card-body -->

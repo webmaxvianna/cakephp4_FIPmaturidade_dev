@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Admin;
@@ -51,20 +52,38 @@ class IdeasController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
+        //Checagem caso o usuário tente passar outro id pela URL
+        if ($id != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+
+        //Checagem se já existe uma ideia cadastrada no edital atual
+        if ($id != null) {
+            $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.numero' => '001']]);
+            if ($idea->toArray() != null) {
+                $this->Flash->error(__('Você já possui uma ideia cadastrada no edital atual.'));
+                return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+            }
+        }
+
         $idea = $this->Ideas->newEmptyEntity();
         if ($this->request->is('post')) {
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
-                $this->Flash->success(__('The idea has been saved.'));
+                $this->Flash->success(__('A ideia foi cadastrada.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
             }
-            $this->Flash->error(__('The idea could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro durante o cadastro. Por favor, tente novamente.'));
         }
         $edicts = $this->Ideas->Edicts->find('list', ['limit' => 200]);
-        $users = $this->Ideas->Users->find('list', ['limit' => 200]);
+        if ($id == null) {
+            $users = $this->Ideas->Users->find('list', ['limit' => 200]);
+        } else {
+            $users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $id]]);
+        }
         $this->set(compact('idea', 'edicts', 'users'));
     }
 
@@ -80,6 +99,9 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Users'],
         ]);
+        if ($idea->toArray()['user_id'] != $this->Auth->user('id')) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
@@ -124,8 +146,7 @@ class IdeasController extends AppController
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
                 $this->Flash->success(__('O avaliador foi designado com sucesso.'));
-            }
-            else {
+            } else {
                 $this->Flash->error(__('Erro ao designar avaliador.'));
             }
             return $this->redirect(['action' => 'index']);
@@ -149,11 +170,24 @@ class IdeasController extends AppController
             if ($this->Ideas->save($idea)) {
                 $this->Flash->success(__('The idea has been saved.'));
 
-                return $this->redirect(['controller' => 'users', 'action' => 'applicantIdeas',$user->id]);
+                return $this->redirect(['controller' => 'users', 'action' => 'applicantIdeas', $user->id]);
             }
             $this->Flash->error(__('The idea could not be saved. Please, try again.'));
         }
         $this->set(compact('idea'));
         $this->set(compact('user'));
+    }
+    
+    public function indexCandidatos($id = null)
+    {
+        $this->paginate = [
+            'contain' => ['Edicts', 'Users', 'Owners'],
+            'limit' => 3,
+            'conditions' => ['Owners.id' => $id],
+            'order' => ['Ideas.id' => 'asc']
+        ];
+        $ideas = $this->paginate($this->Ideas);
+
+        $this->set(compact('ideas'));
     }
 }

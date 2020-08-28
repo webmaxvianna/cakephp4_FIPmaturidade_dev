@@ -20,6 +20,9 @@ class InterestsController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->paginate = [
             'order' => ['Interests.interesse' => 'asc']
         ];
@@ -38,6 +41,9 @@ class InterestsController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $interest = $this->Interests->get($id, [
             'contain' => ['Users'],
         ]);
@@ -52,15 +58,18 @@ class InterestsController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $interest = $this->Interests->newEmptyEntity();
         if ($this->request->is('post')) {
             $interest = $this->Interests->patchEntity($interest, $this->request->getData());
             if ($this->Interests->save($interest)) {
-                $this->Flash->success(__('The interest has been saved.'));
+                $this->Flash->success(__('O interesse foi salvo.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The interest could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $users = $this->Interests->Users->find('list', ['limit' => 200]);
         $this->set(compact('interest', 'users'));
@@ -75,17 +84,20 @@ class InterestsController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $interest = $this->Interests->get($id, [
             'contain' => ['Users'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $interest = $this->Interests->patchEntity($interest, $this->request->getData());
             if ($this->Interests->save($interest)) {
-                $this->Flash->success(__('The interest has been saved.'));
+                $this->Flash->success(__('O interesse foi salvo.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The interest could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $users = $this->Interests->Users->find('list', ['limit' => 200]);
         $this->set(compact('interest', 'users'));
@@ -100,12 +112,15 @@ class InterestsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $interest = $this->Interests->get($id);
         if ($this->Interests->delete($interest)) {
-            $this->Flash->success(__('The interest has been deleted.'));
+            $this->Flash->success(__('O interesse foi excluído.'));
         } else {
-            $this->Flash->error(__('The interest could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
