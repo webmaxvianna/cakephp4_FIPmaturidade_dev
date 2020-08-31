@@ -28,7 +28,7 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                <th><?= $this->Paginator->sort('numero') ?></th>
+                <th><?= $this->Paginator->sort('numero', 'Número') ?></th>
                 <th><?= $this->Paginator->sort('link') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
@@ -53,6 +53,7 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
+        <?= $this->element('pagination') ?>
         </div>
         <!-- /.col -->
     </div>

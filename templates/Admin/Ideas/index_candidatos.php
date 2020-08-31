@@ -26,8 +26,8 @@
                 <thead>
                 <tr>
                 <th><?= $this->Paginator->sort('titulo','Título') ?></th>
-                <th><?= $this->Paginator->sort('user.nome_completo', 'Nome do candidato') ?></th>         
-                <th><?= $this->Paginator->sort('edict.numero','Número do edital') ?></th>
+                <th><?= $this->Paginator->sort('user_id', 'Autor') ?></th>         
+                <th><?= $this->Paginator->sort('numero','Número do edital') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </thead>

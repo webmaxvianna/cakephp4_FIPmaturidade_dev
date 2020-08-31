@@ -11,13 +11,12 @@
                 <div class="card">
                     <div class="card-header">
                         <?= $this->Html->link("Novo Parâmetro", ['action' => 'add'], ['class' => 'btn btn-sm btn-primary float-right']) ?>
-                        <h3><?= __('Parâmetros de Avaliação') ?></h3>
+                        <h3 class="card-title">Lista de Parâmetros de Avaliação</h3>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th><?= $this->Paginator->sort('id') ?></th>
                                     <th><?= $this->Paginator->sort('item') ?></th>
                                     <th class="actions"><?= __('Ações') ?></th>
                                 </tr>
@@ -25,7 +24,6 @@
                             <tbody>
                                 <?php foreach ($parameters as $parameter): ?>
                                 <tr>
-                                    <td><?= $this->Number->format($parameter->id) ?></td>
                                     <td><?= h($parameter->item) ?></td>
                                     <td class="actions">
                                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $parameter->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
