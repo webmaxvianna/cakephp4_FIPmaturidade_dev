@@ -23,8 +23,9 @@ class InterestsController extends AppController
         if($this->Auth->user('role_id') != 1) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
+
         $this->paginate = [
-            'order' => ['Interests.interesse' => 'asc']
+            'limit' => 5
         ];
 
         $interests = $this->paginate($this->Interests);

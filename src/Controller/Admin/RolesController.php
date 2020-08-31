@@ -20,6 +20,10 @@ class RolesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'limit' => 5
+        ];
+
         $roles = $this->paginate($this->Roles);
 
         $this->set(compact('roles'));

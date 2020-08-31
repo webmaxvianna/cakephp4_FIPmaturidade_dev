@@ -22,6 +22,7 @@ class EdictsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Owners'],
+            'limit' => 5
         ];
 
         $edicts = $this->paginate($this->Edicts);

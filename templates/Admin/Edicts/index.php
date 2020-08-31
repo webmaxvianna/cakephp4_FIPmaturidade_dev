@@ -27,9 +27,9 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                <th><?= $this->Paginator->sort('numero') ?></th>
+                <th><?= $this->Paginator->sort('numero', 'Número') ?></th>
                 <th><?= $this->Paginator->sort('link') ?></th>
-                <th><?= $this->Paginator->sort('owner') ?></th>
+                <th><?= $this->Paginator->sort('user_id','Responsável Cadastro') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </thead>
@@ -49,19 +49,12 @@
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                <th><?= $this->Paginator->sort('numero') ?></th>
-                <th><?= $this->Paginator->sort('link') ?></th>
-                <th><?= $this->Paginator->sort('owner') ?></th>
-                <th class="actions"><?= 'Ações' ?></th>
-                </tr>
-                </tfoot>
             </table>
             </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
+        <?= $this->element('pagination') ?>
         </div>
         <!-- /.col -->
     </div>

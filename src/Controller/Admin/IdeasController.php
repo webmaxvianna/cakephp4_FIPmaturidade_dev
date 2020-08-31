@@ -6,6 +6,8 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
 
+define('EDITAL_ATUAL', '001');  //CONSTANTE DO EDITAL ATUAL
+
 /**
  * Ideas Controller
  *
@@ -21,9 +23,12 @@ class IdeasController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->paginate = [
             'contain' => ['Edicts', 'Users', 'Owners'],
-            'limit' => 3,
+            'limit' => 5,
             'order' => ['Ideas.id' => 'asc']
         ];
         $ideas = $this->paginate($this->Ideas);
@@ -43,6 +48,10 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Edicts', 'Users', 'Appraisals', 'Confidentials', 'Evidences', 'Pitches'],
         ]);
+        
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
 
         $this->set(compact('idea'));
     }
@@ -60,9 +69,9 @@ class IdeasController extends AppController
         }
 
         //Checagem se já existe uma ideia cadastrada no edital atual
-        if ($id != null) {
-            $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.numero' => '001']]);
-            if ($idea->toArray() != null) {
+        if($id != null) {
+            $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.numero' => constant("EDITAL_ATUAL")]]);
+            if($idea->toArray() != null) {
                 $this->Flash->error(__('Você já possui uma ideia cadastrada no edital atual.'));
                 return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
             }
@@ -72,7 +81,7 @@ class IdeasController extends AppController
         if ($this->request->is('post')) {
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
-                $this->Flash->success(__('A ideia foi cadastrada.'));
+                $this->Flash->success(__('A ideia foi salva.'));
 
                 return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
             }
@@ -99,21 +108,22 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Users'],
         ]);
-        if ($idea->toArray()['user_id'] != $this->Auth->user('id')) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
-                $this->Flash->success(__('The idea has been saved.'));
+                $this->Flash->success(__('A ideia foi salva.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The idea could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
-        $edicts = $this->Ideas->Edicts->find('list', ['limit' => 200]);
-        $users = $this->Ideas->Users->find('list', ['limit' => 200]);
-        $this->set(compact('idea', 'edicts', 'users'));
+        //$edicts = $this->Ideas->Edicts->find('list', ['limit' => 200]);
+        //$users = $this->Ideas->Users->find('list', ['limit' => 200]);
+        //$users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $this->Auth->user('id')]]);
+        $this->set(compact('idea'));
     }
 
     /**
@@ -127,10 +137,15 @@ class IdeasController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $idea = $this->Ideas->get($id);
+
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+
         if ($this->Ideas->delete($idea)) {
-            $this->Flash->success(__('The idea has been deleted.'));
+            $this->Flash->success(__('A ideia foi apagada.'));
         } else {
-            $this->Flash->error(__('The idea could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -142,6 +157,10 @@ class IdeasController extends AppController
             'contain' => ['Users'],
         ]);
 
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
@@ -152,7 +171,7 @@ class IdeasController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
-        $avaliadores = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '4']]);
+        $avaliadores = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '2']]);
         $this->set(compact('idea', 'avaliadores'));
     }
 

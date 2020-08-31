@@ -143,30 +143,6 @@
                             ?>
                         </div>
                     </div>
-                </div>
-                <!-- /.card -->
-
-                <div class="card card-secondary">
-                    <div class="card-header cursor-pointer"data-toggle="collapse" href="#card3">
-                        <h3 class="card-title">Relacionamentos</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body collapse show" id="card3">
-                        <div class="form-group">
-                            <?php
-                            echo $this->Form->control('edict_id', [
-                                'options' => $edicts, 'class' => 'form-control col-3 mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Edital',
-                                'label' => ['text' => 'Edital', 'label' => 'control-label']
-                            ]);
-                            echo $this->Form->control('user_id', [
-                                'options' => $users, 'class' => 'form-control col-3 mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Edital',
-                                'label' => ['text' => 'Usuário', 'label' => 'control-label']
-                            ]);
-                            ?>
-                        </div>
-
-                    </div>
-                    <!-- /.card-body -->
                     <div class="card-footer">
                         <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary w-15']) ?>
                     </div>
