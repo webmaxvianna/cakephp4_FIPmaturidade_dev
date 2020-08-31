@@ -52,8 +52,8 @@
                                     <!-- <th><?= $this->Paginator->sort('estado') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('pais') ?></th> -->
                                     <th><?= $this->Paginator->sort('role_id') ?></th>
-                                    <th><?= $this->Paginator->sort('created', 'Criado em') ?></th>
-                                    <th><?= $this->Paginator->sort('modified', 'Modificado em') ?></th>
+                                    <!-- <th><?= $this->Paginator->sort('created', 'Criado em') ?></th> -->
+                                    <!-- <th><?= $this->Paginator->sort('modified', 'Modificado em') ?></th> -->
                                     <th class="actions">Ações</th>
                                 </tr>
                             </thead>
@@ -90,8 +90,8 @@
                                     <!-- <td><?= h($user->estado) ?></td> -->
                                     <!-- <td><?= h($user->pais) ?></td> -->
                                     <td><?= h($user->role->funcao) ?></td>
-                                    <td><?= h($user->created) ?></td>
-                                    <td><?= h($user->modified) ?></td>
+                                    <!-- <td><?= h($user->created) ?></td> -->
+                                    <!-- <td><?= h($user->modified) ?></td> -->
                                     <td class="actions text-nowrap">
                                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>

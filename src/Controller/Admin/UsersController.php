@@ -15,7 +15,7 @@ class UsersController extends AppController
     public function index()
     {
         if($this->Auth->user('role_id') != 1) {
-            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         $this->paginate = [
             'contain' => ['Roles'],
@@ -284,7 +284,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $userData); 
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('O email foi alterado.'));
-                return $this->redirect(['controller' => 'users', 'action' => 'changeEmail', $this->Auth->user('id')]);
+                return $this->redirect(['controller' => 'dashboards', 'action' => 'index', $this->Auth->user('id')]);
             }
         }
         $this->set(compact('user'));
@@ -330,8 +330,8 @@ class UsersController extends AppController
 
         $user = $this->Users->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if (isset($user->verification->autorizacao_pais)) {
-                $imagedb = WWW_ROOT . $user->verification->autorizacao_pais;
+            if (isset($user->foto)) {
+                $imagedb = WWW_ROOT . $user->foto;
             }
             $userData = $this->request->getData();
             $fileObject = $this->request->getData("foto");

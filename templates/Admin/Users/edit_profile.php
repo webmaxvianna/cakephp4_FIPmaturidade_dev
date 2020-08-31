@@ -57,7 +57,6 @@
                         <div class="form-group">
                             <?php
                                 echo $this->Form->control('username', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('status', ['class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>

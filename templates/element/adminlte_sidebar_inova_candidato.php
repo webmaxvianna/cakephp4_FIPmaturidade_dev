@@ -20,14 +20,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $userLogged->id]) ?>" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Perfil
-              </p>
-            </a>
-          </li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'Ideas', 'action' => 'listIdeas', $userLogged->id]) ?>" class="nav-link">
               <i class="nav-icon fas fa-lightbulb"></i>
@@ -37,23 +29,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'resumes', 'action' => 'view', $user->resume]) ?>" class="nav-link">
-              <i class="nav-icon fas fa-file-alt"></i>
-              <p>
-                Currículo
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'verificationDocuments', $userLogged->id]) ?>" class="nav-link">
-              <i class="nav-icon fas fa-check-circle"></i>
-              <p>
-                Comprovantes
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'view', end($user->my_edicts)->id]) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'edicts', 'action' => 'listEdicts']) ?>" class="nav-link">
               <i class="nav-icon fas fa-file-contract"></i>
               <p>
                 Editais
