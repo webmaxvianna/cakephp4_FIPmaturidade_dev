@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Admin;
@@ -63,10 +64,10 @@ class IdeasController extends AppController
     public function add($id = null)
     {
         //Checagem caso o usuário tente passar outro id pela URL
-        if($id != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if ($id != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
             return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
-        
+
         //Checagem se já existe uma ideia cadastrada no edital atual
         if($id != null) {
             $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.numero' => constant("EDITAL_ATUAL")]]);
@@ -87,10 +88,9 @@ class IdeasController extends AppController
             $this->Flash->error(__('Ocorreu um erro durante o cadastro. Por favor, tente novamente.'));
         }
         $edicts = $this->Ideas->Edicts->find('list', ['limit' => 200]);
-        if($id == null) {
+        if ($id == null) {
             $users = $this->Ideas->Users->find('list', ['limit' => 200]);
-        }
-        else {
+        } else {
             $users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $id]]);
         }
         $this->set(compact('idea', 'edicts', 'users'));
@@ -165,8 +165,7 @@ class IdeasController extends AppController
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
                 $this->Flash->success(__('O avaliador foi designado com sucesso.'));
-            }
-            else {
+            } else {
                 $this->Flash->error(__('Erro ao designar avaliador.'));
             }
             return $this->redirect(['action' => 'index']);
@@ -174,6 +173,92 @@ class IdeasController extends AppController
 
         $avaliadores = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '2']]);
         $this->set(compact('idea', 'avaliadores'));
+    }
+
+    public function addApplicantIdeas($id = null)
+    {
+        $user = $this->Ideas->Users->get($id, [
+            'contain' => ['MyEdicts', 'Edicts', 'MyIdeas'],
+        ]);
+        $idea = $this->Ideas->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            $edict = end($user->edicts);
+            $idea['edict_id'] = $edict->id;
+            $idea['user_id'] = $user->id;
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('The idea has been saved.'));
+
+                return $this->redirect(['controller' => 'users', 'action' => 'applicantIdeas', $user->id]);
+            }
+            $this->Flash->error(__('The idea could not be saved. Please, try again.'));
+        }
+        $this->set(compact('idea'));
+        $this->set(compact('user'));
+    }
+
+    public function listIdeas()
+    {
+        $filteredIdeas = $this->Ideas->find('all', [
+            'contain' => [
+                'Owners'
+            ],
+            'conditions' => [
+                'user_id =' => $this->Auth->user('id')
+            ]
+        ]);
+
+        $ideas = $this->paginate($filteredIdeas);
+        $edicts = $this->Ideas->Edicts->find('all', ['limit' => 200]);
+        $this->set(compact('ideas', 'edicts'));
+    }
+
+    public function editSumario($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+
+        if ($idea['user_id'] != $this->Auth->user('id')) {
+            $this->Flash->error(__('Access Denied.'));
+
+            return $this->redirect(['action' => 'listIdeas', $this->Auth->user('id')]);
+        }
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('The idea has been saved.'));
+
+                return $this->redirect(['action' => 'listIdeas']);
+            }
+            $this->Flash->error(__('The idea could not be saved. Please, try again.'));
+        }
+        $this->set(compact('idea'));
+    }
+
+    public function editCanvas($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+
+        if ($idea['user_id'] != $this->Auth->user('id')) {
+            $this->Flash->error(__('Access Denied.'));
+
+            return $this->redirect(['action' => 'listIdeas', $this->Auth->user('id')]);
+        }
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('The idea has been saved.'));
+
+                return $this->redirect(['action' => 'listIdeas']);
+            }
+            $this->Flash->error(__('The idea could not be saved. Please, try again.'));
+        }
+        $this->set(compact('idea'));
     }
 
     public function indexCandidatos($id = null)

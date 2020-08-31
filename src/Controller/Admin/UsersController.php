@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Admin;
@@ -41,8 +42,8 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -70,8 +71,8 @@ class UsersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -117,7 +118,7 @@ class UsersController extends AppController
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
-                $this->Flash->error(__('Nome de usuário ou senha está incorreto'));
+                $this->Flash->error_sm(__('Nome de usuário ou senha está incorreto'));
             }
         }
         $this->set("title_for_layout", "Tela de Acesso"); //Titulo da Página
@@ -139,8 +140,8 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $usuario['role_id'] = '3';
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
@@ -158,7 +159,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id)->toArray();
         $this->getMailer('Users')->send('sendConfirmationEmail', [$user]); // Envio de email para confirmação de endereço de email
-        $this->Flash->success(__('Enviamos ,para "' . $user['email'] . '", um link para confirmação de email.'));
+        $this->Flash->success(__('Enviamos, para "' . $user['email'] . '", um link para confirmação de email.'));
         return $this->redirect($this->referer());
     }
 
@@ -251,6 +252,11 @@ class UsersController extends AppController
     // ALTERAR PERFIL, SENHA, EMAIL E FOTO DO USUARIO
     public function changePassword($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changePassword', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -266,6 +272,11 @@ class UsersController extends AppController
 
     public function changeEmail($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeEmail', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $userData = $this->request->getData();
@@ -273,9 +284,8 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $userData); 
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('O email foi alterado.'));
-                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+                return $this->redirect(['controller' => 'users', 'action' => 'changeEmail', $this->Auth->user('id')]);
             }
-            $this->Flash->error(__('O email não foi alterado. Por favor, tente novamente.'));
         }
         $this->set(compact('user'));
         $this->set("title_for_layout", "Alterar Email"); //Titulo da Página
@@ -283,18 +293,22 @@ class UsersController extends AppController
 
     public function editProfile($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'editProfile', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id, [
             'contain' => ['Characteristics', 'Interests', 'Resumes', 'Specialties', 'Verifications'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData(); 
-            $usuario['nome_completo'] = $usuario['nome']." ".$usuario['sobrenome'];
+            $usuario = $this->request->getData();
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Os dados do(a) candidato(a) foram alterados.'));
-
-                return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+                return $this->redirect(['controller' => 'users', 'action' => 'editProfile', $this->Auth->user('id')]);
             }
             $this->Flash->error(__('Os dados do(a) candidato(a) não foram alterados. Por favor, tente novamente'));
         }
@@ -309,8 +323,16 @@ class UsersController extends AppController
 
     public function changeImageProfile($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeImageProfile', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->autorizacao_pais)) {
+                $imagedb = WWW_ROOT . $user->verification->autorizacao_pais;
+            }
             $userData = $this->request->getData();
             $fileObject = $this->request->getData("foto");
             $imgSize = getimagesize($fileObject->getStream()->getMetadata('uri'));
@@ -330,7 +352,7 @@ class UsersController extends AppController
                 $userData["foto"] = '/img/usuarios/' . $user->id . '.' . $ext;
                 $user = $this->Users->patchEntity($user, $userData);
                 if ($this->Users->save($user)) {
-                    unlink($destination);
+                    if (isset($imagedb)) { unlink($imagedb); } 
                     $this->Flash->success(__('A foto foi alterada.'));
                     $fileObject->moveTo($destination);
                     return $this->redirect(['controller' => 'users', 'action' => 'changeImageProfile',$user->id]);
@@ -341,12 +363,15 @@ class UsersController extends AppController
         $this->set(compact('user'));
         $this->set("title_for_layout", "Alterar Foto"); //Titulo da Página
     }
-    // ALTERAR PERFIL, SENHA, EMAIL E FOTO DO USUARIO
-
 
     // ADICIONAR E EXCLIUR COMPROVANTES DE DOCUMENTOS
     public function changeParentalPermission($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeParentalPermission', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id, ['contain' => ['Verifications']]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             if (isset($user->verification->autorizacao_pais)) {
@@ -371,6 +396,11 @@ class UsersController extends AppController
 
     public function changeProofOfResidence($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeProofOfResidence', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id, ['contain' => ['Verifications']]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             if (isset($user->verification->residencia)) {
@@ -395,6 +425,11 @@ class UsersController extends AppController
 
     public function changeIdentityCardFront($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeIdentityCardFront', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id, ['contain' => ['Verifications']]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             if (isset($user->verification->identidade_frente)) {
@@ -419,6 +454,11 @@ class UsersController extends AppController
 
     public function changeIdentityCardBack($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeIdentityCardBack', $this->Auth->user('id')]);
+        }
+
         $user = $this->Users->get($id, ['contain' => ['Verifications']]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             if (isset($user->verification->identidade_verso)) {

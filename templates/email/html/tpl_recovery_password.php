@@ -8,15 +8,20 @@
     </p> 
     <p>
         Para voltar a ter acesso ao sistema é necessário que faça a alteração de sua senha por meio do link abaixo. 
-        Caso o link não funcione, copie o link e cole na barra de endereço de seu navegador web.
     </p>
     <p>
         Link para alteração de senha:<br/>
         <?php
             $root = pathinfo($_SERVER['HTTP_REFERER']);
-            $link = $root['dirname'] . '/reset-password?token='.$hash.'&email='.$email;
-            // echo $this->Html->link('Redefinir senha de acesso', $link);
+            $root = explode("/admin", $root['dirname']);
+            $link = $root[0] . '/admin/users/reset-password?token='.$hash.'&email='.$email;
             echo $this->Html->link($link, $link);
         ?>
+    </p>
+    <p>
+        Caso o link não funcione, copie e cole o link na barra de endereço de seu navegador web.
+    </p>
+    <p>
+        <small><i>Favor não responder a esse email. Esta é uma mensagem automática.<i></small>
     </p>
 </div>
