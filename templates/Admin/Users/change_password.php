@@ -30,7 +30,7 @@
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('password', ['label' => 'Nova senha', 'class' => 'form-control mb-2', 'value' => '']);
+                                echo $this->Form->control('password', ['label' => 'Nova senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false, 'value' => '']);
                                 echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha', 'class' => 'form-control mb-2', 'type' => 'password']);
                             ?>
                         </div>

@@ -92,6 +92,8 @@ class User extends Entity
         'cidade' => true,
         'estado' => true,
         'pais' => true,
+        'professor' => true,
+        'professor_lattes' => true,
         'role_id' => true,
         'created' => true,
         'modified' => true,

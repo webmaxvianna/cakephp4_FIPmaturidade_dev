@@ -106,6 +106,18 @@ class EdictsTable extends Table
         $validator
             ->scalar('edital')
             ->allowEmptyString('edital');
+        
+        $validator
+            ->integer('status')
+            ->allowEmptyString('status');
+            
+        $validator
+            ->date('data_inicial')
+            ->allowEmptyDate('data_inicial');
+
+        $validator
+            ->date('data_final')
+            ->allowEmptyDate('data_final');
 
         return $validator;
     }

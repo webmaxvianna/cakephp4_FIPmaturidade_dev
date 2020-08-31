@@ -30,7 +30,7 @@
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('foto', ['class' => 'form-control mb-2', 'type' => 'file']);
+                                echo $this->Form->control('foto', ['label' => 'Foto do perfil <small><i>(apenas arquivos .jpg ou .png)</i></small>', 'class' => 'form-control mb-2', 'type' => 'file', 'escape' => false]);
                             ?>
                         </div>
                     </div>

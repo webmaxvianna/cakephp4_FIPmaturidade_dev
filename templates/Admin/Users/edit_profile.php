@@ -32,12 +32,17 @@
                     <div class="card-body collapse show" id="body1">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('nome', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('sobrenome', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('data_nascimento', ['empty' => true, 'class' => 'form-control mb-2']);
-                                echo $this->Form->control('sexo', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('cpf', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('rg', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('nome', ['label' => 'Nome', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('sobrenome', ['label' => 'Sobrenome', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('data_nascimento', ['label' => 'Data de nascimento', 'empty' => true, 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('sexo', [
+                                    'label' => 'Sexo', 
+                                    'type' => 'select',
+                                    'options' => ['Masculino' => 'Masculino', 'Feminino' => 'Feminino'],
+                                    'class' => 'form-control mb-2'
+                                    ]);
+                                echo $this->Form->control('cpf', ['label' => 'CPF', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('rg', ['label' => 'RG', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>
@@ -56,7 +61,7 @@
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('username', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('username', ['label' => 'Nome de usuário <small>(username)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>
                     </div>
@@ -75,16 +80,15 @@
                     <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('telefone1', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('telefone2', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('cep', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('logradouro', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('numero', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('complemento', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('bairro', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('cidade', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('estado', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('pais', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('telefone1', ['label' => 'Telefone', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('cep', ['label' => 'CEP', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('logradouro', ['label' => 'Endereço', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('numero', ['label' => 'Número', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('complemento', ['label' => 'Complemento', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('bairro', ['label' => 'Bairro', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('cidade', ['label' => 'Cidade', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('estado', ['label' => 'Estado', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('pais', ['label' => 'País', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>
@@ -208,14 +212,31 @@
                     <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('resume.curriculo', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('resume.area_atuacao', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('resume.curriculo', ['label' => 'Currículo resumido', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('resume.area_atuacao', ['label' => 'Área de atuação', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Professor Orientador</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('professor', ['label' => 'Nome do Professor', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('professor_lattes', ['label' => 'Currículo Lattes <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
         <?php endif; ?>
         <!-- Visível apenas para CANDIDATO -->
                 
@@ -255,10 +276,10 @@
                     <div class="card-body collapse show" id="body3">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('facebook', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('linkedin', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('instagram', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('lattes', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('facebook', ['label' => 'Facebook <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('linkedin', ['label' => 'LinkedIn <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('instagram', ['label' => 'Instagram <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('lattes', ['label' => 'Currículo Lattes <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>
                     </div>

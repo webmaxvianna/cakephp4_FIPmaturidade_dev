@@ -30,7 +30,7 @@
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('email', ['label' => 'Email', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('email', ['label' => 'Digite um novo email', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>

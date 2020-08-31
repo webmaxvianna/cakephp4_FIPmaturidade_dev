@@ -264,7 +264,17 @@ class UsersTable extends Table
             ->scalar('pais')
             ->maxLength('pais', 45)
             ->allowEmptyString('pais');
-
+        
+        $validator
+            ->scalar('professor')
+            ->maxLength('professor', 255)
+            ->allowEmptyString('professor');
+        
+        $validator
+            ->scalar('professor_lattes')
+            ->maxLength('professor_lattes', 255)
+            ->allowEmptyString('professor_lattes');
+        
         return $validator;
     }
 
