@@ -23,6 +23,11 @@ class SpecialtiesController extends AppController
         if($this->Auth->user('role_id') != 1) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
+
+        $this->paginate = [
+            'limit' => 5
+        ];
+        
         $specialties = $this->paginate($this->Specialties);
 
         $this->set(compact('specialties'));

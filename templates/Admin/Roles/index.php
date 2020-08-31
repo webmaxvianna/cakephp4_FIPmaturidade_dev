@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="card">
     <div class="card-header">
-        <h3 class="card-title"><?= __('Funções') ?></h3>
+        <h3 class="card-title">Lista de Funções</h3>
     </div>
     <div class="card-body">
         <table class="table table-bordered table-striped">
@@ -30,4 +30,5 @@
         </table>
     </div>
     </div>
+    <?= $this->element('pagination') ?>
 </div>

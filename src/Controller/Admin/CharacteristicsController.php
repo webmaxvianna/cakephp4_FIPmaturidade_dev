@@ -23,6 +23,11 @@ class CharacteristicsController extends AppController
         if($this->Auth->user('role_id') != 1) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
+
+        $this->paginate = [
+            'limit' => 5
+        ];
+        
         $characteristics = $this->paginate($this->Characteristics);
 
         $this->set(compact('characteristics'));

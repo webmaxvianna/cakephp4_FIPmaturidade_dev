@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <?= $this->Html->link("Nova Atividade", ['action' => 'add'], ['class' => 'btn btn-sm btn-primary float-right']) ?>
-                        <h3><?= __('Atividades') ?></h3>
+                        <h3 class="card-title">Lista de Atividades</h3>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-bordered table-striped">

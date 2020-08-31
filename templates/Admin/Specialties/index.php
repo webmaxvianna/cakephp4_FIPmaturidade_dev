@@ -42,18 +42,12 @@
                     </tr>
                     <?php endforeach; ?>
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th><?= $this->Paginator->sort('especialidade') ?></th>
-                    <th class="actions"><?= 'Vincular / Desvincular' ?></th>
-                    <th class="actions"><?= 'Ações' ?></th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            <?= $this->element('pagination') ?>
           </div>
           <!-- /.col -->
         </div>
