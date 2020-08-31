@@ -28,23 +28,13 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                <th><?= $this->Paginator->sort('numero') ?></th>
-                <th><?= $this->Paginator->sort('link') ?></th>
-                <th class="actions"><?= 'Ações' ?></th>
+                    <th><?= $this->Paginator->sort('numero') ?></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($edicts as $edict) : ?>
                 <tr>
-                    <td><?= h($edict->numero) ?></td>
-                    <td><?= h($edict->link) ?></td>                    
-                    <td class="actions">
-                        <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', $edict->link, ['class' => 'btn btn-info btn-sm', 'target' => '_blank', 'escape' => false]) ?>
-                        <?php if($userLogged->role_id == 1) { ?>
-                            <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $edict->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
-                            <?= $this->Form->postLink('<i class="far fa-trash-alt"></i> excluir', ['action' => 'delete', $edict->id], ['confirm' => __("Are you sure you want to delete '".$edict->numero."'?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]) ?>
-                        <?php } ?>
-                    </td>
+                    <td><?= $this->Html->link('<i class="far fa-eye"></i> visualizar', $edict->link, ['class' => 'btn btn-primary btn-sm', 'escape' => false, 'target' => 'blank']) ?>&nbsp;&nbsp;<?= 'Edital: ' . $edict->numero ?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>

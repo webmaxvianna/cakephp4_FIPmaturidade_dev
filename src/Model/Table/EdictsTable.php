@@ -92,17 +92,16 @@ class EdictsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->notEmptyString('id', null, 'create');
 
         $validator
             ->scalar('numero')
             ->maxLength('numero', 20)
-            ->allowEmptyString('numero');
+            ->notEmptyString('numero');
 
         $validator
             ->scalar('link')
-            ->maxLength('link', 255)
-            ->allowEmptyString('link');
+            ->notEmptyString('link');
 
         $validator
             ->scalar('edital')
@@ -120,6 +119,11 @@ class EdictsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['numero']), [
+            'errorField' => 'numero', 
+            'message' => 'Este número de edital já encontra-se em uso.'
+            ]);
+            
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
