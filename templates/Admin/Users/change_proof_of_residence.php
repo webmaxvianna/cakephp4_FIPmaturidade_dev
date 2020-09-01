@@ -25,7 +25,7 @@
                     <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('verification.residencia', ['type' => 'file', 'label' => 'Autorização dos pais ou responsável<small> (válido arquivos de imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.residencia', ['type' => 'file', 'label' => 'Comprovante de residência<small> (válido arquivos de imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>
                     </div>

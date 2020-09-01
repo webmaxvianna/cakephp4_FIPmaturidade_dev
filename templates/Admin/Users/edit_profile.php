@@ -84,10 +84,43 @@
                                 echo $this->Form->control('cep', ['label' => 'CEP', 'class' => 'form-control mb-2']);
                                 echo $this->Form->control('logradouro', ['label' => 'Endereço', 'class' => 'form-control mb-2']);
                                 echo $this->Form->control('numero', ['label' => 'Número', 'class' => 'form-control mb-2']);
-                                echo $this->Form->control('complemento', ['label' => 'Complemento', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('complemento', ['label' => 'Complemento <small>(opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('bairro', ['label' => 'Bairro', 'class' => 'form-control mb-2']);
                                 echo $this->Form->control('cidade', ['label' => 'Cidade', 'class' => 'form-control mb-2']);
-                                echo $this->Form->control('estado', ['label' => 'Estado', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('estado', [
+                                    'options' => ([
+                                        'AC' => 'Acre',
+                                        'AL' => 'Alagoas',
+                                        'AP' => 'Amapá',
+                                        'AM' => 'Amazonas',
+                                        'BA' => 'Bahia',
+                                        'CE' => 'Ceará',
+                                        'DF' => 'Distrito Federal',
+                                        'ES' => 'Espírito Santo',
+                                        'GO' => 'Goiás',
+                                        'MA' => 'Maranhão',
+                                        'MT' => 'Mato Grosso',
+                                        'MS' => 'Mato Grosso do Sul',
+                                        'MG' => 'Minas Gerais',
+                                        'PA' => 'Pará',
+                                        'PB' => 'Paraíba',
+                                        'PR' => 'Paraná',
+                                        'PE' => 'Pernambuco',
+                                        'PI' => 'Piauí',
+                                        'RJ' => 'Rio de Janeiro',
+                                        'RN' => 'Rio Grande do Norte',
+                                        'RS' => 'Rio Grande do Sul',
+                                        'RO' => 'Rondônia',
+                                        'RR' => 'Roraima',
+                                        'SC' => 'Santa Catarina',
+                                        'SP' => 'São Paulo',
+                                        'SE' => 'Sergipe',
+                                        'TO' => 'Tocantins'
+                                    ]),
+                                    'type' => 'select',
+                                    'label' => 'Estado', 
+                                    'class' => 'form-control mb-2'
+                                    ]);
                                 echo $this->Form->control('pais', ['label' => 'País', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
@@ -111,7 +144,7 @@
                             <p>
                                 Documento de Identidade - frente (RG ou CPF): 
                                 <?php
-                                    if(isset($user->verification->identidade_frente)) {
+                                    if($user->verification->identidade_frente) {
                                         echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_frente, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);
                                         echo $this->Html->link('Alterar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeIdentityCardFront', $userLogged->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]);
                                     } else {
@@ -124,7 +157,7 @@
                             <p>
                                 Documento de Identidade - verso (RG ou CPF): 
                                 <?php
-                                    if(isset($user->verification->identidade_verso)) {
+                                    if($user->verification->identidade_verso) {
                                         echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_verso, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);
                                         echo $this->Html->link('Alterar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeIdentityCardBack', $userLogged->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]);
                                     } else {
@@ -135,7 +168,7 @@
                             <p>
                                 Comprovante de Residência: 
                                 <?php
-                                    if(isset($user->verification->residencia)) {
+                                    if($user->verification->residencia) {
                                         echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->residencia, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);
                                         echo $this->Html->link('Alterar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeProofOfResidence', $userLogged->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]);
                                     } else {
@@ -146,7 +179,7 @@
                             <p>
                                 Autorização do responsável: 
                                 <?php
-                                    if(isset($user->verification->autorizacao_pais)) {
+                                    if($user->verification->autorizacao_pais) {
                                         echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->autorizacao_pais, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);
                                         echo $this->Html->link('Alterar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeParentalPermission', $userLogged->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]);
                                     } else {
@@ -229,8 +262,8 @@
                     <div class="card-body collapse show" id="body4">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('professor', ['label' => 'Nome do Professor', 'class' => 'form-control mb-2']);
-                                echo $this->Form->control('professor_lattes', ['label' => 'Currículo Lattes <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('professor', ['label' => 'Nome do Professor <small>(opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('professor_lattes', ['label' => 'Currículo Lattes <small>(link) (opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>
                     </div>
@@ -276,10 +309,10 @@
                     <div class="card-body collapse show" id="body3">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('facebook', ['label' => 'Facebook <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
-                                echo $this->Form->control('linkedin', ['label' => 'LinkedIn <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
-                                echo $this->Form->control('instagram', ['label' => 'Instagram <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
-                                echo $this->Form->control('lattes', ['label' => 'Currículo Lattes <small><i>(Link)</i></small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('facebook', ['label' => 'Facebook <small>(link) (opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('linkedin', ['label' => 'LinkedIn <small>(link) (opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('instagram', ['label' => 'Instagram <small>(link) (opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('lattes', ['label' => 'Currículo Lattes <small>(link) (opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>
                     </div>

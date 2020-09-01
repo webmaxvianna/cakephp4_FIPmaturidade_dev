@@ -378,14 +378,18 @@ class UsersController extends AppController
                 $imagedb = WWW_ROOT . $user->verification->autorizacao_pais;
             }
             $file = $this->request->getData('verification.autorizacao_pais');
+            if ($file->getSize() > (1024 * 1024 * 10)) {                
+                $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeParentalPermission', $id]);
+            }
             $userData = $this->request->getData();
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $userData['verification']['autorizacao_pais'] = '/docs/' . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
+            $userData['verification']['autorizacao_pais'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }                
                 $this->Flash->success(__('A "Autorização dos Pais ou Responsável" foi salva.'));
-                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
+                $path = WWW_ROOT . 'docs' . DS . 'comprovantes' . DS . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
                 $file->moveTo($path);
                 return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
             }
@@ -407,14 +411,18 @@ class UsersController extends AppController
                 $imagedb = WWW_ROOT . $user->verification->residencia;
             }
             $file = $this->request->getData('verification.residencia');
+            if ($file->getSize() > (1024 * 1024 * 10)) {                
+                $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeProofOfResidence', $id]);
+            }
             $userData = $this->request->getData();
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $userData['verification']['residencia'] = '/docs/' . $user->id . '-' . $user->username . '-residencia.' . $ext;
+            $userData['verification']['residencia'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-residencia.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }                
                 $this->Flash->success(__('O "Comprovante de Residência" foi salvo.'));
-                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-residencia.' . $ext;
+                $path = WWW_ROOT . 'docs' . DS . 'comprovantes' . DS . $user->id . '-' . $user->username . '-residencia.' . $ext;
                 $file->moveTo($path);
                 return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
             }
@@ -436,14 +444,18 @@ class UsersController extends AppController
                 $imagedb = WWW_ROOT . $user->verification->identidade_frente;
             }
             $file = $this->request->getData('verification.identidade_frente');
+            if ($file->getSize() > (1024 * 1024 * 10)) {                
+                $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeIdentityCardFront', $id]);
+            }
             $userData = $this->request->getData();
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $userData['verification']['identidade_frente'] = '/docs/' . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
+            $userData['verification']['identidade_frente'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }                
                 $this->Flash->success(__('A frente do "Comprovante de Identidade" foi salva.'));
-                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
+                $path = WWW_ROOT . 'docs' . DS . 'comprovantes' . DS . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
                 $file->moveTo($path);
                 return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
             }
@@ -465,14 +477,18 @@ class UsersController extends AppController
                 $imagedb = WWW_ROOT . $user->verification->identidade_verso;
             }
             $file = $this->request->getData('verification.identidade_verso');
+            if ($file->getSize() > (1024 * 1024 * 10)) {                
+                $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeIdentityCardBack', $id]);
+            }
             $userData = $this->request->getData();
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $userData['verification']['identidade_verso'] = '/docs/' . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
+            $userData['verification']['identidade_verso'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }  
                 $this->Flash->success(__('O verso do "Comprovante de Identidade" foi salvo.'));
-                $path = WWW_ROOT . 'docs' . DS . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
+                $path = WWW_ROOT . 'docs' . DS . 'comprovantes' . DS . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
                 $file->moveTo($path);
                 return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
             }
