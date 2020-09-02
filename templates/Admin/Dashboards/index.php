@@ -7,7 +7,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <h3>Olá, <?= $userLogged->nome_completo ?>!</h3>
-                <p class="lead">Seja <?= ($userLogged->sexo == 'Masculino') ? 'bem-vindo' : 'bem-vinda' ?> ao Sistema de Maturidade.</p>
+                <p class="lead">Seja bem-vindo(a) ao Sistema de Maturidade.</p>
                 <p class="lead">
                   Aqui você pode cadastrar sua ideia de negócio e consultar os editais publicados.
                 </p>

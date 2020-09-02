@@ -22,9 +22,9 @@ class DashboardsController extends AppController
             if ($verification->identidade_verso) { $identidade_verso = true; } else { $identidade_verso = false; } 
             if ($residencia && $autorizacao_pais && $identidade_frente && $identidade_verso) {
                 $this->set('documentos', true);
-            } else {
-                $this->set('documentos', false);
             }
+        } else {
+            $this->set('documentos', false);
         }
 
         $this->loadModel('Resumes');
@@ -35,10 +35,21 @@ class DashboardsController extends AppController
             if ($resume->area_atuacao) { $area_atuacao = true; } else { $area_atuacao = false; }
             if ($curriculo && $area_atuacao) {
                 $resume = true;
+            } else {
+                $resume = false;
             }
         }
         // debug($resume);exit;
 
+        $this->loadModel('CharacteristicsUsers');
+        $characteristic = $this->CharacteristicsUsers->find('all', ['conditions' => ['user_id =' => $this->Auth->user('id')]])->first();
+        // debug($characteristic);exit;
+        $sobre = ($characteristic) ? true : false ;
+
+        $this->loadModel('InterestsUsers');
+        $interest = $this->InterestsUsers->find('all', ['conditions' => ['user_id =' => $this->Auth->user('id')]])->first();
+        // debug($interest);exit;
+        $interesse = ($interest) ? true : false ;
         
         $this->loadModel('Users');
         $user = $this->Users->find('all', ['conditions' => ['id =' => $this->Auth->user('id')]])->first();
@@ -62,7 +73,7 @@ class DashboardsController extends AppController
         }
         // debug($user);exit;
 
-        if ($user && $resume) {
+        if ($user && $resume && $sobre && $interesse) {
             $this->set('dados_pessoais', true);
         } else {
             $this->set('dados_pessoais', false);
@@ -99,6 +110,8 @@ class DashboardsController extends AppController
             } else {
                 $this->set('ideia', false);
             }            
-        }
+        } else {
+            $this->set('ideia', false);
+        } 
     }
 }
