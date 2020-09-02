@@ -209,4 +209,64 @@ class IdeasController extends AppController
 
         $this->set(compact('ideas'));
     }
+
+    public function editIdeas($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('As informações da ideia foram salvas.'));
+
+                return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
+        }
+        $this->set(compact('idea'));
+    }
+
+    public function editCanvas($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('As informações do Canvas foram salvas.'));
+
+                return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
+        }
+        $this->set(compact('idea'));
+    }
+
+    public function editSumario($id = null)
+    {
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Users'],
+        ]);
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('As informações do Sumário Executivo foram salvas.'));
+
+                return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
+        }
+        $this->set(compact('idea'));
+    }
 }
