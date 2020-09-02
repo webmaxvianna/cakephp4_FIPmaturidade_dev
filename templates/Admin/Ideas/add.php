@@ -133,10 +133,6 @@
                                 'class' => 'form-control mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Modelo',
                                 'label' => ['text' => 'Modelo', 'label' => 'control-label']
                             ]);
-                            echo $this->Form->control('observacoes', [
-                                'class' => 'form-control mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Observações',
-                                'label' => ['text' => 'Observações', 'label' => 'control-label']
-                            ]);
                             ?>
                         </div>
                     </div>
