@@ -6,7 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
 
-define('EDITAL_ATUAL', '001');  //CONSTANTE DO EDITAL ATUAL
+define('EDITAL_ATUAL', 1);  //CONSTANTE DO EDITAL ATUAL
 
 /**
  * Ideas Controller
@@ -70,7 +70,7 @@ class IdeasController extends AppController
 
         //Checagem se já existe uma ideia cadastrada no edital atual
         if($id != null) {
-            $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.numero' => constant("EDITAL_ATUAL")]]);
+            $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.id' => constant("EDITAL_ATUAL")]]);
             if($idea->toArray() != null) {
                 $this->Flash->error(__('Você já possui uma ideia cadastrada no edital atual.'));
                 return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
@@ -79,6 +79,8 @@ class IdeasController extends AppController
 
         $idea = $this->Ideas->newEmptyEntity();
         if ($this->request->is('post')) {
+            $idea->user_id = $this->Auth->user('id');
+            $idea->edict_id = constant("EDITAL_ATUAL");
             $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
             if ($this->Ideas->save($idea)) {
                 $this->Flash->success(__('A ideia foi salva.'));
@@ -208,6 +210,43 @@ class IdeasController extends AppController
         $ideas = $this->paginate($this->Ideas);
 
         $this->set(compact('ideas'));
+    }
+
+    public function addIdeas($id = null)
+    {
+        //Checagem caso o usuário tente passar outro id pela URL
+        if ($id != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+
+        //Checagem se já existe uma ideia cadastrada no edital atual
+        if($id != null) {
+            $idea = $this->Ideas->find('list', ['limit' => 200, 'contain' => ['Edicts'], 'conditions' => ['Ideas.user_id' => $id, 'Edicts.id' => constant("EDITAL_ATUAL")]]);
+            if($idea->toArray() != null) {
+                $this->Flash->error(__('Você já possui uma ideia cadastrada no edital atual.'));
+                return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+            }
+        }
+
+        $idea = $this->Ideas->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $idea->user_id = $this->Auth->user('id');
+            $idea->edict_id = constant("EDITAL_ATUAL");
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData());
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('A ideia foi salva.'));
+
+                return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('Ocorreu um erro durante o cadastro. Por favor, tente novamente.'));
+        }
+        $edicts = $this->Ideas->Edicts->find('list', ['limit' => 200]);
+        if ($id == null) {
+            $users = $this->Ideas->Users->find('list', ['limit' => 200]);
+        } else {
+            $users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $id]]);
+        }
+        $this->set(compact('idea', 'edicts', 'users'));
     }
 
     public function editIdeas($id = null)

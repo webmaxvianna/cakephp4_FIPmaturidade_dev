@@ -18,7 +18,7 @@
         <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <?= $this->Html->link("Nova Ideia", ['action' => 'add', $userLogged->id], ['class' => 'btn btn-sm btn-primary float-right']) ?>
+                <?= $this->Html->link("Nova Ideia", ['action' => 'addIdeas', $userLogged->id], ['class' => 'btn btn-sm btn-primary float-right']) ?>
                 <h2 class="card-title">Lista de Ideias</h2>
             </div>
             <!-- /.card-header -->

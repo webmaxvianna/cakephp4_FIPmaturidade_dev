@@ -22,6 +22,8 @@ class DashboardsController extends AppController
             if ($verification->identidade_verso) { $identidade_verso = true; } else { $identidade_verso = false; } 
             if ($residencia && $autorizacao_pais && $identidade_frente && $identidade_verso) {
                 $this->set('documentos', true);
+            } else {
+                $this->set('documentos', false);
             }
         } else {
             $this->set('documentos', false);
