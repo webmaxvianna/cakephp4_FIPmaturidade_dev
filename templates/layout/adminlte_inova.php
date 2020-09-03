@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= $title_for_layout ?> | Sistema de Maturidade</title>
+  <title><?= isset($title_for_layout) ? $title_for_layout : ''; ?> | Sistema de Maturidade</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,7 +40,13 @@
   <?= 
     $this->Html->css([
       '/adminlte/dist/css/adminlte',
-      '/adminlte/dist/css/ionicons.min'
+      '/adminlte/dist/css/ionicons.min',
+      './Pages/ApplicantIdeas'
+    ]) 
+  ?>
+  <?= 
+    $this->Html->css([
+      'custom-style'
     ]) 
   ?>
 
@@ -85,7 +91,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h2 class="m-0 text-dark">Sistema de Maturidade</h2>
+            <h2 class="m-0 text-dark"></h2>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <!-- Breadcrumbs -->
@@ -106,6 +112,18 @@
     <!-- Flash message -->
     <div class="row">
       <div class="col-md-10 offset-md-1">
+        <?php
+          if (empty($userLogged->confirmacao_email)) : ?>
+            <div class="alert alert-info alert-dismissible">
+            <div class="lead">
+                    <i class="fas fa-info-circle"></i>&nbsp;Confirmação de email.
+                </div>
+                <div class="">
+                    Verifique sua conta de email e faça a confirmação do endereço de email cadastrado no sistema.<br/>
+                    <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'sendConfirmationEmail', $userLogged->id]) ?>">Clique aqui para enviar outro email de confirmação.</a>
+                </div> 
+            </div>
+          <?php endif; ?>
         <?= $this->Flash->render() ?>
       </div>
     </div>
@@ -119,10 +137,9 @@
   <!-- /.content-wrapper -->  
 
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
+    <strong>Sistema de Maturidade - 2020</strong>
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
+      <b>Fundação Inova Prudente</b>
     </div>
   </footer>
   

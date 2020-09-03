@@ -6,10 +6,11 @@
  */
 ?>
 <?php
-$this->Breadcrumbs->add([
-    ['title' => 'Editais', 'url' => ['controller' => 'edicts', 'action' => 'index']],
-    ['title' => 'Detalhes']
-]);
+    $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Editais', 'url' => ['controller' => 'edicts', 'action' => 'index']],
+        ['title' =>'Visualizar']
+    ]);
 ?>
 <section class="content">
     <div class="container-fluid">

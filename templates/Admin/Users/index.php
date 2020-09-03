@@ -17,13 +17,13 @@
                 <div class="card">
                     <div class="card-header">
                         <?= $this->Html->link("Novo Usuário", ['action' => 'add'], ['class' => 'btn btn-sm btn-primary float-right']) ?>
-                        <h3>Lista de Usuários</h3>
+                        <h3 class="card-title">Lista de Usuários</h3>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th><?= $this->Paginator->sort('id') ?></th>
+                                    <!-- <th><?= $this->Paginator->sort('id') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('nome') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('sobrenome') ?></th> -->
                                     <th><?= $this->Paginator->sort('nome_completo') ?></th>
@@ -52,15 +52,15 @@
                                     <!-- <th><?= $this->Paginator->sort('estado') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('pais') ?></th> -->
                                     <th><?= $this->Paginator->sort('role_id') ?></th>
-                                    <th><?= $this->Paginator->sort('created', 'Criado em') ?></th>
-                                    <th><?= $this->Paginator->sort('modified', 'Modificado em') ?></th>
+                                    <!-- <th><?= $this->Paginator->sort('created', 'Criado em') ?></th> -->
+                                    <!-- <th><?= $this->Paginator->sort('modified', 'Modificado em') ?></th> -->
                                     <th class="actions">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($users as $user): ?>
                                 <tr>
-                                    <td><?= $this->Number->format($user->id) ?></td>
+                                    <!-- <td><?= $this->Number->format($user->id) ?></td> -->
                                     <!-- <td><?= h($user->nome) ?></td> -->
                                     <!-- <td><?= h($user->sobrenome) ?></td> -->
                                     <td><?= h($user->nome_completo) ?></td>
@@ -90,8 +90,8 @@
                                     <!-- <td><?= h($user->estado) ?></td> -->
                                     <!-- <td><?= h($user->pais) ?></td> -->
                                     <td><?= h($user->role->funcao) ?></td>
-                                    <td><?= h($user->created) ?></td>
-                                    <td><?= h($user->modified) ?></td>
+                                    <!-- <td><?= h($user->created) ?></td> -->
+                                    <!-- <td><?= h($user->modified) ?></td> -->
                                     <td class="actions text-nowrap">
                                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>

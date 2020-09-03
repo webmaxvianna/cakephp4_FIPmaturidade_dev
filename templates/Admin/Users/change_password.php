@@ -13,6 +13,13 @@
 ?>
 <section class="content">
     <div class="container-fluid">
+        <?php  
+            $myTemplates = [
+                'error' => '<div class="error invalid-feedback">{{content}}</div>',
+            ];
+            $this->Form->setTemplates($myTemplates);
+            $this->Form->setConfig('errorClass', 'is-invalid');
+        ?>
         <?= $this->Form->create($user) ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
@@ -23,7 +30,7 @@
                     <div class="card-body collapse show" id="body2">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('password', ['label' => 'Nova senha', 'class' => 'form-control mb-2', 'value' => '']);
+                                echo $this->Form->control('password', ['label' => 'Nova senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false, 'value' => '']);
                                 echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha', 'class' => 'form-control mb-2', 'type' => 'password']);
                             ?>
                         </div>

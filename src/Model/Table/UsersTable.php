@@ -145,24 +145,26 @@ class UsersTable extends Table
 
         $validator
             ->email('email')
-            ->allowEmptyString('email');
+            ->notEmptyString('email');
 
         $validator
             ->scalar('username')
             ->maxLength('username', 50)
-            ->allowEmptyString('username');
+            ->minLength('username', 3, 'o username deverá ter 3 ou mais caracteres')
+            ->regex('username', '/^(?=[a-zA-Z0-9._]{4,50}$)(?!.*[_.]{2})[^_.].*[^_.]$/', 'username não é válido. digite apenas letras minúsculas e números');
 
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
-            ->allowEmptyString('password');
+            ->minLength('password', 6, 'a senha deverá ter 6 ou mais caracteres')
+            ->notEmptyString('password');
         
         $validator
             ->add(
                 'confirm_password',
                 'compareWith', [
                     'rule' => ['compareWith', 'password'],
-                    'message' => 'Senhas não são iguais.'
+                    'message' => 'senhas não são iguais.'
                 ]
             );
 
@@ -262,7 +264,17 @@ class UsersTable extends Table
             ->scalar('pais')
             ->maxLength('pais', 45)
             ->allowEmptyString('pais');
-
+        
+        $validator
+            ->scalar('professor')
+            ->maxLength('professor', 255)
+            ->allowEmptyString('professor');
+        
+        $validator
+            ->scalar('professor_lattes')
+            ->maxLength('professor_lattes', 255)
+            ->allowEmptyString('professor_lattes');
+        
         return $validator;
     }
 
@@ -275,8 +287,14 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['email']), [
+            'errorField' => 'email', 
+            'message' => 'Este email já encontra-se em uso.'
+            ]);
+        $rules->add($rules->isUnique(['username']), [
+            'errorField' => 'username', 
+            'message' => 'Este username já encontra-se em uso.'
+            ]);
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;

@@ -9,6 +9,8 @@
 /webroot/adminlte/plugins/*
 /webroot/adminlte/dist/img/*
 /webroot/img/*
+/webroot/docs/*
+/config_ftp/*
 
 # OS generated files #
 ######################

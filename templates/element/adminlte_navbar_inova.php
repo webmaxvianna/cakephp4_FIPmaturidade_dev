@@ -11,7 +11,9 @@
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown mr-3">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <?= $userLogged->nome_completo ?>&nbsp;&nbsp;<i class="fas fa-chevron-circle-down"></i>
+          <?= $this->Html->image($userLogged->foto ? $userLogged->foto : 'usuarios/padrao.png', ['fullBase' => true, 'class' => 'img-circle img-fluid', 'alt' => 'User Image', 'style' => 'height: 30px']) ?>
+          &nbsp;&nbsp;<?= $userLogged->nome_completo ?>
+          &nbsp;&nbsp;<i class="fas fa-chevron-circle-down"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header"><u>Perfil: <?= strtoupper($userLogged->role->funcao) ?></u></span>
