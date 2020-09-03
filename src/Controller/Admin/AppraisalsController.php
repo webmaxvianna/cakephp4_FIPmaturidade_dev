@@ -18,16 +18,25 @@ class AppraisalsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index($id_idea = null)
     {
-        $this->paginate = [
-            'contain' => ['Ideas', 'Parameters'],
-            'limit' => 5,
-            'order' => ['idea_id' => 'asc'],
-            'conditions' => ['id_avaliador' => $this->Auth->user('id')],
-        ];
+        if($id_idea == null) {
+            $this->paginate = [
+                'contain' => ['Ideas', 'Parameters'],
+                'limit' => 5,
+                'order' => ['idea_id' => 'asc'],
+                'conditions' => ['id_avaliador' => $this->Auth->user('id')],
+            ];
+        }
+        else {
+            $this->paginate = [
+                'contain' => ['Ideas', 'Parameters'],
+                'limit' => 5,
+                'order' => ['idea_id' => 'asc'],
+                'conditions' => ['id_avaliador' => $this->Auth->user('id'), 'idea_id' => $id_idea],
+            ];
+        }
         $appraisals = $this->paginate($this->Appraisals);
-
         $this->set(compact('appraisals'));
     }
 
@@ -112,7 +121,7 @@ class AppraisalsController extends AppController
             if ($this->Appraisals->save($appraisal)) {
                 $this->Flash->success(__('A pontuação foi editada.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $idea_id]);
             }
             $this->Flash->error(__('A pontuação não pôde ser editada.'));
         }
