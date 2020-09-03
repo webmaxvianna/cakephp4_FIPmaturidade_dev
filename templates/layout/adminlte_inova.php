@@ -44,10 +44,10 @@
       './Pages/ApplicantIdeas'
     ]) 
   ?>
-  <?= 
-    $this->Html->css([
-      'custom-style'
-    ]) 
+  <?php
+    if ($userLogged->role->funcao != 'Gestor') {
+      echo $this->Html->css(['custom-style']); 
+    }    
   ?>
 
   <!-- Google Font: Source Sans Pro -->

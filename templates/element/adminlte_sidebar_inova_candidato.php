@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link mb-3">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="img-fluid"> -->
-      <?= $this->Html->image('Logo_Inova_Prudente.png', ['class' => 'img-fluid', 'alt' => 'AdminLTE Logo']) ?>
+      <?= $this->Html->image('Logo_Inova_Prudente_Sidebar.png', ['class' => 'img-fluid', 'alt' => 'AdminLTE Logo']) ?>
     </a>
 
     <!-- Sidebar -->
