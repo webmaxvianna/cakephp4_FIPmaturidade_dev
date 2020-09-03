@@ -22,6 +22,9 @@ class AppraisalsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Ideas', 'Parameters'],
+            'limit' => 5,
+            'order' => ['idea_id' => 'asc'],
+            'conditions' => ['id_avaliador' => $this->Auth->user('id')],
         ];
         $appraisals = $this->paginate($this->Appraisals);
 
@@ -49,21 +52,37 @@ class AppraisalsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($idea_id = null)
     {
+        $user_id = $this->Auth->user('id');
+
+        //Verificação para não permitir a alteração de notas de ideias não vinculadas ao avaliador
+        $this->loadModel('IdeasUsers');
+        $existe = $this->IdeasUsers->find('list', ['conditions' => ['user_id =' => $user_id, 'idea_id =' => $idea_id]]);
+        if($existe->toArray()==null) {
+            $this->Flash->error(__('Operação não permitida.'));
+            return $this->redirect(['controller' => 'appraisals', 'action' => 'index']);
+        }
+
         $appraisal = $this->Appraisals->newEmptyEntity();
         if ($this->request->is('post')) {
             $appraisal = $this->Appraisals->patchEntity($appraisal, $this->request->getData());
-            if ($this->Appraisals->save($appraisal)) {
-                $this->Flash->success(__('The appraisal has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            $existe = $this->Appraisals->find('list', ['limit' => 200, 'conditions' => ['idea_id =' => $idea_id, 'id_avaliador =' => $user_id,
+            'parameter_id =' => $appraisal->parameter_id]]);
+            if($existe->toArray()!=null) {
+                $appraisal->id = key($existe->toArray());
             }
-            $this->Flash->error(__('The appraisal could not be saved. Please, try again.'));
+            if ($this->Appraisals->save($appraisal)) {
+                $this->Flash->success(__('A pontuação foi registrada.'));
+                return $this->redirect(['controller' => 'appraisals', 'action' => 'add', $idea_id]);
+            }
+            $this->Flash->error(__('A pontuação não pôde ser registrada.'));
         }
-        $ideas = $this->Appraisals->Ideas->find('list', ['limit' => 200]);
+        $this->loadModel('Users');
+        $ideas = $this->Appraisals->Ideas->find('list', ['limit' => 200, 'conditions' => ['id' => $idea_id]]);
+        $avaliador = $this->Users->find('list', ['limit' => 200, 'conditions' => ['id' => $user_id]]);
         $parameters = $this->Appraisals->Parameters->find('list', ['limit' => 200]);
-        $this->set(compact('appraisal', 'ideas', 'parameters'));
+        $this->set(compact('appraisal', 'ideas', 'parameters', 'avaliador'));
     }
 
     /**
@@ -73,23 +92,35 @@ class AppraisalsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null, $idea_id = null)
     {
+        $user_id = $this->Auth->user('id');
+
+        //Verificação para não permitir a alteração de notas de ideias não vinculadas ao avaliador
+        $this->loadModel('IdeasUsers');
+        $existe = $this->IdeasUsers->find('list', ['conditions' => ['user_id =' => $user_id, 'idea_id =' => $idea_id]]);
+        if($existe->toArray()==null) {
+            $this->Flash->error(__('Operação não permitida.'));
+            return $this->redirect(['controller' => 'appraisals', 'action' => 'index']);
+        }
+
         $appraisal = $this->Appraisals->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $appraisal = $this->Appraisals->patchEntity($appraisal, $this->request->getData());
             if ($this->Appraisals->save($appraisal)) {
-                $this->Flash->success(__('The appraisal has been saved.'));
+                $this->Flash->success(__('A pontuação foi editada.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The appraisal could not be saved. Please, try again.'));
+            $this->Flash->error(__('A pontuação não pôde ser editada.'));
         }
-        $ideas = $this->Appraisals->Ideas->find('list', ['limit' => 200]);
+        $this->loadModel('Users');
+        $ideas = $this->Appraisals->Ideas->find('list', ['limit' => 200, 'conditions' => ['id' => $idea_id]]);
+        $avaliador = $this->Users->find('list', ['limit' => 200, 'conditions' => ['id' => $user_id]]);
         $parameters = $this->Appraisals->Parameters->find('list', ['limit' => 200]);
-        $this->set(compact('appraisal', 'ideas', 'parameters'));
+        $this->set(compact('appraisal', 'ideas', 'parameters', 'avaliador'));
     }
 
     /**

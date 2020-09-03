@@ -43,7 +43,7 @@ class ParametersTable extends Table
         parent::initialize($config);
 
         $this->setTable('parameters');
-        $this->setDisplayField('id');
+        $this->setDisplayField('item');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
