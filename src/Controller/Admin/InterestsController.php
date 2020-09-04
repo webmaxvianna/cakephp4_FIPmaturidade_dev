@@ -31,6 +31,7 @@ class InterestsController extends AppController
         $interests = $this->paginate($this->Interests);
 
         $this->set(compact('interests'));
+        $this->set("title_for_layout", "Interesses"); //Titulo da Página
     }
 
     /**
@@ -50,6 +51,7 @@ class InterestsController extends AppController
         ]);
 
         $this->set(compact('interest'));
+        $this->set("title_for_layout", "Visualizar Interesses"); //Titulo da Página
     }
 
     /**
@@ -74,6 +76,7 @@ class InterestsController extends AppController
         }
         $users = $this->Interests->Users->find('list', ['limit' => 200]);
         $this->set(compact('interest', 'users'));
+        $this->set("title_for_layout", "Adicionar Interesses"); //Titulo da Página
     }
 
     /**
@@ -102,6 +105,7 @@ class InterestsController extends AppController
         }
         $users = $this->Interests->Users->find('list', ['limit' => 200]);
         $this->set(compact('interest', 'users'));
+        $this->set("title_for_layout", "Editar Interesses"); //Titulo da Página
     }
 
     /**
