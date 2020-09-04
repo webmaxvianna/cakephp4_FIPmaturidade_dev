@@ -4,6 +4,12 @@
  * @var \App\Model\Entity\Task[]|\Cake\Collection\CollectionInterface $tasks
  */
 ?>
+<?php
+    $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Atividades']
+    ]);
+?>
 <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -17,7 +23,6 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th><?= $this->Paginator->sort('id') ?></th>
                                     <th><?= $this->Paginator->sort('dimensao', 'Dimensão') ?></th>
                                     <th><?= $this->Paginator->sort('atividade') ?></th>
                                     <th><?= $this->Paginator->sort('tipo') ?></th>
@@ -27,7 +32,6 @@
                             <tbody>
                                 <?php foreach ($tasks as $task): ?>
                                 <tr>
-                                    <td><?= $this->Number->format($task->id) ?></td>
                                     <td><?= h($task->dimensao) ?></td>
                                     <td><?= h($task->atividade) ?></td>
                                     <td><?= h($task->tipo) ?></td>

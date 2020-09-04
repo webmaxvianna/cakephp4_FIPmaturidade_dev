@@ -4,6 +4,13 @@
  * @var \App\Model\Entity\Task $task
  */
 ?>
+<?php
+    $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Atividades', 'url' => ['controller' => 'tasks', 'action' => 'index']],
+        ['title' => 'Adicionar Atividade']
+    ]);
+?>
 <div class="column">
     <div class="col-md-10 offset-md-1">
         <div class="tasks form content">
@@ -14,33 +21,34 @@
                 </div>
                 <div class="card-body">
                     <fieldset class="form-group" style="padding-left: 0;" >                       
-                        <?php
-                            echo $this->Form->control('atividade', [
-                                'class' => 'textarea', 
-                                'templates' => ['inputContainer' => '<div>{{content}}</div>'],
-                                ]);
-                            echo $this->Form->control('dimensao', [
-                                'class' => 'form-control mb-2',
-                                'empty' => ['0' => 'Escolha uma opção'],
-                                'options' => [
-                                    'Complementar' => 'Complementar',
-                                    'Finanças' => 'Finanças',
-                                    'Gestão' => 'Gestão',
-                                    'Inovação' => 'Inovação',
-                                    'Mercado' => 'Mercado',
-                                    'Pessoal' => 'Pessoal' 
-                                ]
-                            ]);
-                            echo $this->Form->control('tipo', [
-                                'class' => 'form-control mb-2',
-                                'empty' => ['0' => 'Escolha uma opção'],
-                                'options' => [
-                                    'Atitude' => 'Atitude',
-                                    'Conhecimento' => 'Conhecimento',
-                                    'Habilidade' => 'Habilidade'
-                                ]
-                            ]);
-                        ?>
+                    <?php
+                        echo $this->Form->control('dimensao', [
+                            'class' => 'form-control mb-2',
+                            'options' => [
+                                'Complementar' => 'Complementar',
+                                'Finanças' => 'Finanças',
+                                'Gestão' => 'Gestão',
+                                'Inovação' => 'Inovação',
+                                'Mercado' => 'Mercado',
+                                'Pessoal' => 'Pessoal' 
+                            ],
+                            'label' => 'Dimensão'
+                        ]);
+                        echo $this->Form->control('atividade', [
+                            'class' => 'form-control mb-2',
+                            'placeholder' => 'Atividade',
+                            'label' => ['text' => 'Atividade', 'label' => 'control-label']
+                        ]);
+                        echo $this->Form->control('tipo', [
+                            'class' => 'form-control mb-2',
+                            'options' => [
+                                'Atitude' => 'Atitude',
+                                'Conhecimento' => 'Conhecimento',
+                                'Habilidade' => 'Habilidade'
+                            ],
+                            'label' => 'Tipo'
+                        ]);
+                    ?>
                     </fieldset>
                     <?= $this->Form->button(__('Enviar'), [
                         'class' => 'btn btn-primary' 
