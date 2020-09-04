@@ -69,6 +69,10 @@ class RolesTable extends Table
             ->maxLength('funcao', 45)
             ->allowEmptyString('funcao');
 
+        $validator
+            ->scalar('descricao')
+            ->allowEmptyString('descricao');
+
         return $validator;
     }
 }

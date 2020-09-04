@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $funcao
+ * @property string|null $descricao
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -28,6 +29,7 @@ class Role extends Entity
      */
     protected $_accessible = [
         'funcao' => true,
+        'descricao' => true,
         'created' => true,
         'modified' => true,
         'users' => true,
