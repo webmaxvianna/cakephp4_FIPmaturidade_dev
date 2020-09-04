@@ -17,7 +17,6 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="card-title">Lista de ideias para serem avaliadas</h2>
-                <?= $this->Html->link("Listar notas", ['controller' => 'Appraisals', 'action' => 'index'], ['class' => 'btn btn-sm btn-primary float-right']) ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -37,6 +36,7 @@
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> Visualizar', ['action' => 'view', $ideasUser->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="fas fa-gavel"></i> Adicionar Nota', ['controller' => 'Appraisals', 'action' => 'add', $ideasUser->idea_id], ['class' => 'btn btn-secondary btn-sm', 'escape' => false]) ?>
+                        <?= $this->Html->link('<i class="fas fa-gavel"></i> Listar Notas', ['controller' => 'Appraisals', 'action' => 'index', $ideasUser->idea_id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
