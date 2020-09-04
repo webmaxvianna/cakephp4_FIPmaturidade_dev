@@ -46,8 +46,8 @@
                                 'label' => ['text' => 'Oportunidade', 'label' => 'control-label']
                             ]);
                             echo $this->Form->control('sumario_vontadecompetitiva', [
-                                'class' => 'form-control mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Vontade Competitiva',
-                                'label' => ['text' => 'Vontade Competitiva', 'label' => 'control-label']
+                                'class' => 'form-control mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Vantagem Competitiva',
+                                'label' => ['text' => 'Vantagem Competitiva', 'label' => 'control-label']
                             ]);
                             echo $this->Form->control('sumario_modelo', [
                                 'class' => 'form-control mb-2', 'id' => 'exampleInputEmail1', 'placeholder' => 'Modelo',

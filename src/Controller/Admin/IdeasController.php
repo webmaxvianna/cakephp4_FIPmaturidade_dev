@@ -34,6 +34,7 @@ class IdeasController extends AppController
         $ideas = $this->paginate($this->Ideas);
 
         $this->set(compact('ideas'));
+        $this->set("title_for_layout", "Ideias"); //Titulo da Página
     }
 
     /**
@@ -54,6 +55,7 @@ class IdeasController extends AppController
         }
 
         $this->set(compact('idea'));
+        $this->set("title_for_layout", "Visualizar Ideia"); //Titulo da Página
     }
 
     /**
@@ -96,6 +98,7 @@ class IdeasController extends AppController
             $users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $id]]);
         }
         $this->set(compact('idea', 'edicts', 'users'));
+        $this->set("title_for_layout", "Adicionar Ideia"); //Titulo da Página
     }
 
     /**
@@ -126,6 +129,7 @@ class IdeasController extends AppController
         //$users = $this->Ideas->Users->find('list', ['limit' => 200]);
         //$users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $this->Auth->user('id')]]);
         $this->set(compact('idea'));
+        $this->set("title_for_layout", "Editar Ideia"); //Titulo da Página
     }
 
     /**
@@ -175,6 +179,7 @@ class IdeasController extends AppController
 
         $avaliadores = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '2']]);
         $this->set(compact('idea', 'avaliadores'));
+        $this->set("title_for_layout", "Vincular Avaliadores"); //Titulo da Página
     }
 
     public function addApplicantIdeas($id = null)
@@ -210,6 +215,7 @@ class IdeasController extends AppController
         $ideas = $this->paginate($this->Ideas);
 
         $this->set(compact('ideas'));
+        $this->set("Ideias", "Tela de Acesso"); //Titulo da Página
     }
 
     public function addIdeas($id = null)
@@ -247,6 +253,7 @@ class IdeasController extends AppController
             $users = $this->Ideas->Users->find('list', ['limit' => 200, 'conditions' => ['Users.id' => $id]]);
         }
         $this->set(compact('idea', 'edicts', 'users'));
+        $this->set("title_for_layout", "Adicionar Ideia"); //Titulo da Página
     }
 
     public function editIdeas($id = null)
@@ -267,6 +274,7 @@ class IdeasController extends AppController
             $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $this->set(compact('idea'));
+        $this->set("title_for_layout", "Editar Ideia"); //Titulo da Página
     }
 
     public function editCanvas($id = null)
@@ -287,6 +295,7 @@ class IdeasController extends AppController
             $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $this->set(compact('idea'));
+        $this->set("title_for_layout", "Editar Canvas"); //Titulo da Página
     }
 
     public function editSumario($id = null)
@@ -307,5 +316,6 @@ class IdeasController extends AppController
             $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $this->set(compact('idea'));
+        $this->set("title_for_layout", "Editar Sumário"); //Titulo da Página
     }
 }

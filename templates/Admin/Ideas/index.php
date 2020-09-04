@@ -24,9 +24,11 @@
             <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>
+                <tr>                
+                <th><?= $this->Paginator->sort('numero','Edital') ?></th>
                 <th><?= $this->Paginator->sort('titulo','Título') ?></th>
                 <th><?= $this->Paginator->sort('user_id', 'Autor') ?></th>
+                <th><?= $this->Paginator->sort('titulo','Status') ?></th>
                 <th class="actions"><?= 'Vincular / Desvincular' ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
@@ -34,8 +36,25 @@
                 <tbody>
                 <?php foreach ($ideas as $idea): ?>
                 <tr>
+                    <td><?= h($idea->edict->numero) ?></td>
                     <td><?= h($idea->titulo) ?></td>
                     <td><?= h($idea->owner->nome_completo) ?></td>
+                    <td>
+                        <?php 
+                            switch ($idea->status) {
+                                case '0':
+                                    echo '<span class="badge badge-secondary badge-pill pl-2 pr-2">&nbsp;&nbsp; inativo &nbsp;&nbsp;</span>';
+                                break;
+                                case '1':
+                                    echo '<span class="badge badge-warning badge-pill pl-2 pr-2">&nbsp;&nbsp; em edição &nbsp;&nbsp;</span>';
+                                    break;
+                                case '2':
+                                    echo '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; finalizado &nbsp;&nbsp;</span>';
+                                    break;
+                            }
+                            if ($idea->status) 
+                        ?>
+                    </td>
                     <td><?= $this->Html->link('Avaliadores', ['action' => 'vincular_avaliadores', $idea->id], ['class' => 'btn btn-outline-primary btn-sm', 'escape' => false]) ?></td>
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $idea->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
