@@ -6,6 +6,7 @@
 ?>
 <?php
     $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
         ['title' => 'Características', 'url' => ['controller' => 'characteristics', 'action' => 'index']],
         ['title' =>'Adicionar']
     ]);
@@ -27,9 +28,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <?php
-                            echo $this->Form->control('sobre', ['class' => 'form-control col-3 mb-2', 'rows' => '3',
-                            'placeholder' => 'Sobre',
-                            'label' => false
+                            echo $this->Form->control('sobre', [
+                                'class' => 'form-control mb-2', 
+                                'rows' => '5',
+                                'placeholder' => 'Sobre',
+                                'label' => 'Sobre'
                             ]);
                         ?>    
                     </div>
