@@ -24,6 +24,7 @@ class UsersController extends AppController
         ];
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
+        $this->set("title_for_layout", "Usuários"); //Titulo da Página
     }
 
     public function view($id = null)
@@ -32,6 +33,7 @@ class UsersController extends AppController
             'contain' => ['Roles', 'MyEdicts', 'Edicts', 'MyIdeas', 'Ideas', 'Characteristics', 'Interests', 'Specialties', 'Tasks', 'Resumes', 'Verifications'],
         ]);
         $this->set(compact('user'));
+        $this->set("title_for_layout", "Visualizar usuário"); //Titulo da Página
     }
 
     public function add()
@@ -59,6 +61,7 @@ class UsersController extends AppController
         $specialties = $this->Users->Specialties->find('list', ['limit' => 200]);
         $tasks = $this->Users->Tasks->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles', 'edicts', 'ideas', 'characteristics', 'interests', 'specialties', 'tasks'));
+        $this->set("title_for_layout", "Adicionar usuário"); //Titulo da Página
     }
 
     public function edit($id = null)
@@ -89,6 +92,7 @@ class UsersController extends AppController
         $specialties = $this->Users->Specialties->find('list', ['limit' => 200]);
         $tasks = $this->Users->Tasks->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles', 'edicts', 'ideas', 'characteristics', 'interests', 'resumes', 'specialties', 'tasks'));
+        $this->set("title_for_layout", "Editar usuário"); //Titulo da Página
     }
 
     public function delete($id = null)

@@ -7,7 +7,8 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
-        ['title' => 'Usuários', 'url' => ['controller' => '$managers', 'action' => 'index']]
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Usuários']
     ]);
 ?>
 <section class="content">
@@ -51,7 +52,7 @@
                                     <!-- <th><?= $this->Paginator->sort('cidade') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('estado') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('pais') ?></th> -->
-                                    <th><?= $this->Paginator->sort('role_id') ?></th>
+                                    <th><?= $this->Paginator->sort('role_id', 'Função') ?></th>
                                     <!-- <th><?= $this->Paginator->sort('created', 'Criado em') ?></th> -->
                                     <!-- <th><?= $this->Paginator->sort('modified', 'Modificado em') ?></th> -->
                                     <th class="actions">Ações</th>
@@ -70,7 +71,7 @@
                                     <td><?= h($user->username) ?></td>
                                     <!-- <td><?= h($user->password) ?></td> -->
                                     <!-- <td><?= h($user->foto) ?></td> -->
-                                    <td><?= $this->Number->format($user->status) ?></td>
+                                    <td><?= $user->status == 1 ? '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; ativo &nbsp;&nbsp;</span>' : '<span class="badge badge-secondary badge-pill pl-2 pr-2">inativo</span>'; ?></td>
                                     <!-- <td><?= $this->Number->format($user->confirmacao_email) ?></td> -->
                                     <!-- <td><?= $this->Number->format($user->confirmacao_celular) ?></td> -->
                                     <!-- <td><?= h($user->cpf) ?></td> -->
