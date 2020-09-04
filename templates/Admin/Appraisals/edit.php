@@ -4,27 +4,30 @@
  * @var \App\Model\Entity\Appraisal $appraisal
  */
 ?>
+<?php
+$this->Breadcrumbs->add([
+    ['title' => 'Avaliações', 'url' => ['controller' => 'appraisals', 'action' => 'index', $userLogged['id']]],
+    ['title' => 'Editar nota']
+]);
+?>
+<!-- Main content -->
+<section class="content">
+<div class="container-fluid">
 <div class="row">
-    <div class="card w-100">
+    <div class="col-12">
+    <div class="card">
         <div class="card-header">
-            <h4><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $appraisal->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $appraisal->id)]
-            ) ?>
-            <?= $this->Html->link(__('List Appraisals'), ['action' => 'index']) ?>
+            <h4><?= __('Editar pontuação') ?></h4>
         </div>
         <div class="card-body">
             <div class="appraisals form content">
                 <?= $this->Form->create($appraisal) ?>
                 <fieldset class="p-0">
-                    <legend><?= __('Edit Appraisal') ?></legend>
                     <?php
-                    echo $this->Form->control('pontuacao', ['class' => 'form-control mb-2']);
-                    echo $this->Form->control('idea_id', ['options' => $ideas, 'class' => 'form-control mb-2']);
-                    echo $this->Form->control('appraiser_id', ['options' => $appraisers, 'class' => 'form-control mb-2']);
-                    echo $this->Form->control('parameter_id', ['options' => $parameters, 'class' => 'form-control mb-2']);
+                    echo $this->Form->control('id_avaliador', ['options' => $avaliador, 'class' => 'form-control mb-2', 'label' => ['text' => 'Avaliador']]);
+                    echo $this->Form->control('idea_id', ['options' => $ideas, 'class' => 'form-control mb-2', 'label' => ['text' => 'Ideia']]);
+                    echo $this->Form->control('parameter_id', ['options' => $parameters, 'class' => 'form-control mb-2', 'label' => ['text' => 'Critério']]);
+                    echo $this->Form->control('pontuacao', ['class' => 'form-control mb-2', 'label' => ['text' => 'Pontuação'], 'type'=> 'number', 'min'=>"0", 'max'=>"5"]);
                 ?>
                 </fieldset>
                 <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary mt-2']) ?>
@@ -32,4 +35,7 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
+</div>
+</section>
