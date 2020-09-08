@@ -27,7 +27,7 @@ $this->Breadcrumbs->add([
                     echo $this->Form->control('id_avaliador', ['options' => $avaliador, 'class' => 'form-control mb-2', 'label' => ['text' => 'Avaliador']]);
                     echo $this->Form->control('idea_id', ['options' => $ideas, 'class' => 'form-control mb-2', 'label' => ['text' => 'Ideia']]);
                     echo $this->Form->control('parameter_id', ['options' => $parameters, 'class' => 'form-control mb-2', 'label' => ['text' => 'Critério']]);
-                    echo $this->Form->control('pontuacao', ['class' => 'form-control mb-2', 'label' => ['text' => 'Pontuação'], 'type'=> 'number', 'min'=>"0", 'max'=>"5"]);
+                    echo $this->Form->control('pontuacao', ['class' => 'form-control mb-2', 'label' => ['text' => 'Pontuação'], 'type'=> 'number', 'min'=>"0", 'max'=>"5", 'step'=>"0.01"]);
                 ?>
                 </fieldset>
                 <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary mt-2']) ?>
