@@ -11,16 +11,29 @@
         ['title' => 'Editar Atividade']
     ]);
 ?>
-<div class="column">
-    <div class="col-md-10 offset-md-1">
-        <div class="tasks form content">
+<!-- Main content --> 
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- column -->
+      <div class="col-md-10 offset-md-1">
+        <!-- general form elements disabled -->
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Editar Atividade</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <?php  
+                $myTemplates = [
+                    'error' => '<div class="error invalid-feedback">{{content}}</div>',
+                ];
+                $this->Form->setTemplates($myTemplates);
+                $this->Form->setConfig('errorClass', 'is-invalid');
+            ?>
             <?= $this->Form->create($task) ?>
-            <div class="card card-secondary">
-                <div class='card-header'>
-                    <h3 class='card-title'><?= __('Editar Atividade') ?></h3>
-                </div>
                 <div class="card-body">
-                    <fieldset class="form-group" style="padding-left: 0;" >                       
+                    <div class="form-group">                       
                     <?php
                         echo $this->Form->control('dimensao', [
                             'class' => 'form-control mb-2',
@@ -49,13 +62,14 @@
                             'label' => 'Tipo'
                         ]);
                     ?>
-                    </fieldset>
-                    <?= $this->Form->button(__('Enviar'), [
-                        'class' => 'btn btn-primary' 
-                    ]) ?>
-                    <?= $this->Form->end() ?>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->Form->button(__('Salvar Alterações'),['class'=>'btn btn-block btn-primary col-md-6 offset-md-3']) ?>
                 </div>
             </div>
         </div>
     </div>
+    <?= $this->Form->end() ?>
 </div>
+</section>

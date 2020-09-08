@@ -23,9 +23,9 @@
                             ?>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 offset-md-3">
-                    <?= $this->Form->button(__('Enviar Arquivo'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
+                    <div class="card-footer">
+                        <?= $this->Form->button(__('Enviar Arquivo'),['class'=>'btn btn-block btn-primary col-md-6 offset-md-3']) ?>
+                    </div>
                 </div>
             </div>
         </div>

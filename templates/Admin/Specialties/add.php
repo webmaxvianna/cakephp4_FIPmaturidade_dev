@@ -1,6 +1,7 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
         ['title' => 'Especialidades', 'url' => ['controller' => 'specialties', 'action' => 'index']],
         ['title' => 'Adicionar']
     ]);
@@ -21,10 +22,6 @@
             <!-- form start -->
             <?= $this->Form->create($specialty) ?>
                 <div class="card-body">
-                    <!-- <div class="form-group">
-                        <label for="exampleInputEmail1">Especialidade</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                    </div> -->
                     <div class="form-group">
                         <?php
                             echo $this->Form->control('especialidade',[
@@ -32,12 +29,11 @@
                                 'label' => ['text' => 'Especialidade', 'label' => 'control-label']
                             ]);
                         ?>    
-                    </div>
-                    
+                    </div>                    
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <?= $this->Form->button(__('Adicionar Especialidade'),['class'=>'btn btn-primary']) ?>
+                    <?= $this->Form->button(__('Salvar Especialidade'),['class'=>'btn btn-primary col-md-6 offset-3']) ?>
                 </div>
             <?= $this->Form->end() ?>
         </div>

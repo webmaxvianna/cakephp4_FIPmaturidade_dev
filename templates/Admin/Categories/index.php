@@ -7,7 +7,8 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
-        ['title' => 'Categorias', 'url' => ['controller' => '$categories', 'action' => 'index']]
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Categorias']
     ]);
 ?>
 <section class="content">

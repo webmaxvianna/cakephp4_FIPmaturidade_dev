@@ -1,7 +1,8 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
-        ['title' => 'Especialidades', 'url' => ['controller' => 'specialties', 'action' => 'index']]
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Especialidades']
     ]);
 ?>
 <!-- /.Breadcrumbs -->

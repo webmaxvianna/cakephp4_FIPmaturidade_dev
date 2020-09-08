@@ -36,11 +36,11 @@
                             ]);
                         ?>    
                     </div>
-                    <div class="col-md-3 offset-md-0">
-                        <?= $this->Form->button(__('Adicionar Característica'),['class'=>'btn btn-primary btn-block']) ?>                    
-                    </div>
                 </div>
                 <!-- /.card-body -->
+                <div class="card-footer">
+                    <?= $this->Form->button(__('Salvar Característica'),['class'=>'btn btn-primary col-md-6 offset-md-3']) ?>                    
+                </div>
             <?= $this->Form->end() ?>
         </div>
         <!-- /.card -->

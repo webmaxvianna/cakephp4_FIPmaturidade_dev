@@ -24,7 +24,7 @@
                                 <tr>
                                     <th><?= $this->Paginator->sort('id','ID') ?></th>
                                     <th><?= $this->Paginator->sort('funcao','Função') ?></th>
-                                    <th><?= $this->Paginator->sort('descricao','Descrição') ?></th>
+                                    <th><?= 'Descrição' ?></th>
                                 </tr>
                             </thead>
                             <tbody>

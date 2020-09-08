@@ -38,7 +38,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <?= $this->Form->button(__('Adicionar Interesse'),['class'=>'btn btn-primary w-15']) ?>
+                    <?= $this->Form->button(__('Salvar Interesse'),['class'=>'btn btn-primary col-md-6 offset-md-3']) ?>
                 </div>
             <?= $this->Form->end() ?>
         </div>

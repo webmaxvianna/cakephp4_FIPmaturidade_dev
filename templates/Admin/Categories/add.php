@@ -7,6 +7,7 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
         ['title' => 'Categorias', 'url' => ['controller' => 'categories', 'action' => 'index']],
         ['title' => 'Adicionar']
     ]);
@@ -28,7 +29,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <?= $this->Form->button(__('Enviar'),['class'=>'btn btn-primary w-15']) ?>
+                        <?= $this->Form->button(__('Salvar Categoria'),['class'=>'btn btn-primary col-md-6 offset-md-3']) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
