@@ -79,6 +79,12 @@ class IdeasTable extends Table
             'targetForeignKey' => 'user_id',
             'joinTable' => 'ideas_users',
         ]);
+        $this->belongsToMany('Jurors', [
+            'className' => 'Users',
+            'foreignKey' => 'idea_id',
+            'targetForeignKey' => 'user_id',
+            'joinTable' => 'ideas_users_jurors',
+        ]);
     }
 
     /**

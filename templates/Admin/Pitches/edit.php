@@ -4,41 +4,38 @@
  * @var \App\Model\Entity\Pitch $pitch
  */
 ?>
-<div class="column">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Ações') ?></h4>
-            <?= $this->Form->postLink(
-                __('Deletar'),
-                ['action' => 'delete', $pitch->id],
-                ['confirm' => __('Você tem certeza que deseja deletar o pitch # {0}?', $pitch->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('Listar pitches'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<?php
+$this->Breadcrumbs->add([
+    ['title' => 'Avaliações', 'url' => ['controller' => 'pitches', 'action' => 'index', $userLogged['id']]],
+    ['title' => 'Editar nota']
+]);
+?>
+<!-- Main content -->
+<section class="content">
+<div class="container-fluid">
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4><?= __('Editar pontuação') ?></h4>
         </div>
-    </aside>
-    <br>
-    <div class="column-responsive column-80">
-        <div class="pitches form content">
-            <?= $this->Form->create($pitch) ?>
-            <div class="card">
-                <div class="card-body">
-                    <fieldset class="form-group" style="padding-left: 0;" >
-                        <legend><?= __('Editar Pitch') ?></legend>
-                        <?php
-                            echo $this->Form->control('pontuacao', [
-                                'class' => 'form-control mb-2' 
-                            ]);
-                            echo $this->Form->control('category_id', ['class'=>'form-control mb-2','options' => $categories]);
-                            echo $this->Form->control('juror_id', ['class'=>'form-control mb-2','options' => $jurors]);
-                            echo $this->Form->control('idea_id', ['class'=>'form-control mb-2','options' => $ideas]);
-                        ?>
-                    </fieldset>
-                    <?= $this->Form->button(__('Enviar'), [
-                        'class' => 'btn btn-primary'
-                    ]) ?>
-                    <?= $this->Form->end() ?>
-                </div>
+        <div class="card-body">
+            <div class="pitches form content">
+                <?= $this->Form->create($pitch) ?>
+                <fieldset class="p-0">
+                    <?php
+                    echo $this->Form->control('id_jurado', ['options' => $jurado, 'class' => 'form-control mb-2', 'label' => ['text' => 'Jurado']]);
+                    echo $this->Form->control('idea_id', ['options' => $ideas, 'class' => 'form-control mb-2', 'label' => ['text' => 'Ideia']]);
+                    echo $this->Form->control('category_id', ['options' => $categories, 'class' => 'form-control mb-2', 'label' => ['text' => 'Critério']]);
+                    echo $this->Form->control('pontuacao', ['class' => 'form-control mb-2', 'label' => ['text' => 'Pontuação'], 'type'=> 'number', 'min'=>"0", 'max'=>"5", 'step'=>"0.01"]);
+                ?>
+                </fieldset>
+                <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary mt-2']) ?>
+                <?= $this->Form->end() ?>
             </div>
         </div>
     </div>
+    </div>
 </div>
+</div>
+</section>

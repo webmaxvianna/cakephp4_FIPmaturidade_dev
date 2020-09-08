@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <?= $this->Form->button(__('Enviar'),['class'=>'btn btn-primary w-15']) ?>
+                        <?= $this->Form->button(__('Editar'),['class'=>'btn btn-primary w-15']) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>

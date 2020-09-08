@@ -61,11 +61,11 @@ class CategoriesController extends AppController
         if ($this->request->is('post')) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
             if ($this->Categories->save($category)) {
-                $this->Flash->success(__('The category has been saved.'));
+                $this->Flash->success(__('O critério foi salvo.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $edicts = $this->Categories->Edicts->find('list', ['limit' => 200]);
         $this->set(compact('category', 'edicts'));
@@ -93,7 +93,7 @@ class CategoriesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
         $edicts = $this->Categories->Edicts->find('list', ['limit' => 200]);
         $this->set(compact('category', 'edicts'));
@@ -116,7 +116,7 @@ class CategoriesController extends AppController
         if ($this->Categories->delete($category)) {
             $this->Flash->success(__('The category has been deleted.'));
         } else {
-            $this->Flash->error(__('The category could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
