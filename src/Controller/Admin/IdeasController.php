@@ -318,4 +318,21 @@ class IdeasController extends AppController
         $this->set(compact('idea'));
         $this->set("title_for_layout", "Editar Sumário"); //Titulo da Página
     }
+
+    public function finishIdea($id = null)
+    {
+        $idea = $this->Ideas->get($id);
+        $idea->status = 2;
+
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        
+        if ($this->Ideas->save($idea)) {
+            $this->Flash->success(__('A ideia foi finalizada.'));
+            return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+        }
+        $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
+        return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+    }
 }

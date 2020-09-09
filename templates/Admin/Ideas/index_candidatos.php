@@ -54,9 +54,12 @@
                         ?>
                     </td>
                     <td class="actions">
-                        <?= $this->Html->link('&nbsp;<i class="far fa-edit"></i> Ideia &nbsp;', ['action' => 'editIdeas', $idea->id], ['class' => 'btn btn-outline-info btn-sm', 'escape' => false]) ?>
-                        <?= $this->Html->link('&nbsp;<i class="far fa-edit"></i> Canvas &nbsp;', ['action' => 'editCanvas', $idea->id], ['class' => 'btn btn-outline-info btn-sm', 'escape' => false]) ?>
-                        <?= $this->Html->link('&nbsp;<i class="far fa-edit"></i> Sumário &nbsp;', ['action' => 'editSumario', $idea->id], ['class' => 'btn btn-outline-info btn-sm', 'escape' => false]) ?>
+                        <?= $this->Html->link('&nbsp;<i class="far fa-edit"></i> Ideia &nbsp;', ['action' => 'editIdeas', $idea->id], ['class' => 'btn btn-outline-info btn-sm mb-1', 'escape' => false]) ?>
+                        <?= $this->Html->link('&nbsp;<i class="far fa-edit"></i> Canvas &nbsp;', ['action' => 'editCanvas', $idea->id], ['class' => 'btn btn-outline-info btn-sm mb-1', 'escape' => false]) ?>
+                        <?= $this->Html->link('&nbsp;<i class="far fa-edit"></i> Sumário &nbsp;', ['action' => 'editSumario', $idea->id], ['class' => 'btn btn-outline-info btn-sm mb-1', 'escape' => false]) ?>
+                        <?php if ($idea->status != 2) : ?>
+                            <?= $this->Form->postLink('<i class="far fa-check-square"></i> Finalizar Edição', ['action' => 'finishIdea', $idea->id], ['confirm' => __("Você tem certeza que concluiu a edição da sua ideia '".$idea->titulo."'? Clique em OK para finalizar a edição."), 'class' => 'btn btn-outline-success btn-sm mb-1', 'escape' => false]) ?>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
