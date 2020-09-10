@@ -7,6 +7,7 @@
 ?>
 <?php
     $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
         ['title' => 'Interesses', 'url' => ['controller' => 'interests', 'action' => 'index']],
         ['title' =>'Editar']
     ]);
@@ -37,7 +38,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <?= $this->Form->button(__('Editar Interesse'),['class'=>'btn btn-primary w-15']) ?>
+                    <?= $this->Form->button(__('Salvar Alteração'),['class'=>'btn btn-primary col-md-6 offset-md-3']) ?>
                 </div>
             <?= $this->Form->end() ?>
         </div>

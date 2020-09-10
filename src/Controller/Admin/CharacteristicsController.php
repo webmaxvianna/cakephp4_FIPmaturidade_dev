@@ -31,6 +31,7 @@ class CharacteristicsController extends AppController
         $characteristics = $this->paginate($this->Characteristics);
 
         $this->set(compact('characteristics'));
+        $this->set("title_for_layout", "Características"); //Titulo da Página
     }
 
     /**
@@ -50,6 +51,7 @@ class CharacteristicsController extends AppController
         ]);
 
         $this->set(compact('characteristic'));
+        $this->set("title_for_layout", "Visualizar Característica"); //Titulo da Página
     }
 
     /**
@@ -74,6 +76,7 @@ class CharacteristicsController extends AppController
         }
         $users = $this->Characteristics->Users->find('list', ['limit' => 200]);
         $this->set(compact('characteristic', 'users'));
+        $this->set("title_for_layout", "Adicionar Característica"); //Titulo da Página
     }
 
     /**
@@ -102,6 +105,7 @@ class CharacteristicsController extends AppController
         }
         $users = $this->Characteristics->Users->find('list', ['limit' => 200]);
         $this->set(compact('characteristic', 'users'));
+        $this->set("title_for_layout", "Editar Característica"); //Titulo da Página
     }
 
     /**

@@ -1,218 +1,141 @@
+<!-- Breadcrumbs -->
 <?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\user $user
- */
-?>
-<?php
-$this->Breadcrumbs->add([
-    ['title' => 'Candidatos', 'url' => ['controller' => 'users', 'action' => 'index']],
-    ['title' => 'Detalhes']
-]);
+    $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Usuários', 'url' => ['controller' => 'users', 'action' => 'index']],
+        ['title' => 'Visualizar']
+    ]);
 ?>
 <section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class=" col-12">
-                <div class="card card-dark">
-                    <div class="card-header">
-                        <h4 class="mb-0">
-                            <i class="fas fa-user-tie"></i>
-                            &nbsp;<?= h($user->nome_completo) . " / Id: " . h($user->id) ?>
-                            <small class="float-right">Criado em: <?= h($user->created) ?></small>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="mb-0">Detalhes</h4>
-                            </div>
-                            <div class="card-body p-0">
-                                <table class="table table-sm">
-                                    <tr>
-                                        <th><?= __('Nome') ?></th>
-                                        <td><?= h($user->nome) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Sobrenome') ?></th>
-                                        <td><?= h($user->sobrenome) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Sexo') ?></th>
-                                        <td><?= h($user->sexo) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Email') ?></th>
-                                        <td><?= h($user->email) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Username') ?></th>
-                                        <td><?= h($user->username) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Password') ?></th>
-                                        <td><?= h($user->password) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Foto') ?></th>
-                                        <td><?= h($user->foto) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Cpf') ?></th>
-                                        <td><?= h($user->cpf) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Rg') ?></th>
-                                        <td><?= h($user->rg) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Facebook') ?></th>
-                                        <td><?= h($user->facebook) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Linkedin') ?></th>
-                                        <td><?= h($user->linkedin) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Instagram') ?></th>
-                                        <td><?= h($user->instagram) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Lattes') ?></th>
-                                        <td><?= h($user->lattes) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Telefone 1') ?></th>
-                                        <td><?= h($user->telefone1) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Telefone 2') ?></th>
-                                        <td><?= h($user->telefone2) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Cep') ?></th>
-                                        <td><?= h($user->cep) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Logradouro') ?></th>
-                                        <td><?= h($user->logradouro) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Numero') ?></th>
-                                        <td><?= h($user->numero) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Complemento') ?></th>
-                                        <td><?= h($user->complemento) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Bairro') ?></th>
-                                        <td><?= h($user->bairro) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Cidade') ?></th>
-                                        <td><?= h($user->cidade) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Estado') ?></th>
-                                        <td><?= h($user->estado) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Pais') ?></th>
-                                        <td><?= h($user->pais) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Função') ?></th>
-                                        <td><?= h($user->role->funcao) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Status') ?></th>
-                                        <td><?= $this->Number->format($user->status) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Data Nascimento') ?></th>
-                                        <td><?= h($user->data_nascimento) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Última modificação') ?></th>
-                                        <td><?= h($user->modified) ?></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
 
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Ideias Relacionadas') ?></h4>
-                                    </div>
-                                    <?php if (!empty($user->ideas)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($user->ideas as $ideas) : ?>
-                                                    <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $ideas->id ?>">
-                                                        <?= $this->Html->link($ideas->titulo, ['controller' => 'ideas', 'action' => 'view', $ideas->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Editais Relacionados') ?></h4>
-                                    </div>
-                                    <?php if (!empty($user->resumes)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($user->resumes as $resumes) : ?>
-                                                    <li data-toggle="tooltip" data-placement="left" title="<?php "Id: " . $resumes->id ?>">
-                                                        <?php $this->Html->link($resumes->curriculo, ['controller' => 'resumes', 'action' => 'view', $resumes->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                            </table>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><?= __('Verificações relacionadas') ?></h4>
-                                    </div>
-                                    <?php if (!empty($user->verifications)) : ?>
-                                        <div class=" card-body">
-                                            <ul>
-                                                <?php foreach ($user->verifications as $verifications) : ?>
-                                                    <li data-toggle="tooltip" data-placement="top" title="<?= "Id: " . $verifications->id ?>">
-                                                        <?= $this->Html->link($verifications->id, ['controller' => 'verifications', 'action' => 'view', $verifications->id]); ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    <?php else : ?>
-                                        <h5 class="mx-auto my-3 text-secondary">Nenhum dado encontrado!</h5>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Main content -->
+        <div class="invoice p-3 mb-3">
+          <!-- title row -->
+          <div class="row">
+            <div class="col-12 mb-2">
+            <?php
+              if ($user->status) {
+                $class = 'profile-user-img img-fluid img-circle border-2 border-success';
+              } else {
+                $class = 'profile-user-img img-fluid img-circle border-2 border-default';
+              }
+              echo $this->Html->image($user->foto ? $user->foto : 'usuarios/padrao.png', ['fullBase' => true, 'class' => $class, 'alt' => 'User profile picture']);
+            ?>
+              <h2><?= $user->nome_completo ?></h2>
             </div>
+            <!-- /.col -->
+          </div>
+          <!-- info row -->
+          <div class="row invoice-info mb-4">
+            <div class="col-sm-4 invoice-col">
+              <b>Nome de usuário:</b> <?= $user->username ?><br>
+              <b>Função:</b> <?= $user->role->funcao ?><br>
+              <b>Email:</b> <?= $user->email ?> <?= $user->confirmacao_email ? '<i class="text-success fas fa-check"></i>' : '' ?><br>
+              <b>Data de nascimento:</b> <?= $user->data_nascimento ?><br>
+              <b>Sexo:</b> <?= $user->sexo ?><br>
+              <b>RG:</b> <?= $user->rg ?><br>
+              <b>CPF:</b> <?= $user->cpf ?><br>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+              <b>Telefone 1:</b> <?= $user->telefone1 ?><br>
+              <b>Telefone 2:</b> <?= $user->telefone2 ?><br>
+              <b>Facebook:</b> <?= $user->facebook ?><br>
+              <b>LinkedIn:</b> <?= $user->linkedin ?><br>
+              <b>Instagram:</b> <?= $user->instagram ?><br>              
+              <b>Currículo Lattes:</b> <?= $user->lattes ?><br>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+              <address>
+                <b>CEP:</b> <?= $user->cep ?><br>
+                <b>Endereço:</b> <?= $user->logradouro ?><br>
+                <b>Número:</b> <?= $user->numero ?><br>
+                <b>Complemento:</b> <?= $user->complemento ?><br>
+                <b>Bairro:</b> <?= $user->bairro ?><br>                
+                <b>Cidade:</b> <?= $user->cidade ?><br>
+                <b>Estado:</b> <?= $user->estado ?><br>
+                <b>País:</b> <?= $user->pais ?><br>
+              </address>
+            </div>
+            <!-- /.col -->
+
+            <?php if ($user->role->funcao == 'Candidato') : ?>
+              <div class="col-sm-12 invoice-col">              
+                <b>Professor Orientador:</b> <?= $user->professor ?><br>
+                <b>Currículo Lattes do Professor:</b> <?= $user->professor_lattes ?><br>
+              </div>
+            <?php endif; ?>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
+          <?php if ($user->role->funcao == 'Candidato') : ?>
+          <!-- info row -->
+          <div class="row invoice-info">
+            <div class="col-sm-12 invoice-col">
+              <h4>Área de atuação</h4>
+              <p><?= $user->resume->area_atuacao ?></p>
+              <h4>Currículo resumido</h4>
+              <p><?= $user->resume->curriculo ?></p>
+            </div>
+            <!-- /.col -->
+          </div>
+          <?php endif; ?>
+          
+          <!-- /.row -->
+          <div class="row mt-4">
+            <?php if ($user->role->funcao == 'Candidato') : ?>
+              <div class="col-sm-6 px-4">
+                <h4>Interesses</h4>
+                <div class="table-responsive">
+                  <table class="table">
+                  <?php foreach ($user->interests as $interest) : ?>
+                    <tr>
+                      <td><?= $interest['interesse'] ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                  </table>
+                </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6 px-4 ">
+                <h4>Sobre</h4>
+                <div class="table-responsive">
+                  <table class="table">
+                  <?php foreach ($user->characteristics as $characteristic) : ?>
+                    <tr>
+                      <td><?= $characteristic['sobre'] ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                  </table>
+                </div>
+              </div>
+              <!-- /.col -->
+            <?php elseif (($user->role->funcao != 'Candidato') && ($user->role->funcao != 'Gestor')): ?>
+              <div class="col-sm-12">
+                <h4>Especialidades</h4>
+                <div class="table-responsive">
+                  <table class="table">
+                  <?php foreach ($user->specialties as $specialty) : ?>
+                    <tr>
+                      <td><?= $specialty['especialidade'] ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                  </table>
+                </div>
+              </div>
+              <!-- /.col -->
+            <?php endif; ?>         
+          </div>
+          <!-- /.row -->
         </div>
-    </div>
+        <!-- /.invoice -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->    
+  </div><!-- /.container-fluid -->
 </section>
-
-
+<!-- /.content -->

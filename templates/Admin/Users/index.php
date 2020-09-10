@@ -71,7 +71,7 @@
                                     <td><?= h($user->username) ?></td>
                                     <!-- <td><?= h($user->password) ?></td> -->
                                     <!-- <td><?= h($user->foto) ?></td> -->
-                                    <td><?= $user->status == 1 ? '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; ativo &nbsp;&nbsp;</span>' : '<span class="badge badge-secondary badge-pill pl-2 pr-2">inativo</span>'; ?></td>
+                                    <td><?= $user->status == 1 ? '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; ativo &nbsp;&nbsp;</span>' : '<span class="badge badge-secondary badge-pill pl-2 pr-2">&nbsp; inativo &nbsp;</span>'; ?></td>
                                     <!-- <td><?= $this->Number->format($user->confirmacao_email) ?></td> -->
                                     <!-- <td><?= $this->Number->format($user->confirmacao_celular) ?></td> -->
                                     <!-- <td><?= h($user->cpf) ?></td> -->

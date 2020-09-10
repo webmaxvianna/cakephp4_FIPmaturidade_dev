@@ -3,6 +3,12 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Parameter[]|\Cake\Collection\CollectionInterface $parameters
  */
+?><!-- Breadcrumbs -->
+<?php
+    $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Parâmetros']
+    ]);
 ?>
 <section class="content">
     <div class="container-fluid">

@@ -52,9 +52,14 @@ class DashboardsController extends AppController
         $interest = $this->InterestsUsers->find('all', ['conditions' => ['user_id =' => $this->Auth->user('id')]])->first();
         // debug($interest);exit;
         $interesse = ($interest) ? true : false ;
+
+        $this->loadModel('SpecialtiesUsers');
+        $specialty = $this->SpecialtiesUsers->find('all', ['conditions' => ['user_id =' => $this->Auth->user('id')]])->first();
+        // debug($specialty);exit;
+        $especialidade = ($specialty) ? true : false ;
         
         $this->loadModel('Users');
-        $user = $this->Users->find('all', ['conditions' => ['id =' => $this->Auth->user('id')]])->first();
+        $user = $this->Users->find('all', ['conditions' => ['Users.id =' => $this->Auth->user('id')]])->contain(['Roles'])->first();
         // debug($user);exit;
         if ($user->nome_completo) { $nome_completo = true; } else { $nome_completo = false; }
         if ($user->data_nascimento) { $data_nascimento = true; } else { $data_nascimento = false; }
@@ -69,17 +74,32 @@ class DashboardsController extends AppController
         if ($user->estado) { $estado = true; } else { $estado = false; }
         if ($user->pais) { $pais = true; } else { $pais = false; }
         if ($nome_completo && $data_nascimento && $sexo && $cpf && $rg && $cep && $logradouro && $numero && $bairro && $cidade && $estado && $pais) {
-            $user = true;
+            $usuario = true;
         } else {
-            $user = false;
+            $usuario= false;
         }
         // debug($user);exit;
 
-        if ($user && $resume && $sobre && $interesse) {
-            $this->set('dados_pessoais', true);
+        if ($user->role->funcao == 'Candidato') {
+            if ($usuario && $resume && $sobre && $interesse) {
+                $this->set('dados_pessoais', true);
+            } else {
+                $this->set('dados_pessoais', false);
+            }
+        } elseif (($user->role->funcao != 'Candidato') && ($user->role->funcao != 'Gestor')) {
+            if ($usuario && $especialidade) {
+                    $this->set('dados_pessoais', true);
+                } else {
+                    $this->set('dados_pessoais', false);
+                }
         } else {
-            $this->set('dados_pessoais', false);
+            if ($usuario) {
+                $this->set('dados_pessoais', true);
+            } else {
+                $this->set('dados_pessoais', false);
+            }
         }
+        
 
 
 

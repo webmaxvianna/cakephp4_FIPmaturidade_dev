@@ -31,11 +31,11 @@
                     <div class="card-body collapse show" id="body1">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('nome', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('sobrenome', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('username', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('password', ['class' => 'form-control mb-2']);
-                                echo $this->Form->control('confirm_password', ['class' => 'form-control mb-2', 'type' => 'password']);
+                                echo $this->Form->control('nome', ['label' => 'Nome', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('sobrenome', ['label' => 'Sobrenome','class' => 'form-control mb-2']);
+                                echo $this->Form->control('username', ['label' => 'Nome de usuário <small>(username)</small>','class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>','class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha','class' => 'form-control mb-2', 'type' => 'password']);
                             ?>
                         </div>
                     </div>
@@ -51,13 +51,13 @@
                     <div class="card-body collapse show" id="body1">
                         <div class="form-group">
                             <?php
-                                echo $this->Form->control('role_id', ['class' => 'form-control mb-2']);
+                                echo $this->Form->control('role_id', ['label' => 'Função', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 offset-md-3">
-                    <?= $this->Form->button(__('Adicionar Usuário'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
+                    <div class="card-footer">
+                        <?= $this->Form->button(__('Adicionar Usuário'),['class'=>'btn btn-block btn-primary col-md-6 offset-md-3']) ?>
+                    </div>
                 </div>
             </div>
         </div>

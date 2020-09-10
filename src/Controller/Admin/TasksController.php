@@ -31,6 +31,7 @@ class TasksController extends AppController
         $tasks = $this->paginate($this->Tasks);
 
         $this->set(compact('tasks'));
+        $this->set("title_for_layout", "Atividades"); //Titulo da Página
     }
 
     /**
@@ -50,6 +51,7 @@ class TasksController extends AppController
         ]);
 
         $this->set(compact('task'));
+        $this->set("title_for_layout", "Visualizar Atividade"); //Titulo da Página
     }
 
     /**
@@ -75,6 +77,7 @@ class TasksController extends AppController
         $edicts = $this->Tasks->Edicts->find('list', ['limit' => 200]);
         $users = $this->Tasks->Users->find('list', ['limit' => 200]);
         $this->set(compact('task', 'edicts', 'users'));
+        $this->set("title_for_layout", "Adicionar Atividade"); //Titulo da Página
     }
 
     /**
@@ -104,6 +107,7 @@ class TasksController extends AppController
         $edicts = $this->Tasks->Edicts->find('list', ['limit' => 200]);
         $users = $this->Tasks->Users->find('list', ['limit' => 200]);
         $this->set(compact('task', 'edicts', 'users'));
+        $this->set("title_for_layout", "Editar Atividade"); //Titulo da Página
     }
 
     /**

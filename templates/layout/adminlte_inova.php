@@ -110,23 +110,25 @@
     <!-- /.content-header -->
 
     <!-- Flash message -->
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <?php
-          if (empty($userLogged->confirmacao_email)) : ?>
-            <div class="alert alert-info alert-dismissible">
-            <div class="lead">
-                    <i class="fas fa-info-circle"></i>&nbsp;Confirmação de email.
-                </div>
-                <div class="">
-                    Verifique sua conta de email e faça a confirmação do endereço de email cadastrado no sistema.<br/>
-                    <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'sendConfirmationEmail', $userLogged->id]) ?>">Clique aqui para enviar outro email de confirmação.</a>
-                </div> 
-            </div>
-          <?php endif; ?>
-        <?= $this->Flash->render() ?>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <?php
+            if (empty($userLogged->confirmacao_email)) : ?>
+              <div class="alert alert-info alert-dismissible">
+                  <div class="lead">
+                      <i class="fas fa-info-circle"></i>&nbsp;Confirmação de email.
+                  </div>
+                  <div class="">
+                      Verifique sua conta de email e faça a confirmação do endereço de email cadastrado no sistema.<br/>
+                      <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'sendConfirmationEmail', $userLogged->id]) ?>">Clique aqui para enviar outro email de confirmação.</a>
+                  </div> 
+              </div>
+            <?php endif; ?>
+          <?= $this->Flash->render() ?>
+        </div>
       </div>
-    </div>
+    </div>    
     <!-- /.flash message -->
 
     <!-- Main content -->

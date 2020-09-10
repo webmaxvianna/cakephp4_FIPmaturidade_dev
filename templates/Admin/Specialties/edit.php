@@ -1,6 +1,7 @@
 <!-- Breadcrumbs -->
 <?php
     $this->Breadcrumbs->add([
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
         ['title' => 'Especialidades', 'url' => ['controller' => 'specialties', 'action' => 'index']],
         ['title' => 'Editar']
     ]);
@@ -37,7 +38,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <?= $this->Form->button(__('Editar Especialidade'),['class'=>'btn btn-primary']) ?>
+                    <?= $this->Form->button(__('Salvar Alteração'),['class'=>'btn btn-primary col-md-6 offset-3']) ?>
                 </div>
             <?= $this->Form->end() ?>
         </div>

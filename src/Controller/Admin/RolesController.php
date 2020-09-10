@@ -27,6 +27,7 @@ class RolesController extends AppController
         $roles = $this->paginate($this->Roles);
 
         $this->set(compact('roles'));
+        $this->set("title_for_layout", "Funções"); //Titulo da Página
     }
 
     /**
