@@ -4,6 +4,13 @@
  * @var \App\Model\Entity\Pitch[]|\Cake\Collection\CollectionInterface $pitches
  */
 ?>
+<?php
+$this->Breadcrumbs->add([
+    ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+    ['title' => 'Ideias', 'url' => ['controller' => 'ideasusersjurors', 'action' => 'index', $userLogged['id']]],
+    ['title' => 'Notas']
+]);
+?>
 <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -13,7 +20,7 @@
                         <!-- <?= $this->Html->link(__('Novo Pitch'), ['action' => 'add'], ['class' => 'button float-right']) ?> -->
                         <h3 class="card-title"><?='Pitches'?></h3>
                     </div>
-                    <div class="card-body table-responsive p-0">
+                    <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -41,5 +48,5 @@
             </div>
         </div>
         <?= $this->element('pagination') ?>
-    </div>
-</div>
+     </div>
+</section>

@@ -26,7 +26,7 @@ class IdeasUsersJurorsController extends AppController
             'limit' => 5,
             'order' => ['Ideasusersjurors.id' => 'asc'],
             'conditions' => ['Users.id' => $id],
-            'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao']
+            'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao', 'Ideas.status']
         ];
         $ideasUsersJurors = $this->paginate($this->IdeasUsersJurors);
 

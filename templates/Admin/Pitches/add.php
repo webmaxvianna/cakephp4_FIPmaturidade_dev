@@ -4,6 +4,13 @@
  * @var \App\Model\Entity\Pitch $pitch
  */
 ?>
+<?php
+$this->Breadcrumbs->add([
+    ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+    ['title' => 'Ideias', 'url' => ['controller' => 'ideasusersJurors', 'action' => 'index', $userLogged['id']]],
+    ['title' => 'Adicionar nota']
+]);
+?>
 <!-- Main content -->
 <section class="content">
 <div class="container-fluid">
