@@ -25,10 +25,11 @@ class IdeasUsersController extends AppController
             'limit' => 5,
             'order' => ['Ideasusers.id' => 'asc'],
             'conditions' => ['Users.id' => $id],
-            'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao']
+            'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao', 'Ideas.status']
         ];
         $ideasUsers = $this->paginate($this->Ideasusers);
 
+        $this->set("title_for_layout", "Ideias"); //Titulo da Página
         $this->set(compact('ideasUsers'));
     }
 
