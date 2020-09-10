@@ -135,7 +135,62 @@
         </div>
         <!-- /.invoice -->
       </div><!-- /.col -->
-    </div><!-- /.row -->    
+    </div><!-- /.row -->  
+    
+    <?php if ($user->role->funcao == 'Candidato') : ?>
+    <div class="row">
+            <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Lista de Ideias do Candidato</h2>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th><?= 'Título' ?></th>
+                      <th><?= 'Status' ?></th>
+                      <th class="actions"><?= 'Ações' ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($user->my_ideas as $idea): ?>
+                    <tr>
+                        <td><?= h($idea->titulo) ?></td>
+                        <td>
+                            <?php 
+                                switch ($idea->status) {
+                                    case '0':
+                                        echo '<span class="badge badge-secondary badge-pill pl-2 pr-2">&nbsp;&nbsp; inativo &nbsp;&nbsp;</span>';
+                                    break;
+                                    case '1':
+                                        echo '<span class="badge badge-warning badge-pill pl-2 pr-2">&nbsp;&nbsp; em edição &nbsp;&nbsp;</span>';
+                                        break;
+                                    case '2':
+                                        echo '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; finalizado &nbsp;&nbsp;</span>';
+                                        break;
+                                }
+                                if ($idea->status) 
+                            ?>
+                        </td>
+                        <td class="actions">
+                          <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['controller' => 'ideas', 'action' => 'view', $idea->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->        
+            </div>
+            <!-- /.col -->
+        </div>
+    <!-- /.row -->  
+    <?php endif; ?> 
+    
   </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->

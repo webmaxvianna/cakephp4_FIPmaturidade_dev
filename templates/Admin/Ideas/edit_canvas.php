@@ -71,7 +71,8 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary w-15']) ?>
+                        <?php $disabled = ($idea->status == 2) ? 'btn btn-primary col-md-6 offset-3 disabled' : 'btn btn-primary col-md-6 offset-3' ; ?>
+                        <?= $this->Form->button(__('Salvar Canvas'), ['class' => $disabled]) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
