@@ -6,18 +6,22 @@
 ?>
 <?php
 $this->Breadcrumbs->add([
-    ['title' => 'Avaliações', 'url' => ['controller' => 'appraisals', 'action' => 'index', $userLogged['id']]]
+    ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+    ['title' => 'Ideias', 'url' => ['controller' => 'ideasusers', 'action' => 'index', $userLogged['id']]],
+    ['title' => 'Notas']
 ]);
 ?>
-<div class="appraisals index content">
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">Lista de avaliações realizadas</h2>
                 </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th><?= $this->Paginator->sort('idea_id', 'Ideia') ?></th>
@@ -47,3 +51,4 @@ $this->Breadcrumbs->add([
     </div>
     <?= $this->element('pagination') ?>
 </div>
+</section>

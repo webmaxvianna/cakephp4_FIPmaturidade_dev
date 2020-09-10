@@ -7,7 +7,8 @@
 ?>
 <?php
 $this->Breadcrumbs->add([
-    ['title' => 'Ideias', 'url' => ['controller' => 'ideasUsersJurorsJuror', 'action' => 'index', $userLogged['id']]],
+    ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+    ['title' => 'Ideias', 'url' => ['controller' => 'ideasUsersJurors', 'action' => 'index', $userLogged['id']]],
     ['title' => 'Detalhes']
 ]);
 ?>

@@ -6,7 +6,8 @@
 ?>
 <?php
     $this->Breadcrumbs->add([
-        ['title' => 'Ideias', 'url' => ['controller' => 'ideasusersjurors', 'action' => 'index', $userLogged['id']]]
+        ['title' => 'Início', 'url' => ['controller' => 'dashboards', 'action' => 'index']],
+        ['title' => 'Ideias']
     ]);
 ?>
 <!-- Main content -->
@@ -25,6 +26,7 @@
                 <tr>
                 <th><?= $this->Paginator->sort('Ideas.titulo', 'Título') ?></th>
                 <th><?= $this->Paginator->sort('Ideas.descricao', 'Descrição') ?></th>
+                <th><?= $this->Paginator->sort('Ideas.status', 'Status') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </thead>
@@ -33,6 +35,21 @@
                 <tr>
                     <td><?= $ideasUsersJuror->has('idea') ? h($ideasUsersJuror->idea->titulo) : '' ?></td>
                     <td><?= $ideasUsersJuror->has('user') ? h($ideasUsersJuror->idea->descricao) : '' ?></td>
+                    <td>
+                        <?php 
+                            switch ($ideasUsersJuror->idea->status) {
+                                case '0':
+                                    echo '<span class="badge badge-secondary badge-pill pl-2 pr-2">&nbsp;&nbsp; inativo &nbsp;&nbsp;</span>';
+                                break;
+                                case '1':
+                                    echo '<span class="badge badge-warning badge-pill pl-2 pr-2">&nbsp;&nbsp; em edição &nbsp;&nbsp;</span>';
+                                    break;
+                                case '2':
+                                    echo '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; finalizado &nbsp;&nbsp;</span>';
+                                    break;
+                            }
+                        ?>
+                    </td>
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> Visualizar', ['action' => 'view', $ideasUsersJuror->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="fas fa-gavel"></i> Adicionar Nota', ['controller' => 'Pitches', 'action' => 'add', $ideasUsersJuror->idea_id], ['class' => 'btn btn-secondary btn-sm', 'escape' => false]) ?>
