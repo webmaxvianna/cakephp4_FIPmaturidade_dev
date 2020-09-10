@@ -82,6 +82,7 @@ class Idea extends Entity
         'edict' => true,
         'owner' => true,
         'users' => true,
+        'jurors' => true,
         'appraisals' => true,
         'confidentials' => true,
         'evidences' => true,

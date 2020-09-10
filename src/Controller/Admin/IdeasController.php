@@ -182,6 +182,30 @@ class IdeasController extends AppController
         $this->set("title_for_layout", "Vincular Avaliadores"); //Titulo da Página
     }
 
+    public function vincularJurados($id = null)
+    {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+
+        $idea = $this->Ideas->get($id, [
+            'contain' => ['Jurors'],
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $idea = $this->Ideas->patchEntity($idea, $this->request->getData()); 
+            if ($this->Ideas->save($idea)) {
+                $this->Flash->success(__('O jurado foi designado com sucesso.'));
+            } else {
+                $this->Flash->error(__('Erro ao designar jurado.'));
+            }
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $jurados = $this->Ideas->Users->find('list', ['conditions' => ['role_id' => '5']]);
+        $this->set(compact('idea', 'jurados'));
+    }
+
     public function addApplicantIdeas($id = null)
     {
         $user = $this->Ideas->Users->get($id, [

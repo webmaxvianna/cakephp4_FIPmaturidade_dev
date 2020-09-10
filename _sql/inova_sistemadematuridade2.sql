@@ -218,6 +218,18 @@ CREATE TABLE `ideas_users` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `ideas_users_jurors`
+--
+
+CREATE TABLE `ideas_users_jurors` (
+  `id` int(11) NOT NULL,
+  `idea_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `interests`
 --
 
@@ -510,7 +522,16 @@ ALTER TABLE `users`
 --
 ALTER TABLE `verifications`
   ADD PRIMARY KEY (`id`);
-
+--
+-- Índices para tabela `ideas_users_jurors`
+--
+ALTER TABLE `ideas_users_jurors`
+  ADD PRIMARY KEY (`id`);
+--
+-- Índices para tabela `ideas_users`
+--
+ALTER TABLE `ideas_users`
+  ADD PRIMARY KEY (`id`);  
 --
 -- AUTO_INCREMENT de tabelas despejadas
 --
@@ -603,6 +624,18 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `verifications`
 --
 ALTER TABLE `verifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+--
+-- AUTO_INCREMENT de tabela `ideas_users_jurors`
+--
+ALTER TABLE `ideas_users_jurors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+--
+-- AUTO_INCREMENT de tabela `ideas_users`
+--
+ALTER TABLE `ideas_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

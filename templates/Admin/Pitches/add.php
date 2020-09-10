@@ -4,34 +4,32 @@
  * @var \App\Model\Entity\Pitch $pitch
  */
 ?>
-<div class="column">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Ações') ?></h4>
-            <?= $this->Html->link(__('Listar Pitches'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<!-- Main content -->
+<section class="content">
+<div class="container-fluid">
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4><?= __('Adicionar pontuação') ?></h4>
         </div>
-    </aside>
-    <br>
-    <div class="column-responsive column-80">
-        <div class="verifications form content">
-            <?= $this->Form->create($pitch) ?>
-            <div class="card">
-                <div class="card-body">
-                    <fieldset class="form-group" style="padding-left: 0;" >
-                        <legend><?= __('Adicionar Pitch') ?></legend>
-                        <?php
-                            echo $this->Form->control('pontuacao', [
-                                'class' => 'form-control mb-2' 
-                            ]);
-                            echo $this->Form->control('category_id', ['class'=>'form-control mb-2', 'options' => $categories]);
-                            echo $this->Form->control('juror_id', ['class'=>'form-control mb-2', 'options' => $jurors]);
-                            echo $this->Form->control('idea_id', ['class'=>'form-control mb-2', 'options' => $ideas]);
-                        ?>
-                    </fieldset>
-                    <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
+        <div class="card-body">
+            <div class="appraisals form content">
+                <?= $this->Form->create($pitch->id) ?>
+                <fieldset class="p-0">
+                    <?php
+                    echo $this->Form->control('id_jurado', ['options' => $jurado, 'class' => 'form-control mb-2', 'label' => ['text' => 'Jurado']]);
+                    echo $this->Form->control('idea_id', ['options' => $ideas, 'class' => 'form-control mb-2', 'label' => ['text' => 'Ideia']]);
+                    echo $this->Form->control('category_id', ['options' => $categories, 'class' => 'form-control mb-2', 'label' => ['text' => 'Critério']]);
+                    echo $this->Form->control('pontuacao', ['class' => 'form-control mb-2', 'label' => ['text' => 'Pontuação'], 'type'=> 'number', 'min'=>"0", 'max'=>"5", 'step'=>"0.01"]);
+                ?>
+                </fieldset>
+                <?= $this->Form->button(__('Enviar'), ['class' => 'btn btn-primary mt-2']) ?>
+                <?= $this->Form->end() ?>
             </div>
         </div>
     </div>
+    </div>
 </div>
+</div>
+</section>

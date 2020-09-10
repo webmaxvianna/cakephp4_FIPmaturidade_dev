@@ -40,7 +40,7 @@
                     <td><?= h($idea->edict->numero) ?></td>
                     <td><?= h($idea->titulo) ?></td>
                     <td><?= h($idea->owner->nome_completo) ?></td>
-                    <td>
+                    </td>
                         <?php 
                             switch ($idea->status) {
                                 case '0':
@@ -53,10 +53,13 @@
                                     echo '<span class="badge badge-success badge-pill pl-2 pr-2">&nbsp;&nbsp; finalizado &nbsp;&nbsp;</span>';
                                     break;
                             }
-                            if ($idea->status) 
                         ?>
                     </td>
-                    <td><?= $this->Html->link('Avaliadores', ['action' => 'vincular_avaliadores', $idea->id], ['class' => 'btn btn-outline-primary btn-sm', 'escape' => false]) ?></td>
+                    <td>
+                        <?= $this->Html->link('Avaliadores', ['action' => 'vincular_avaliadores', $idea->id], ['class' => 'btn btn-outline-primary btn-sm', 'escape' => false]) ?>
+                        <?= $this->Html->link('Jurados', ['action' => 'vincular_jurados', $idea->id], ['class' => 'btn btn-outline-primary btn-sm', 'escape' => false]) ?>                    
+                        <?= $this->Html->link('Avaliadores', ['action' => 'vincular_avaliadores', $idea->id], ['class' => 'btn btn-outline-primary btn-sm', 'escape' => false]) ?>
+                    </td>
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $idea->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $idea->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
