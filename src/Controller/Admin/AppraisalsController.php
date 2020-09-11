@@ -20,6 +20,10 @@ class AppraisalsController extends AppController
      */
     public function index($id_idea = null)
     {
+        if($this->Auth->user('role_id') != 1 && $this->Auth->user('role_id') != 2) {
+            $this->Flash->error(__('Operação não permitida.'));
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         if($id_idea == null) {
             $this->paginate = [
                 'contain' => ['Ideas', 'Parameters'],
@@ -141,6 +145,10 @@ class AppraisalsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->Flash->error(__('Operação não permitida.'));
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $appraisal = $this->Appraisals->get($id);
         if ($this->Appraisals->delete($appraisal)) {
