@@ -76,11 +76,58 @@
           <?php if ($user->role->funcao == 'Candidato') : ?>
           <!-- info row -->
           <div class="row invoice-info">
-            <div class="col-sm-12 invoice-col">
-              <h4>Área de atuação</h4>
+            <div class="col-md-8 invoice-col pr-3 mb-2">
+              <h4><u>Área de atuação</u></h4>
               <p><?= $user->resume->area_atuacao ?></p>
-              <h4>Currículo resumido</h4>
+              <h4><u>Currículo resumido</u></h4>
               <p><?= $user->resume->curriculo ?></p>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4 invoice-col mb-2">
+              <h4 class="mb-3"><u>Comprovantes</u></h4>
+              <p class="ml-3">
+                Documento de Identidade (frente)<br/>
+                <?php
+                  if (isset($user->verification->identidade_frente)) {
+                    echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_frente, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]); 
+                  } else {
+                    echo '<button class="btn btn-default btn-sm mr-1" disabled="disabled">Visualizar<i class="far fa-file ml-1"></i></button>';
+                  }
+                ?>                
+              </p>
+              <hr/>
+              <p class="ml-3">
+                Documento de Identidade (verso)<br/>
+                <?php
+                  if (isset($user->verification->identidade_verso)) {
+                    echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->identidade_verso, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]); 
+                  } else {
+                    echo '<button class="btn btn-default btn-sm mr-1" disabled="disabled">Visualizar<i class="far fa-file ml-1"></i></button>';
+                  }
+                ?> 
+              </p>
+              <hr/>
+              <p class="ml-3">
+                Comprovante de Residência<br/>
+                <?php
+                  if (isset($user->verification->residencia)) {
+                    echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->residencia, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]); 
+                  } else {
+                    echo '<button class="btn btn-default btn-sm mr-1" disabled="disabled">Visualizar<i class="far fa-file ml-1"></i></button>';
+                  }
+                ?> 
+              </p>
+              <hr/>
+              <p class="ml-3">
+                Autorização dos Pais ou Responsável<br/>
+                <?php
+                  if (isset($user->verification->autorizacao_pais)) {
+                    echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->autorizacao_pais, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]); 
+                  } else {
+                    echo '<button class="btn btn-default btn-sm mr-1" disabled="disabled">Visualizar<i class="far fa-file ml-1"></i></button>';
+                  }
+                ?> 
+              </p>
             </div>
             <!-- /.col -->
           </div>
@@ -89,8 +136,8 @@
           <!-- /.row -->
           <div class="row mt-4">
             <?php if ($user->role->funcao == 'Candidato') : ?>
-              <div class="col-sm-6 px-4">
-                <h4>Interesses</h4>
+              <div class="col-sm-6 px-4 mb-2">
+                <h4><u>Interesses</u></h4>
                 <div class="table-responsive">
                   <table class="table">
                   <?php foreach ($user->interests as $interest) : ?>
@@ -102,8 +149,8 @@
                 </div>
               </div>
               <!-- /.col -->
-              <div class="col-sm-6 px-4 ">
-                <h4>Sobre</h4>
+              <div class="col-sm-6 px-4 mb-2">
+                <h4><u>Sobre</u></h4>
                 <div class="table-responsive">
                   <table class="table">
                   <?php foreach ($user->characteristics as $characteristic) : ?>
