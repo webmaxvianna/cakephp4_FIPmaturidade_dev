@@ -209,6 +209,7 @@
   ]) 
 ?>
 <!-- <?= $this->Html->script(['/adminlte/plugins/summernote/summernote-bs4.min']) ?> -->
+<?= $this->Html->script(['busca_cep']) ?>
 
 </body>
 </html>
