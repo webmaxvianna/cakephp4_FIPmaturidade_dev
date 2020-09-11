@@ -47,7 +47,7 @@ class IdeasController extends AppController
     public function view($id = null)
     {
         $idea = $this->Ideas->get($id, [
-            'contain' => ['Edicts', 'Users', 'Appraisals', 'Confidentials', 'Evidences', 'Pitches'],
+            'contain' => ['Edicts', 'Owners', 'Appraisals', 'Confidentials', 'Evidences', 'Pitches'],
         ]);
         
         if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {

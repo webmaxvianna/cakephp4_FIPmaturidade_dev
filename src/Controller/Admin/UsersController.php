@@ -146,7 +146,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
             $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
-            $usuario['role_id'] = '3';
+            $usuario['role_id'] = '3'; // ID do Candidato
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success_sm(__('O candidato foi cadastrado.'));
