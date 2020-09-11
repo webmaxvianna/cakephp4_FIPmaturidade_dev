@@ -6,8 +6,6 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
 
-define('EDITAL_ATUAL', 1);  //CONSTANTE DO EDITAL ATUAL
-
 /**
  * Ideas Controller
  *
