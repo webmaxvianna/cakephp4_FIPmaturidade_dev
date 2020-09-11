@@ -36,6 +36,22 @@
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'Appraisals', 'action' => 'indexAvaliacaoCandidato', $userLogged->id]) ?>" class="nav-link">
+              <i class="nav-icon fas fa-gavel"></i>
+              <p>
+                Avaliações
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'Pitches', 'action' => 'indexPitchCandidato', $userLogged->id]) ?>" class="nav-link">
+              <i class="nav-icon fas fa-gavel"></i>
+              <p>
+                Pitching
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

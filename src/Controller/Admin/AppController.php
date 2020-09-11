@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 
 use Cake\Controller\Controller;
 
+define('EDITAL_ATUAL', 1);  //CONSTANTE DO EDITAL ATUAL
+
 class AppController extends Controller
 {
     public function initialize(): void
