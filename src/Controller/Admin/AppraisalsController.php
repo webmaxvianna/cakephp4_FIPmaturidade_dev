@@ -159,4 +159,22 @@ class AppraisalsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function indexAvaliacaoCandidato($id_user = null)
+    {
+        if($this->Auth->user('role_id') != 3) {
+            $this->Flash->error(__('Operação não permitida.'));
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        $this->loadModel('Ideas');
+        $idea = $this->Ideas->find('all', ['limit' => 200, 'conditions' => ['user_id' => $id_user, 'edict_id' => constant("EDITAL_ATUAL")]])->toArray();
+        $this->paginate = [
+            'contain' => ['Ideas', 'Parameters'],
+            'limit' => 5,
+            'order' => ['idea_id' => 'asc'],
+            'conditions' => ['idea_id' => $idea[0]->id],
+        ];
+        $appraisals = $this->paginate($this->Appraisals);
+        $this->set(compact('appraisals'));
+    }
 }
