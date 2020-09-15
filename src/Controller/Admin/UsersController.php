@@ -313,7 +313,6 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
             $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
-            $usuario['email'] = strtolower($usuario['email']);
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Os dados do(a) candidato(a) foram alterados.'));
