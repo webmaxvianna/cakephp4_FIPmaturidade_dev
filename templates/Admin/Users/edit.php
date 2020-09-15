@@ -136,7 +136,7 @@
         </div>
 
         <!-- Visível apenas para CANDIDATO -->
-        <?php if($user->role_id == '2') : ?>
+        <?php if($user->role->funcao == 'Candidato') : ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">
@@ -219,7 +219,7 @@
         <!-- Visível apenas para CANDIDATO -->
                 
         <!-- Visível para AVALIADOR, CONSULTOR E JURADO -->
-        <?php if($user->role_id == '3' || $user->role_id == '4' || $user->role_id == '5') : ?>
+        <?php if($user->role->funcao == 'Avaliador' || $user->role->funcao == 'Consultor' || $user->role->funcao == 'Jurado') : ?>
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="card card-secondary">

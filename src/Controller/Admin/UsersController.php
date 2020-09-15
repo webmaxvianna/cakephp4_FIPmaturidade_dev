@@ -70,7 +70,7 @@ class UsersController extends AppController
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         $user = $this->Users->get($id, [
-            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Specialties', 'Tasks', 'Verifications'],
+            'contain' => ['Edicts', 'Ideas', 'Characteristics', 'Interests', 'Resumes', 'Roles', 'Specialties', 'Tasks', 'Verifications'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
