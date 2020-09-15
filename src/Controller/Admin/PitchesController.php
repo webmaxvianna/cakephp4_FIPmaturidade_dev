@@ -167,12 +167,22 @@ class PitchesController extends AppController
         }
         $this->loadModel('Ideas');
         $idea = $this->Ideas->find('all', ['limit' => 200, 'conditions' => ['user_id' => $id_user, 'edict_id' => constant("EDITAL_ATUAL")]])->toArray();
-        $this->paginate = [
-            'contain' => ['Ideas', 'Categories'],
-            'limit' => 5,
-            'order' => ['idea_id' => 'asc'],
-            'conditions' => ['idea_id' => $idea[0]->id],
-        ];
+        if($idea!=null) {
+            $this->paginate = [
+                'contain' => ['Ideas', 'Categories'],
+                'limit' => 5,
+                'order' => ['idea_id' => 'asc'],
+                'conditions' => ['idea_id' => $idea[0]->id],
+            ];
+        }
+        else {
+            $this->paginate = [
+                'contain' => ['Ideas', 'Categories'],
+                'limit' => 5,
+                'order' => ['idea_id' => 'asc'],
+                'conditions' => ['idea_id' => '-1'],
+            ];
+        }
         $pitches = $this->paginate($this->Pitches);
         $this->set(compact('pitches'));
     }
