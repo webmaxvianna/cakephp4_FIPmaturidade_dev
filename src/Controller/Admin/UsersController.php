@@ -386,6 +386,11 @@ class UsersController extends AppController
                 $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
                 return $this->redirect(['action' => 'changeParentalPermission', $id]);
             }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "application/pdf");
+            if (!in_array($file->getClientMediaType(), $valid_extensions)) {
+                $this->Flash->warning(__('Apenas arquivos PDF, JPG ou PNG são permitdos.'));
+                return $this->redirect(['action' => 'changeParentalPermission', $id]);
+            }
             $userData = $this->request->getData();
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
             $userData['verification']['autorizacao_pais'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
@@ -417,6 +422,11 @@ class UsersController extends AppController
             $file = $this->request->getData('verification.residencia');
             if ($file->getSize() > (1024 * 1024 * 10)) {                
                 $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeProofOfResidence', $id]);
+            }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "application/pdf");
+            if (!in_array($file->getClientMediaType(), $valid_extensions)) {
+                $this->Flash->warning(__('Apenas arquivos PDF, JPG ou PNG são permitdos.'));
                 return $this->redirect(['action' => 'changeProofOfResidence', $id]);
             }
             $userData = $this->request->getData();
@@ -452,6 +462,11 @@ class UsersController extends AppController
                 $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
                 return $this->redirect(['action' => 'changeIdentityCardFront', $id]);
             }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "application/pdf");
+            if (!in_array($file->getClientMediaType(), $valid_extensions)) {
+                $this->Flash->warning(__('Apenas arquivos PDF, JPG ou PNG são permitdos.'));
+                return $this->redirect(['action' => 'changeIdentityCardFront', $id]);
+            }
             $userData = $this->request->getData();
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
             $userData['verification']['identidade_frente'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
@@ -483,6 +498,11 @@ class UsersController extends AppController
             $file = $this->request->getData('verification.identidade_verso');
             if ($file->getSize() > (1024 * 1024 * 10)) {                
                 $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeIdentityCardBack', $id]);
+            }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "application/pdf");
+            if (!in_array($file->getClientMediaType(), $valid_extensions)) {
+                $this->Flash->warning(__('Apenas arquivos PDF, JPG ou PNG são permitdos.'));
                 return $this->redirect(['action' => 'changeIdentityCardBack', $id]);
             }
             $userData = $this->request->getData();
