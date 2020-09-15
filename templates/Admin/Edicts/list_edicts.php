@@ -29,12 +29,16 @@
                 <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('numero') ?></th>
+                    <th><?= $this->Paginator->sort('data_inicial', 'Início em') ?></th>
+                    <th><?= $this->Paginator->sort('data_final', 'Expira em') ?></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($edicts as $edict) : ?>
                 <tr>
                     <td><?= $this->Html->link('<i class="far fa-eye"></i> visualizar', $edict->link, ['class' => 'btn btn-primary btn-sm', 'escape' => false, 'target' => 'blank']) ?>&nbsp;&nbsp;<?= 'Edital: ' . $edict->numero ?></td>
+                    <td><?= $edict->data_inicial ?></td>
+                    <td><?= $edict->data_final ?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>

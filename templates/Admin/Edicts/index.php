@@ -30,6 +30,8 @@
                 <tr>
                 <th><?= $this->Paginator->sort('numero', 'Número') ?></th>
                 <th><?= $this->Paginator->sort('link') ?></th>
+                <th><?= $this->Paginator->sort('data_inicial') ?></th>
+                <th><?= $this->Paginator->sort('data_final') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
                 </thead>
@@ -37,7 +39,9 @@
                 <?php foreach ($edicts as $edict) : ?>
                 <tr>
                     <td><?= h($edict->numero) ?></td>
-                    <td><?= h($edict->link) ?></td>                    
+                    <td><?= h($edict->link) ?></td>  
+                    <td><?= $edict->data_inicial ?></td>
+                    <td><?= $edict->data_final ?></td>                  
                     <td class="actions">
                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', $edict->link, ['class' => 'btn btn-info btn-sm', 'target' => '_blank', 'escape' => false]) ?>
                         <?php if($userLogged->role_id == 1) { ?>
