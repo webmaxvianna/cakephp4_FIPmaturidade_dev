@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <?php $disabled = ($idea->status == 2) ? 'btn btn-primary col-md-6 offset-3 disabled' : 'btn btn-primary col-md-6 offset-3' ; ?>
+                        <?php $disabled = ($idea->status == 2) ? 'btn btn-block btn-primary col-md-6 offset-md-3 disabled' : 'btn btn-block btn-primary col-md-6 offset-md-3' ; ?>
                         <?= $this->Form->button(__('Salvar Sumário'), ['class' => $disabled]) ?>
                     </div>
                     <?= $this->Form->end() ?>

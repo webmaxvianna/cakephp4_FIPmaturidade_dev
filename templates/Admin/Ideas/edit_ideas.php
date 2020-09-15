@@ -20,13 +20,13 @@
             <div class="col-md-10 offset-md-1">
                 <!-- general form elements disabled -->
                 <div class="card card-secondary">
-                    <div class="card-header cursor-pointer"data-toggle="collapse" href="#card1">
+                    <div class="card-header">
                         <h3 class="card-title">Ideia</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <?= $this->Form->create($idea) ?>
-                    <div class="card-body collapse show" id="card1">
+                    <div class="card-body" id="card1">
                         <div class="form-group">
                             <?php
                             echo $this->Form->control('titulo', [
@@ -48,7 +48,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <?php $disabled = ($idea->status == 2) ? 'btn btn-primary col-md-6 offset-3 disabled' : 'btn btn-primary col-md-6 offset-3' ; ?>
+                        <?php $disabled = ($idea->status == 2) ? 'btn btn-block btn-primary col-md-6 offset-md-3 disabled' : 'btn btn-block btn-primary col-md-6 offset-md-3' ; ?>
                         <?= $this->Form->button(__('Salvar Ideia'), ['class' => $disabled]) ?>
                     </div>
                     <?= $this->Form->end() ?>
