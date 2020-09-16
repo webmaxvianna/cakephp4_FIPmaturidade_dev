@@ -121,7 +121,7 @@
                                     'label' => 'Estado', 
                                     'class' => 'form-control mb-2'
                                     ]);
-                                echo $this->Form->control('pais', ['label' => 'País', 'value' => 'Brasil', 'disabled' => 'disabled', 'class' => 'form-control mb-2']);
+                                echo $this->Form->control('pais', ['label' => 'País', 'value' => 'Brasil', 'class' => 'form-control mb-2']);
                             ?>
                         </div>
                     </div>

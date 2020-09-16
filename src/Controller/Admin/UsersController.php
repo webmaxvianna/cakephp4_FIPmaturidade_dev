@@ -49,10 +49,10 @@ class UsersController extends AppController
             $usuario['email'] = strtolower($usuario['email']);
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('O usuário foi cadastrado.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('O usuário não foi cadastrado. Por favor, tente novamente.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $edicts = $this->Users->Edicts->find('list', ['limit' => 200]);
@@ -80,10 +80,10 @@ class UsersController extends AppController
             $usuario['email'] = strtolower($usuario['email']);
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('O usuário foi alterado.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('O usuário não foi alterado. por favor, tente novamente.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $edicts = $this->Users->Edicts->find('list', ['limit' => 200]);
@@ -105,9 +105,9 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('O usuário foi excluído.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O usuário não foi excluído. Por favor, tente novamente.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -291,8 +291,9 @@ class UsersController extends AppController
             $userData['confirmacao_email'] = 0;
             $user = $this->Users->patchEntity($user, $userData); 
             if ($this->Users->save($user)) {
+                $this->getMailer('Users')->send('sendConfirmationEmail', [$user]); // Envio de email para confirmação de endereço de email
                 $this->Flash->success(__('O email foi alterado.'));
-                return $this->redirect(['controller' => 'dashboards', 'action' => 'index', $this->Auth->user('id')]);
+                return $this->redirect(['controller' => 'users', 'action' => 'changeEmail', $this->Auth->user('id')]);
             }
         }
         $this->set(compact('user'));
