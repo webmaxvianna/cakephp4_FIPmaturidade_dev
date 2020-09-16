@@ -28,7 +28,7 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('numero') ?></th>
+                    <th><?= $this->Paginator->sort('numero', 'Número do edital') ?></th>
                     <th><?= $this->Paginator->sort('data_inicial', 'Início em') ?></th>
                     <th><?= $this->Paginator->sort('data_final', 'Expira em') ?></th>
                 </tr>
