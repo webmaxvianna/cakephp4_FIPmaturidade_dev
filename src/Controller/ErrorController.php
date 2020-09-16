@@ -56,6 +56,8 @@ class ErrorController extends AppController
         parent::beforeRender($event);
 
         $this->viewBuilder()->setTemplatePath('Error');
+        // debug($event);exit;
+        session_unset();
     }
 
     /**
