@@ -45,7 +45,8 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
-            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
+            $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
+            $usuario['email'] = strtolower($usuario['email']);
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -75,7 +76,8 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
-            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
+            $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
+            $usuario['email'] = strtolower($usuario['email']);
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -145,7 +147,8 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
-            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
+            $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
+            $usuario['email'] = strtolower($usuario['email']);
             $usuario['role_id'] = '3'; // ID do Candidato
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
@@ -284,6 +287,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $userData = $this->request->getData();
+            $userData['email'] = strtolower($userData['email']);
             $userData['confirmacao_email'] = 0;
             $user = $this->Users->patchEntity($user, $userData); 
             if ($this->Users->save($user)) {
@@ -308,7 +312,7 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
-            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
+            $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Os dados do(a) candidato(a) foram alterados.'));

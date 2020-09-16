@@ -11,6 +11,8 @@
 /webroot/img/*
 /webroot/docs/*
 /config_ftp/*
+/templates/Error/error400_old.php
+/templates/Error/error500_old.php
 
 # OS generated files #
 ######################

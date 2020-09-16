@@ -151,7 +151,7 @@ class UsersTable extends Table
             ->scalar('username')
             ->maxLength('username', 50)
             ->minLength('username', 3, 'o username deverá ter 3 ou mais caracteres')
-            ->regex('username', '/^(?=[a-zA-Z0-9._]{4,50}$)(?!.*[_.]{2})[^_.].*[^_.]$/', 'username não é válido. digite apenas letras minúsculas e números');
+            ->regex('username', '/^(?=[a-z0-9._]{4,50}$)(?!.*[_.]{2})[^_.].*[^_.]$/', 'username não é válido. digite apenas letras minúsculas e números');
 
         $validator
             ->scalar('password')
