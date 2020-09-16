@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                         <?php                    
-                            echo $this->Form->control('users._ids', [
+                            echo $this->Form->control('jurors._ids', [
                                 'options' => $jurados,
                                 'class' => 'form-check-input',
                                 'type' => 'select',

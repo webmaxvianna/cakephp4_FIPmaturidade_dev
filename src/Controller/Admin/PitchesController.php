@@ -44,6 +44,21 @@ class PitchesController extends AppController
         $this->set(compact('pitches'));
     }
 
+    public function indexGestor()
+    {
+        if($this->Auth->user('role_id') != 1) {
+            $this->Flash->error(__('Operação não permitida.'));
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        $this->paginate = [
+            'contain' => ['Categories', 'Ideas'],
+            'limit' => 5,
+            'order' => ['idea_id' => 'asc'],
+        ];
+        $pitches = $this->paginate($this->Pitches);
+        $this->set(compact('pitches'));
+    }
+
     /**
      * View method
      *
