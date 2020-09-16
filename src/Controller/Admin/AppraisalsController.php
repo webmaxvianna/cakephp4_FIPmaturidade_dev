@@ -44,6 +44,22 @@ class AppraisalsController extends AppController
         $this->set(compact('appraisals'));
     }
 
+    public function indexGestor()
+    {
+        if($this->Auth->user('role_id') != 1) {
+            $this->Flash->error(__('Operação não permitida.'));
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+
+        $this->paginate = [
+            'contain' => ['Ideas', 'Parameters'],
+            'limit' => 5,
+            'order' => ['idea_id' => 'asc'],
+        ];
+        $appraisals = $this->paginate($this->Appraisals);
+        $this->set(compact('appraisals'));
+    }
+
     /**
      * View method
      *
