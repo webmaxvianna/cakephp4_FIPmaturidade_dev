@@ -80,6 +80,25 @@
             </a>
           </li>
           
+          <li class="nav-header">Pontuações</li>
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'appraisals', 'action' => 'indexGestor']) ?>" class="nav-link">
+              <i class="nav-icon fas fa-gavel"></i>
+              <p>
+                Avaliação
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'pitches', 'action' => 'indexGestor']) ?>" class="nav-link">
+              <i class="nav-icon fas fa-chalkboard-teacher"></i>
+              <p>
+                Pitching
+              </p>
+            </a>
+          </li>
+
           <li class="nav-header">Dados dos Atores</li>
           <li class="nav-item has-treeview">
             <a href="<?= $this->Url->build(['controller' => 'characteristics', 'action' => 'index']) ?>" class="nav-link">
