@@ -51,6 +51,12 @@ class InterestsController extends AppController
         ]);
 
         $this->set(compact('interest'));
+                
+        $this->loadModel('InterestsUsers');
+        $users = $this->InterestsUsers->find('all')->contain(['Users'])->where(['interest_id' => $id]);
+        $this->paginate = ['limit' => 5];
+        $this->set('users', $this->paginate($users));
+
         $this->set("title_for_layout", "Visualizar Interesses"); //Titulo da Página
     }
 
