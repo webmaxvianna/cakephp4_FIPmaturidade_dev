@@ -51,6 +51,12 @@ class CharacteristicsController extends AppController
         ]);
 
         $this->set(compact('characteristic'));
+
+        $this->loadModel('CharacteristicsUsers');
+        $users = $this->CharacteristicsUsers->find('all')->contain(['Users'])->where(['characteristic_id' => $id]);
+        $this->paginate = ['limit' => 5];
+        $this->set('users', $this->paginate($users));
+
         $this->set("title_for_layout", "Visualizar Característica"); //Titulo da Página
     }
 
