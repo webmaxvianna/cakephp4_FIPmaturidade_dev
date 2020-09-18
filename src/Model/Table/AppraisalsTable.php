@@ -72,11 +72,15 @@ class AppraisalsTable extends Table
 
         $validator
             ->numeric('pontuacao')
-            ->allowEmptyString('pontuacao');
+            ->notEmptyString('pontuacao', 'Informe sua nota para essa avaliação');
 
         $validator
             ->integer('id_avaliador')
-            ->allowEmptyString('id_avaliador');
+            ->notEmptyString('id_avaliador');
+
+        $validator
+            ->integer('parameter_id')
+            ->notEmptyString('paramenter_id');
 
         return $validator;
     }

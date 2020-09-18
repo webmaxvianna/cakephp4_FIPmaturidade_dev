@@ -58,6 +58,11 @@ class AppraisalsController extends AppController
         ];
         $appraisals = $this->paginate($this->Appraisals);
         $this->set(compact('appraisals'));
+
+        $this->loadModel('Users');
+        $users = $this->Users->find('list', ['limit' => 200])->toArray();
+        // debug($users);exit;
+        $this->set(compact('users'));
     }
 
     /**
@@ -96,22 +101,21 @@ class AppraisalsController extends AppController
         $appraisal = $this->Appraisals->newEmptyEntity();
         if ($this->request->is('post')) {
             $appraisal = $this->Appraisals->patchEntity($appraisal, $this->request->getData());
-            $existe = $this->Appraisals->find('list', ['limit' => 200, 'conditions' => ['idea_id =' => $idea_id, 'id_avaliador =' => $user_id,
-            'parameter_id =' => $appraisal->parameter_id]]);
-            if($existe->toArray()!=null) {
-                $appraisal->id = key($existe->toArray());
-            }
+            $appraisal->id_avaliador = $user_id;
+            $appraisal->idea_id = $idea_id;
             if ($this->Appraisals->save($appraisal)) {
                 $this->Flash->success(__('A pontuação foi registrada.'));
                 return $this->redirect(['controller' => 'appraisals', 'action' => 'add', $idea_id]);
             }
             $this->Flash->error(__('A pontuação não pôde ser registrada.'));
         }
-        $this->loadModel('Users');
-        $ideas = $this->Appraisals->Ideas->find('list', ['limit' => 200, 'conditions' => ['id' => $idea_id]]);
-        $avaliador = $this->Users->find('list', ['limit' => 200, 'conditions' => ['id' => $user_id]]);
-        $parameters = $this->Appraisals->Parameters->find('list', ['limit' => 200]);
-        $this->set(compact('appraisal', 'ideas', 'parameters', 'avaliador'));
+        $itens = $this->Appraisals->find('all', ['fields' => ['parameter_id']])->where(['id_avaliador' => $user_id, 'idea_id' => $idea_id])->toArray();
+        foreach ($itens as $item) {
+            $item_array[] = $item->parameter_id;
+        }
+        $parameters = $this->Appraisals->Parameters->find('list')->toArray();
+        $parameters = \array_diff_key($parameters, array_flip($item_array));
+        $this->set(compact('appraisal', 'parameters'));
     }
 
     /**
@@ -133,23 +137,18 @@ class AppraisalsController extends AppController
             return $this->redirect(['controller' => 'appraisals', 'action' => 'index']);
         }
 
-        $appraisal = $this->Appraisals->get($id, [
-            'contain' => [],
-        ]);
+        $appraisal = $this->Appraisals->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $appraisal = $this->Appraisals->patchEntity($appraisal, $this->request->getData());
             if ($this->Appraisals->save($appraisal)) {
                 $this->Flash->success(__('A pontuação foi editada.'));
-
                 return $this->redirect(['action' => 'index', $idea_id]);
             }
             $this->Flash->error(__('A pontuação não pôde ser editada.'));
         }
-        $this->loadModel('Users');
         $ideas = $this->Appraisals->Ideas->find('list', ['limit' => 200, 'conditions' => ['id' => $idea_id]]);
-        $avaliador = $this->Users->find('list', ['limit' => 200, 'conditions' => ['id' => $user_id]]);
         $parameters = $this->Appraisals->Parameters->find('list', ['limit' => 200]);
-        $this->set(compact('appraisal', 'ideas', 'parameters', 'avaliador'));
+        $this->set(compact('appraisal', 'ideas', 'parameters'));
     }
 
     /**
