@@ -48,7 +48,7 @@ class IdeasController extends AppController
             'contain' => ['Edicts', 'Owners', 'Appraisals', 'Confidentials', 'Evidences', 'Pitches'],
         ]);
         
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1 && $this->Auth->user('role_id') != 2) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
 
@@ -356,5 +356,22 @@ class IdeasController extends AppController
         }
         $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
         return $this->redirect(['action' => 'indexCandidatos', $this->Auth->user('id')]);
+    }
+
+    public function indexAvaliadores($id = null)
+    {
+        $this->loadModel('IdeasUsers');
+        $ideas = $this->IdeasUsers->find('all')
+            ->contain(['Ideas', 'Users'])
+            ->where(['Users.id' => $id])
+            ->order(['IdeasUsers.id' => 'asc']);
+        // debug($ideas);exit;
+        $this->paginate = [
+            'limit' => 5,
+            'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao', 'Ideas.status']
+        ];
+        $this->set('ideasUsers', $this->paginate($ideas));
+
+        $this->set("title_for_layout", "Ideias"); //Titulo da Página
     }
 }

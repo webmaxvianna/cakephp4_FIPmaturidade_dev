@@ -25,7 +25,7 @@
                 <thead>
                 <tr>
                 <th><?= $this->Paginator->sort('Ideas.titulo', 'Título') ?></th>
-                <th><?= $this->Paginator->sort('Ideas.descricao', 'Descrição') ?></th>
+                <th><?= $this->Paginator->sort('Users.nome_completo', 'Autor') ?></th>
                 <th><?= $this->Paginator->sort('Ideas.status', 'Status') ?></th>
                 <th class="actions"><?= 'Ações' ?></th>
                 </tr>
@@ -34,7 +34,7 @@
                 <?php foreach ($ideasUsers as $ideasUser): ?>
                 <tr>
                     <td><?= $ideasUser->has('idea') ? h($ideasUser->idea->titulo) : '' ?></td>
-                    <td><?= $ideasUser->has('user') ? h($ideasUser->idea->descricao) : '' ?></td>
+                    <td><?= $ideasUser->has('user') ? h($ideasUser->user->nome_completo) : '' ?></td>
                     <td>
                         <?php 
                             switch ($ideasUser->idea->status) {
@@ -51,7 +51,7 @@
                         ?>
                     </td>
                     <td class="actions">
-                        <?= $this->Html->link('<i class="far fa-eye"></i> Visualizar', ['action' => 'view', $ideasUser->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
+                        <?= $this->Html->link('<i class="far fa-eye"></i> Visualizar', ['action' => 'view', $ideasUser->idea->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="fas fa-gavel"></i> Adicionar Nota', ['controller' => 'Appraisals', 'action' => 'add', $ideasUser->idea_id], ['class' => 'btn btn-secondary btn-sm', 'escape' => false]) ?>
                         <?= $this->Html->link('<i class="fas fa-gavel"></i> Listar Notas', ['controller' => 'Appraisals', 'action' => 'index', $ideasUser->idea_id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
                     </td>
