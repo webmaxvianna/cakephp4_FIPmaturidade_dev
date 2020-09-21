@@ -103,8 +103,26 @@ class UsersController extends AppController
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        // Verificar se existem arquivos de imagem ou PDF
+        if (isset($user->foto)) { $foto = WWW_ROOT . $user->foto; }
+        if (isset($user->verification->autorizacao_pais)) { 
+            $autorizacao_pais = WWW_ROOT . $user->verification->autorizacao_pais; }
+        if (isset($user->verification->residencia)) { 
+            $residencia = WWW_ROOT . $user->verification->residencia; }
+        if (isset($user->verification->identidade_frente)) { 
+            $identidade_frente = WWW_ROOT . $user->verification->identidade_frente; }
+        if (isset($user->verification->identidade_verso)) { 
+            $identidade_verso = WWW_ROOT . $user->verification->identidade_verso; }
+
         if ($this->Users->delete($user)) {
+            // Caso existam, excluir arquivos de imagem ou PDF
+            if (isset($foto)) { unlink($foto); } 
+            if (isset($autorizacao_pais)) { unlink($autorizacao_pais); } 
+            if (isset($residencia)) { unlink($residencia); } 
+            if (isset($identidade_frente)) { unlink($identidade_frente); } 
+            if (isset($identidade_verso)) { unlink($identidade_verso); }
+             
             $this->Flash->success(__('O usuário foi excluído.'));
         } else {
             $this->Flash->error(__('O usuário não foi excluído. Por favor, tente novamente.'));

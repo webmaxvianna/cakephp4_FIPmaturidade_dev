@@ -68,12 +68,18 @@ class UsersTable extends Table
         $this->hasMany('MyIdeas', [
             'className' => 'Ideas',
             'foreignKey' => 'user_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasOne('Resumes', [
             'foreignKey' => 'user_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasOne('Verifications', [
             'foreignKey' => 'user_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->belongsToMany('Characteristics', [
             'foreignKey' => 'user_id',
