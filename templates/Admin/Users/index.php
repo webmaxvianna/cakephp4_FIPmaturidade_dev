@@ -96,7 +96,7 @@
                                     <td class="actions text-nowrap">
                                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
-                                        <?= $this->Form->postLink('<i class="far fa-trash-alt"></i> excluir', ['action' => 'delete', $user->id], ['confirm' => __("Tem certeza que quer deletar o gestor '".$user->id."'?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]) ?>
+                                        <?= $this->Form->postLink('<i class="far fa-trash-alt"></i> excluir', ['action' => 'delete', $user->id], ['confirm' => __("Tem certeza que quer deletar o gestor '".$user->username."'?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]) ?>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
