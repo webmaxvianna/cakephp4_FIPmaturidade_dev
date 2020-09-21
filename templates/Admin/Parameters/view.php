@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <h4 class="mb-0">
                             <i class="fas fa-cogs"></i>
-                            &nbsp;Item <?= $parameter->item ?>
+                            &nbsp;Item <?= h($parameter->item) ?>
                             <small class="float-right">Criado em: <?= h($parameter->created) ?></small>
                         </h4>
                     </div>                    

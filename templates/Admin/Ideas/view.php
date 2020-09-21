@@ -23,9 +23,9 @@ $this->Breadcrumbs->add([
               <div class="row">
                 <div class="col-12">
                   <h2>
-                    <?= $idea->titulo ?>                    
+                    <?= h($idea->titulo) ?>                    
                   </h2>
-                  <small class="float-right">Criado em: <?= $idea->created ?></small>
+                  <small class="float-right">Criado em: <?= h($idea->created) ?></small>
                   <p>
                     Status: 
                     <?php 
@@ -62,7 +62,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Descrição:</h5>
-                  <p><?= $idea->descricao ?></p>                  
+                  <p><?= h($idea->descricao) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -84,7 +84,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">              
                 <div class="col-sm-12 invoice-col">
                   <h5>Atividades principais:</h5>
-                  <p><?= $idea->canvas_atividades ?></p>                  
+                  <p><?= h($idea->canvas_atividades) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -94,7 +94,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Propostas de valor:</h5>
-                  <p><?= $idea->canvas_propostas ?></p>                  
+                  <p><?= h($idea->canvas_propostas) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -104,7 +104,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Relacionamento com clientes:</h5>
-                  <p><?= $idea->canvas_relacionamentos ?></p>                  
+                  <p><?= h($idea->canvas_relacionamentos) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -114,7 +114,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Recursos principais:</h5>
-                  <p><?= $idea->canvas_recursos ?></p>                  
+                  <p><?= h($idea->canvas_recursos) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -124,7 +124,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Canais:</h5>
-                  <p><?= $idea->canvas_canais ?></p>                  
+                  <p><?= h($idea->canvas_canais) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -134,7 +134,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Parcerias Chaves:</h5>
-                  <p><?= $idea->canvas_parceriaschaves ?></p>                  
+                  <p><?= h($idea->canvas_parceriaschaves) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -144,7 +144,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Segmentos de Mercado:</h5>
-                  <p><?= $idea->canvas_segmentosdemercado ?></p>                  
+                  <p><?= h($idea->canvas_segmentosdemercado) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -154,7 +154,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Estrutura de Custos:</h5>
-                  <p><?= $idea->canvas_estruturadecusto ?></p>                  
+                  <p><?= h($idea->canvas_estruturadecusto) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -164,7 +164,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Fontes de Renda:</h5>
-                  <p><?= $idea->canvas_fontesderenda ?></p>                  
+                  <p><?= h($idea->canvas_fontesderenda) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -186,7 +186,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">              
                 <div class="col-sm-12 invoice-col">
                   <h5>Segredo:</h5>
-                  <p><?= $idea->sumario_segredo ?></p>                  
+                  <p><?= h($idea->sumario_segredo) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -196,7 +196,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Problema:</h5>
-                  <p><?= $idea->sumario_problema ?></p>                  
+                  <p><?= h($idea->sumario_problema) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -206,7 +206,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Solução:</h5>
-                  <p><?= $idea->sumario_solucao ?></p>                  
+                  <p><?= h($idea->sumario_solucao) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -216,7 +216,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Oportunidade:</h5>
-                  <p><?= $idea->sumario_oportunidade ?></p>                  
+                  <p><?= h($idea->sumario_oportunidade) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -226,7 +226,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Vantagem Competitiva:</h5>
-                  <p><?= $idea->sumario_vontadecompetitiva ?></p>                  
+                  <p><?= h($idea->sumario_vontadecompetitiva) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
@@ -236,7 +236,7 @@ $this->Breadcrumbs->add([
               <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5>Modelo:</h5>
-                  <p><?= $idea->sumario_modelo ?></p>                  
+                  <p><?= h($idea->sumario_modelo) ?></p>                  
                 </div>
                 <!-- /.col -->
               </div>
