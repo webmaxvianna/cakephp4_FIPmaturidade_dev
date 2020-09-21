@@ -25,7 +25,7 @@
               <div class="card-body">
                 <p class="">
                     <h5>Característica:</h5>
-                    <h4>"<?= $characteristic->sobre ?>"</h4>
+                    <h4>"<?= h($characteristic->sobre) ?>"</h4>
                     <table id="example1" class="table table-bordered table-striped">                
                 </p>
                 <hr/>

@@ -6,7 +6,7 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <h3>Olá, <?= $userLogged->nome_completo ?>!</h3>
+                <h3>Olá, <?= h($userLogged->nome_completo) ?>!</h3>
                 <?php
                   switch ($userLogged->sexo) {
                     case 'Masculino':
@@ -20,7 +20,7 @@
                       break;
                   }
                 ?>
-                <p class="lead">Seja bem-vind<?= $sexo ?> ao Sistema de Maturidade.</p>
+                <p class="lead">Seja bem-vind<?= h($sexo) ?> ao Sistema de Maturidade.</p>
                 <p class="lead">
                 <?php
                   switch ($userLogged->role->funcao) {

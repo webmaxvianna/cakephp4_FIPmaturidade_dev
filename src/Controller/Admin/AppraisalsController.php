@@ -114,7 +114,9 @@ class AppraisalsController extends AppController
             $item_array[] = $item->parameter_id;
         }
         $parameters = $this->Appraisals->Parameters->find('list')->toArray();
-        $parameters = \array_diff_key($parameters, array_flip($item_array));
+        if(isset($item_array)) {
+            $parameters = \array_diff_key($parameters, array_flip($item_array));
+        }
         $this->set(compact('appraisal', 'parameters'));
     }
 

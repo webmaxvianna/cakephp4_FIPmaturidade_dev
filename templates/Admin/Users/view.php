@@ -24,49 +24,49 @@
               }
               echo $this->Html->image($user->foto ? $user->foto : 'usuarios/padrao.png', ['fullBase' => true, 'class' => $class, 'alt' => 'User profile picture']);
             ?>
-              <h2><?= $user->nome_completo ?></h2>
+              <h2><?= h($user->nome_completo) ?></h2>
             </div>
             <!-- /.col -->
           </div>
           <!-- info row -->
           <div class="row invoice-info mb-4">
             <div class="col-sm-4 invoice-col">
-              <b>Nome de usuário:</b> <?= $user->username ?><br>
-              <b>Função:</b> <?= $user->role->funcao ?><br>
-              <b>Email:</b> <?= $user->email ?> <?= $user->confirmacao_email ? '<i class="text-success fas fa-check"></i>' : '' ?><br>
-              <b>Data de nascimento:</b> <?= $user->data_nascimento ?><br>
-              <b>Sexo:</b> <?= $user->sexo ?><br>
-              <b>RG:</b> <?= $user->rg ?><br>
-              <b>CPF:</b> <?= $user->cpf ?><br>
+              <b>Nome de usuário:</b> <?= h($user->username) ?><br>
+              <b>Função:</b> <?= h($user->role->funcao) ?><br>
+              <b>Email:</b> <?= $user->email ?> <?= h($user->confirmacao_email) ? '<i class="text-success fas fa-check"></i>' : '' ?><br>
+              <b>Data de nascimento:</b> <?= h($user->data_nascimento) ?><br>
+              <b>Sexo:</b> <?= h($user->sexo) ?><br>
+              <b>RG:</b> <?= h($user->rg) ?><br>
+              <b>CPF:</b> <?= h($user->cpf) ?><br>
             </div>
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
-              <b>Telefone 1:</b> <?= $user->telefone1 ?><br>
-              <b>Telefone 2:</b> <?= $user->telefone2 ?><br>
-              <b>Facebook:</b> <?= $user->facebook ?><br>
-              <b>LinkedIn:</b> <?= $user->linkedin ?><br>
-              <b>Instagram:</b> <?= $user->instagram ?><br>              
-              <b>Currículo Lattes:</b> <?= $user->lattes ?><br>
+              <b>Telefone 1:</b> <?= h($user->telefone1) ?><br>
+              <b>Telefone 2:</b> <?= h($user->telefone2) ?><br>
+              <b>Facebook:</b> <?= h($user->facebook) ?><br>
+              <b>LinkedIn:</b> <?= h($user->linkedin) ?><br>
+              <b>Instagram:</b> <?= h($user->instagram) ?><br>              
+              <b>Currículo Lattes:</b> <?= h($user->lattes) ?><br>
             </div>
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
               <address>
-                <b>CEP:</b> <?= $user->cep ?><br>
-                <b>Endereço:</b> <?= $user->logradouro ?><br>
-                <b>Número:</b> <?= $user->numero ?><br>
-                <b>Complemento:</b> <?= $user->complemento ?><br>
-                <b>Bairro:</b> <?= $user->bairro ?><br>                
-                <b>Cidade:</b> <?= $user->cidade ?><br>
-                <b>Estado:</b> <?= $user->estado ?><br>
-                <b>País:</b> <?= $user->pais ?><br>
+                <b>CEP:</b> <?= h($user->cep) ?><br>
+                <b>Endereço:</b> <?= h($user->logradouro) ?><br>
+                <b>Número:</b> <?= h($user->numero) ?><br>
+                <b>Complemento:</b> <?= h($user->complemento) ?><br>
+                <b>Bairro:</b> <?= h($user->bairro) ?><br>                
+                <b>Cidade:</b> <?= h($user->cidade) ?><br>
+                <b>Estado:</b> <?= h($user->estado) ?><br>
+                <b>País:</b> <?= h($user->pais) ?><br>
               </address>
             </div>
             <!-- /.col -->
 
             <?php if ($user->role->funcao == 'Candidato') : ?>
               <div class="col-sm-12 invoice-col">              
-                <b>Professor Orientador:</b> <?= $user->professor ?><br>
-                <b>Currículo Lattes do Professor:</b> <?= $user->professor_lattes ?><br>
+                <b>Professor Orientador:</b> <?= h($user->professor) ?><br>
+                <b>Currículo Lattes do Professor:</b> <?= h($user->professor_lattes) ?><br>
               </div>
             <?php endif; ?>
             <!-- /.col -->
@@ -78,9 +78,9 @@
           <div class="row invoice-info">
             <div class="col-md-8 invoice-col pr-3 mb-2">
               <h4><u>Área de atuação</u></h4>
-              <p><?= $user->resume->area_atuacao ?></p>
+              <p><?= h($user->resume->area_atuacao) ?></p>
               <h4><u>Currículo resumido</u></h4>
-              <p><?= $user->resume->curriculo ?></p>
+              <p><?= h($user->resume->curriculo) ?></p>
             </div>
             <!-- /.col -->
             <div class="col-md-4 invoice-col mb-2">
@@ -142,7 +142,7 @@
                   <table class="table">
                   <?php foreach ($user->interests as $interest) : ?>
                     <tr>
-                      <td><?= $interest['interesse'] ?></td>
+                      <td><?= h($interest['interesse']) ?></td>
                     </tr>
                   <?php endforeach; ?>
                   </table>
@@ -155,7 +155,7 @@
                   <table class="table">
                   <?php foreach ($user->characteristics as $characteristic) : ?>
                     <tr>
-                      <td><?= $characteristic['sobre'] ?></td>
+                      <td><?= h($characteristic['sobre']) ?></td>
                     </tr>
                   <?php endforeach; ?>
                   </table>
@@ -169,7 +169,7 @@
                   <table class="table">
                   <?php foreach ($user->specialties as $specialty) : ?>
                     <tr>
-                      <td><?= $specialty['especialidade'] ?></td>
+                      <td><?= h($specialty['especialidade']) ?></td>
                     </tr>
                   <?php endforeach; ?>
                   </table>

@@ -167,8 +167,8 @@ class UsersController extends AppController
             $usuario = $this->request->getData();
             $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
             $usuario['email'] = strtolower($usuario['email']);
-            $usuario['role_id'] = '3'; // ID do Candidato
             $user = $this->Users->patchEntity($user, $usuario);
+            $usuario['role_id'] = '3'; // ID do Candidato
             if ($this->Users->save($user)) {
                 $this->Flash->success_sm(__('O candidato foi cadastrado.'));
                 $this->getMailer('Users')->send('newApplicant', [$user]); // Envio de email para Novo candidato
@@ -246,7 +246,7 @@ class UsersController extends AppController
             }
             $user = $this->Users->get($id);
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            // debug($user);exit;
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 $this->Flash->success_sm(__('Senha alterada!'));
                 return $this->redirect(['controller' => 'users', 'action' => 'login']);
@@ -285,6 +285,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id);        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('A senha foi alterada.'));
                 return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
@@ -308,6 +309,7 @@ class UsersController extends AppController
             $userData['email'] = strtolower($userData['email']);
             $userData['confirmacao_email'] = 0;
             $user = $this->Users->patchEntity($user, $userData); 
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 $this->getMailer('Users')->send('sendConfirmationEmail', [$user]); // Envio de email para confirmação de endereço de email
                 $this->Flash->success(__('O email foi alterado.'));
@@ -333,6 +335,7 @@ class UsersController extends AppController
             $usuario = $this->request->getData();
             $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
             $user = $this->Users->patchEntity($user, $usuario);
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Os dados do(a) candidato(a) foram alterados.'));
                 return $this->redirect(['controller' => 'users', 'action' => 'editProfile', $this->Auth->user('id')]);
@@ -378,6 +381,7 @@ class UsersController extends AppController
                 $destination = WWW_ROOT . "img" . DS . "usuarios" . DS . $user->id . '.' . $ext;
                 $userData["foto"] = '/img/usuarios/' . $user->id . '.' . $ext;
                 $user = $this->Users->patchEntity($user, $userData);
+                unset($user['role_id']);
                 if ($this->Users->save($user)) {
                     if (isset($imagedb)) { unlink($imagedb); } 
                     $this->Flash->success(__('A foto foi alterada.'));
@@ -418,6 +422,7 @@ class UsersController extends AppController
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
             $userData['verification']['autorizacao_pais'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-autorizacao_pais.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }                
                 $this->Flash->success(__('A "Autorização dos Pais ou Responsável" foi salva.'));
@@ -456,6 +461,7 @@ class UsersController extends AppController
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
             $userData['verification']['residencia'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-residencia.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }                
                 $this->Flash->success(__('O "Comprovante de Residência" foi salvo.'));
@@ -494,6 +500,7 @@ class UsersController extends AppController
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
             $userData['verification']['identidade_frente'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-identidade_frente.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }                
                 $this->Flash->success(__('A frente do "Comprovante de Identidade" foi salva.'));
@@ -532,6 +539,7 @@ class UsersController extends AppController
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
             $userData['verification']['identidade_verso'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-identidade_verso.' . $ext;
             $user = $this->Users->patchEntity($user, $userData);
+            unset($user['role_id']);
             if ($this->Users->save($user)) {
                 if (isset($imagedb)) { unlink($imagedb); }  
                 $this->Flash->success(__('O verso do "Comprovante de Identidade" foi salvo.'));
