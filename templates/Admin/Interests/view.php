@@ -25,7 +25,7 @@
               <div class="card-body">
                 <p class="">
                     <h5>Interesse:</h5>
-                    <h4>"<?= $interest->interesse ?>"</h4>
+                    <h4>"<?= h($interest->interesse) ?>"</h4>
                     <table id="example1" class="table table-bordered table-striped">                
                 </p>
                 <hr/>
