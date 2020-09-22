@@ -163,18 +163,31 @@ class UsersController extends AppController
 
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            $usuario = $this->request->getData();
-            $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
-            $usuario['email'] = strtolower($usuario['email']);
-            $user = $this->Users->patchEntity($user, $usuario);
-            $usuario['role_id'] = '3'; // ID do Candidato
-            if ($this->Users->save($user)) {
-                $this->Flash->success_sm(__('O candidato foi cadastrado.'));
-                $this->getMailer('Users')->send('newApplicant', [$user]); // Envio de email para Novo candidato
-                return $this->redirect(['controller' => 'users', 'action' => 'login']);
+            if (isset($_POST['g-recaptcha-response'])) {
+                $captcha_data = $_POST['g-recaptcha-response'];
             }
-            $this->Flash->error_sm(__('O candidato não foi cadastrado. Por favor, tente novamente.'));
+            
+            // Se nenhum valor foi recebido, o usuário não realizou o captcha
+            if (!$captcha_data) {
+                $this->Flash->error_sm(__('Por favor, confirme o captcha.'));
+            }
+            else {
+                $resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+            }
+            if ($resposta != null && $resposta.success) {
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                $usuario = $this->request->getData();
+                $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
+                $usuario['email'] = strtolower($usuario['email']);
+                $user = $this->Users->patchEntity($user, $usuario);
+                $usuario['role_id'] = '3'; // ID do Candidato
+                if ($this->Users->save($user)) {
+                    $this->Flash->success_sm(__('O candidato foi cadastrado.'));
+                    $this->getMailer('Users')->send('newApplicant', [$user]); // Envio de email para Novo candidato
+                    return $this->redirect(['controller' => 'users', 'action' => 'login']);
+                }
+                $this->Flash->error_sm(__('O candidato não foi cadastrado. Por favor, tente novamente.'));
+            }
         }
         $this->set(compact('user'));
         $this->set("title_for_layout", "Novo Candidato"); //Titulo da Página

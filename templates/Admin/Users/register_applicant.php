@@ -1,3 +1,4 @@
+<head><script src='https://www.google.com/recaptcha/api.js'></script></head>
 <body class="hold-transition register-page">
 <div class="register-box mb-5">
   <div class="register-logo mt-5">
@@ -31,6 +32,7 @@
               echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
               echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha', 'class' => 'form-control mb-2', 'type' => 'password']);
           ?>
+          <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
           <div class="col-md-6 offset-md-3">
               <?= $this->Form->button(__('Registrar'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
           </div>
