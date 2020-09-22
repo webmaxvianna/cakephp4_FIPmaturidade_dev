@@ -179,7 +179,7 @@ class AppraisalsController extends AppController
 
     public function indexAvaliacaoCandidato($id_user = null)
     {
-        if($this->Auth->user('role_id') != 3) {
+        if($this->Auth->user('role_id') != 3 && $id_user != $this->Auth->user('id')) {
             $this->Flash->error(__('Operação não permitida.'));
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }

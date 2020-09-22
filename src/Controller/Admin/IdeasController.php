@@ -48,7 +48,7 @@ class IdeasController extends AppController
             'contain' => ['Edicts', 'Owners', 'Appraisals', 'Confidentials', 'Evidences', 'Pitches'],
         ]);
         
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1 && $this->Auth->user('role_id') != 2) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1 && $this->Auth->user('role_id') != 2 && $this->Auth->user('role_id') != 5) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
 
@@ -228,6 +228,10 @@ class IdeasController extends AppController
 
     public function indexCandidatos($id = null)
     {
+        if($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Operação não permitida.'));
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->paginate = [
             'contain' => ['Edicts', 'Users', 'Owners'],
             'limit' => 3,
@@ -360,6 +364,9 @@ class IdeasController extends AppController
 
     public function indexAvaliadores($id = null)
     {
+        if($id != $this->Auth->user('id') || $this->Auth->user('role_id') != 2) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->loadModel('IdeasUsers');
         $ideas = $this->IdeasUsers->find('all')
             ->contain(['Ideas', 'Users'])
@@ -371,6 +378,26 @@ class IdeasController extends AppController
             'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao', 'Ideas.status']
         ];
         $this->set('ideasUsers', $this->paginate($ideas));
+
+        $this->set("title_for_layout", "Ideias"); //Titulo da Página
+    }
+
+    public function indexJurados($id = null)
+    {
+        if($id != $this->Auth->user('id') || $this->Auth->user('role_id') != 5) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        $this->loadModel('IdeasUsersJurors');
+        $ideas = $this->IdeasUsersJurors->find('all')
+            ->contain(['Ideas', 'Users'])
+            ->where(['Users.id' => $id])
+            ->order(['IdeasUsersJurors.id' => 'asc']);
+        // debug($ideas);exit;
+        $this->paginate = [
+            'limit' => 5,
+            'sortWhitelist' => ['Ideas.titulo', 'Ideas.descricao', 'Ideas.status']
+        ];
+        $this->set('ideasUsersJurors', $this->paginate($ideas));
 
         $this->set("title_for_layout", "Ideias"); //Titulo da Página
     }

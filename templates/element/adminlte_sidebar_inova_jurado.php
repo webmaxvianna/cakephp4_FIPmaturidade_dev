@@ -30,7 +30,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'ideasusersjurors', 'action' => 'index', $userLogged['id']]); ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'ideas', 'action' => 'index_jurados', $userLogged['id']]); ?>" class="nav-link">
               <i class="nav-icon fas fa-lightbulb"></i>
               <p>
                 Ideias
