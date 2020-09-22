@@ -19,8 +19,8 @@ $this->Breadcrumbs->add([
                     <div class="card-header">
                         <h2 class="card-title">Notas das avaliações realizadas</h2>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th><?= $this->Paginator->sort('idea_id', 'Ideia') ?></th>
@@ -41,15 +41,9 @@ $this->Breadcrumbs->add([
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->        
+                </div>     
                 <?= $this->element('pagination') ?>
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
 </section>
-<!-- /.content -->
