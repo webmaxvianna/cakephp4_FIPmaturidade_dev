@@ -36,16 +36,12 @@
                 <div class="card-body">
                     <div class="form-group">
                     <?php
-                        echo $this->Form->control('numero', [
+                        echo $this->Form->control('link', [
+                            'type' => 'file',
                             'class' => 'form-control mb-2', 
-                            'placeholder' => 'Número',
-                            'label' => ['text' => 'Número do edital', 'label' => 'control-label']]);
-                        echo $this->Form->control('data_inicial', [
-                            'class' => 'form-control mb-2', 
-                            'label' => ['text' => 'Início em', 'label' => 'control-label']]);
-                        echo $this->Form->control('data_final', [
-                            'class' => 'form-control mb-2', 
-                            'label' => ['text' => 'Expira em', 'label' => 'control-label']]);
+                            'placeholder' => 'Link',
+                            'label' => ['text' => 'Arquivo do edital <small>(Apenas arquivos PDF)</small>', 'label' => 'control-label'],
+                            'escape' => false]);
                     ?>    
                     </div>                    
                 </div>
