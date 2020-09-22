@@ -97,11 +97,11 @@ class EdictsTable extends Table
         $validator
             ->scalar('numero')
             ->maxLength('numero', 20)
-            ->notEmptyString('numero');
+            ->notEmptyString('numero', 'Este campo precisa ser preenchido');
 
         $validator
             ->scalar('link')
-            ->notEmptyString('link');
+            ->notEmptyString('link', 'Este campo precisa ser preenchido');
 
         $validator
             ->scalar('edital')
@@ -113,11 +113,11 @@ class EdictsTable extends Table
             
         $validator
             ->date('data_inicial')
-            ->allowEmptyDate('data_inicial');
+            ->notEmptyDate('data_inicial', 'Este campo precisa ser preenchido');
 
         $validator
             ->date('data_final')
-            ->allowEmptyDate('data_final');
+            ->notEmptyDate('data_final', 'Este campo precisa ser preenchido');
 
         return $validator;
     }

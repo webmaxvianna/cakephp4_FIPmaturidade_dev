@@ -67,11 +67,12 @@ class EdictsController extends AppController
             }
             
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $edictData['link'] =  '/docs/editais/' . $edictData['numero'] .  '.' . $ext;
+            $edictData['link'] =  '/docs/editais/' . $edictData['numero'] .  '-Edital-FundacaoInovaPrudente.' . $ext;
+            $edictData['user_id'] =  $this->Auth->user('id');
             $edict = $this->Edicts->patchEntity($edict, $edictData);
             if ($this->Edicts->save($edict)) {               
                 $this->Flash->success(__('O Edital nº '.$edict->numero.' foi salvo.'));
-                $path = WWW_ROOT . 'docs/editais' . DS . $edict->numero . '.' . $ext;
+                $path = WWW_ROOT . 'docs/editais' . DS . $edict->numero . '-Edital-FundacaoInovaPrudente.' . $ext;
                 $file->moveTo($path);
                 return $this->redirect(['action' => 'index']);
             }
@@ -97,24 +98,47 @@ class EdictsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $edictData = $this->request->getData();
+            $edict = $this->Edicts->patchEntity($edict, $edictData);
+            if ($this->Edicts->save($edict)) {
+                $this->Flash->success(__('O Edital nº '.$edict->numero.' foi alterado.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('O Edital não foi alterado. Por favor tente novamente'));
+        }
+        $this->set(compact('edict'));
+    }
+
+    public function editFile($id = null)
+    {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
+        $edict = $this->Edicts->get($id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $edictData = $this->request->getData();
+            if (isset($edict->link)) {
+                $edital = WWW_ROOT . $edict->link;
+            }
             $file = $this->request->getData('link');
             $valid_extensions = array("application/pdf");
 
             if ($file->getSize() > (1024 * 1024 * 10)) {                
                 $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'editFile',$id]);
             }
             if (!in_array($file->getClientMediaType(), $valid_extensions)) {                
                 $this->Flash->warning(__('Apenas arquivos em formato PDF são permitidos.'));
-                return $this->redirect(['action' => 'add']);
+                return $this->redirect(['action' => 'editFile',$id]);
             }
             
             $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $edictData['link'] =  '/docs/editais/' . $edictData['numero'] .  '.' . $ext;
+            $edictData['link'] =  '/docs/editais/' . $edict->numero .  '-Edital-FundacaoInovaPrudente.' . $ext;
             $edict = $this->Edicts->patchEntity($edict, $edictData);
+            // debug($edital);exit;
             if ($this->Edicts->save($edict)) {
+                if (isset($edital)) { unlink($edital); } 
                 $this->Flash->success(__('O Edital nº '.$edict->numero.' foi alterado.'));
-                $path = WWW_ROOT . 'docs/editais' . DS . $edict->numero . '.' . $ext;
+                $path = WWW_ROOT . 'docs/editais' . DS . $edict->numero . '-Edital-FundacaoInovaPrudente.' . $ext;
                 $file->moveTo($path);
                 return $this->redirect(['action' => 'index']);
             }
@@ -137,8 +161,7 @@ class EdictsController extends AppController
         }
         $this->request->allowMethod(['post', 'delete']);
         $edict = $this->Edicts->get($id);
-        // debug($edict);exit;
-        if (isset($edict->link)) {$edital = WWW_ROOT . $edict->link;}        
+        if (isset($edict->link)) {$edital = WWW_ROOT . $edict->link;}          
         if ($this->Edicts->delete($edict)) {
             if (isset($edital)) {unlink($edital);}
             $this->Flash->success(__('O edital foi excluído.'));

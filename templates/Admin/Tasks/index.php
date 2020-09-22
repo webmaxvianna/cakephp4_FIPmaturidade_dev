@@ -10,8 +10,9 @@
         ['title' => 'Atividades']
     ]);
 ?>
+<!-- Main content -->
 <section class="content">
-      <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -20,7 +21,7 @@
                         <h3 class="card-title">Lista de Atividades</h3>
                     </div>
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th><?= $this->Paginator->sort('dimensao', 'Dimensão') ?></th>
@@ -35,7 +36,7 @@
                                     <td><?= h($task->dimensao) ?></td>
                                     <td><?= h($task->atividade) ?></td>
                                     <td><?= h($task->tipo) ?></td>
-                                    <td class="text-nowrap actions">
+                                    <td class="actions text-nowrap">
                                         <?= $this->Html->link('<i class="far fa-eye"></i> visualizar', ['action' => 'view', $task->id], ['class' => 'btn btn-info btn-sm', 'escape' => false]) ?>
                                         <?= $this->Html->link('<i class="far fa-edit"></i> editar', ['action' => 'edit', $task->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]) ?>
                                         <?= $this->Form->postLink('<i class="far fa-trash-alt"></i> excluir', ['action' => 'delete', $task->id], ['confirm' => __("Tem certeza que deseja deletar o registro 'ID: ".$task->id."'?"), 'class' => 'btn btn-danger btn-sm', 'escape' => false]) ?>
@@ -46,8 +47,8 @@
                         </table>
                     </div>
                 </div>
+                <?= $this->element('pagination') ?>
             </div>
         </div>
-        <?= $this->element('pagination') ?>
     </div>
-</div>
+</section>
