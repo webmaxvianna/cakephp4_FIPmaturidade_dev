@@ -84,7 +84,7 @@ class PitchesController extends AppController
     {
         $user_id = $this->Auth->user('id');
 
-        //Verificação para não permitir a alteração de notas de ideias não vinculadas ao avaliador
+        //Verificação para não permitir a alteração de notas de ideias não vinculadas ao jurado
         $this->loadModel('IdeasUsersJurors');
         $existe = $this->IdeasUsersJurors->find('list', ['conditions' => ['user_id =' => $user_id, 'idea_id =' => $idea_id]]);
         if($existe->toArray()==null) {
@@ -95,22 +95,24 @@ class PitchesController extends AppController
         $pitch = $this->Pitches->newEmptyEntity();
         if ($this->request->is('post')) {
             $pitch = $this->Pitches->patchEntity($pitch, $this->request->getData());
-            $existe = $this->Pitches->find('list', ['limit' => 200, 'conditions' => ['idea_id =' => $idea_id, 'id_jurado =' => $user_id,
-            'category_id =' => $pitch->category_id]]);
-            if($existe->toArray()!=null) {
-                $pitch->id = key($existe->toArray());
-            }
+            $pitch->id_jurado = $user_id;
+            $pitch->idea_id = $idea_id;
             if ($this->Pitches->save($pitch)) {
                 $this->Flash->success(__('A pontuação foi registrada.'));
                 return $this->redirect(['action' => 'add', $idea_id]);
             }
             $this->Flash->error(__('A pontuação não pôde ser registrada.'));
         }
-        $categories = $this->Pitches->Categories->find('list', ['limit' => 200]);
-        $ideas = $this->Pitches->Ideas->find('list', ['limit' => 200, 'conditions' => ['id' => $idea_id]]);
-        $this->loadModel('Users');
-        $jurado = $this->Users->find('list', ['limit' => 200, 'conditions' => ['id' => $user_id]]);
-        $this->set(compact('pitch', 'categories', 'ideas', 'jurado'));
+        $itens = $this->Pitches->find('all', ['fields' => ['category_id']])->where(['id_jurado' => $user_id, 'idea_id' => $idea_id])->toArray();
+        foreach ($itens as $item) {
+            $item_array[] = $item->category_id;
+        }
+
+        $categories = $this->Pitches->Categories->find('list')->toArray();
+        if(isset($item_array)) {
+            $categories = \array_diff_key($categories, array_flip($item_array));
+        }
+        $this->set(compact('pitch', 'categories'));
     }
 
     /**
@@ -124,7 +126,7 @@ class PitchesController extends AppController
     {
         $user_id = $this->Auth->user('id');
 
-        //Verificação para não permitir a alteração de notas de ideias não vinculadas ao avaliador
+        //Verificação para não permitir a alteração de notas de ideias não vinculadas ao jurado
         $this->loadModel('IdeasUsersJurors');
         $existe = $this->IdeasUsersJurors->find('list', ['conditions' => ['user_id =' => $user_id, 'idea_id =' => $idea_id]]);
         if($existe->toArray()==null) {
@@ -132,9 +134,7 @@ class PitchesController extends AppController
             return $this->redirect(['controller' => 'pitches', 'action' => 'index']);
         }
 
-        $pitch = $this->Pitches->get($id, [
-            'contain' => [],
-        ]);
+        $pitch = $this->Pitches->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $pitch = $this->Pitches->patchEntity($pitch, $this->request->getData());
             if ($this->Pitches->save($pitch)) {
@@ -145,9 +145,8 @@ class PitchesController extends AppController
         }
         $this->loadModel('Users');
         $ideas = $this->Pitches->Ideas->find('list', ['limit' => 200, 'conditions' => ['id' => $idea_id]]);
-        $jurado = $this->Users->find('list', ['limit' => 200, 'conditions' => ['id' => $user_id]]);
         $categories = $this->Pitches->Categories->find('list', ['limit' => 200]);
-        $this->set(compact('pitch', 'ideas', 'categories', 'jurado'));
+        $this->set(compact('pitch', 'ideas', 'categories'));
     }
 
     /**
@@ -176,7 +175,7 @@ class PitchesController extends AppController
 
     public function indexPitchCandidato($id_user = null)
     {
-        if($this->Auth->user('role_id') != 3) {
+        if($this->Auth->user('role_id') != 3 && $id_user != $this->Auth->user('id')) {
             $this->Flash->error(__('Operação não permitida.'));
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
