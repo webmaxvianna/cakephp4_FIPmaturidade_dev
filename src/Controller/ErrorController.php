@@ -57,7 +57,7 @@ class ErrorController extends AppController
 
         $this->viewBuilder()->setTemplatePath('Error');
         // debug($event);exit;
-        session_unset();
+        // session_unset();  //Faz o logoff caso ocorra algum erro
     }
 
     /**

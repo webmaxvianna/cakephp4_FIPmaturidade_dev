@@ -18,7 +18,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Lista de Funções</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-0">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
