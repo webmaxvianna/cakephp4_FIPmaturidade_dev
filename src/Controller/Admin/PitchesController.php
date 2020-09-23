@@ -66,6 +66,7 @@ class PitchesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function view($id = null)
     {
         $pitch = $this->Pitches->get($id, [
@@ -74,6 +75,7 @@ class PitchesController extends AppController
 
         $this->set(compact('pitch'));
     }
+    */
 
     /**
      * Add method
@@ -175,7 +177,7 @@ class PitchesController extends AppController
 
     public function indexPitchCandidato($id_user = null)
     {
-        if($this->Auth->user('role_id') != 3 && $id_user != $this->Auth->user('id')) {
+        if($this->Auth->user('role_id') != 3 || $id_user != $this->Auth->user('id')) {
             $this->Flash->error(__('Operação não permitida.'));
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }

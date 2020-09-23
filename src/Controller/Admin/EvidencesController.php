@@ -18,6 +18,7 @@ class EvidencesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    /*
     public function index()
     {
         $this->paginate = [
@@ -27,6 +28,7 @@ class EvidencesController extends AppController
 
         $this->set(compact('evidences'));
     }
+    */
 
     /**
      * View method
@@ -35,6 +37,7 @@ class EvidencesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function view($id = null)
     {
         $evidence = $this->Evidences->get($id, [
@@ -43,12 +46,14 @@ class EvidencesController extends AppController
 
         $this->set(compact('evidence'));
     }
+    */
 
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+    /*
     public function add()
     {
         $evidence = $this->Evidences->newEmptyEntity();
@@ -65,6 +70,7 @@ class EvidencesController extends AppController
         $tasks = $this->Evidences->Tasks->find('list', ['limit' => 200]);
         $this->set(compact('evidence', 'ideas', 'tasks'));
     }
+    */
 
     /**
      * Edit method
@@ -73,6 +79,7 @@ class EvidencesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function edit($id = null)
     {
         $evidence = $this->Evidences->get($id, [
@@ -91,6 +98,7 @@ class EvidencesController extends AppController
         $tasks = $this->Evidences->Tasks->find('list', ['limit' => 200]);
         $this->set(compact('evidence', 'ideas', 'tasks'));
     }
+    */
 
     /**
      * Delete method
@@ -99,6 +107,7 @@ class EvidencesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -111,4 +120,5 @@ class EvidencesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    */
 }
