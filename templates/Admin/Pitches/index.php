@@ -20,8 +20,8 @@ $this->Breadcrumbs->add([
                         <!-- <?= $this->Html->link(__('Novo Pitch'), ['action' => 'add'], ['class' => 'button float-right']) ?> -->
                         <h3 class="card-title"><?='Pitches'?></h3>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th><?= $this->Paginator->sort('idea_id', 'Ideia') ?></th>

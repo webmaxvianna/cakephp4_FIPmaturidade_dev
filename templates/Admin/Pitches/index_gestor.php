@@ -19,8 +19,8 @@ $this->Breadcrumbs->add([
                 <div class="card-header">
                     <h2 class="card-title">Notas dos pitches realizados</h2>
                 </div>
-                <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                <div class="card-body table-responsive p-0">
+                        <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th><?= $this->Paginator->sort('idea_id', 'Ideia') ?></th>
