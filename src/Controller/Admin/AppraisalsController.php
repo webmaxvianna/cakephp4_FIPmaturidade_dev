@@ -72,7 +72,8 @@ class AppraisalsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    /*
+     public function view($id = null)
     {
         $appraisal = $this->Appraisals->get($id, [
             'contain' => ['Ideas', 'Parameters'],
@@ -80,6 +81,7 @@ class AppraisalsController extends AppController
 
         $this->set(compact('appraisal'));
     }
+    */
 
     /**
      * Add method
@@ -179,7 +181,7 @@ class AppraisalsController extends AppController
 
     public function indexAvaliacaoCandidato($id_user = null)
     {
-        if($this->Auth->user('role_id') != 3 && $id_user != $this->Auth->user('id')) {
+        if($this->Auth->user('role_id') != 3 || $id_user != $this->Auth->user('id')) {
             $this->Flash->error(__('Operação não permitida.'));
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }

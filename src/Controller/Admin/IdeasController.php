@@ -48,7 +48,7 @@ class IdeasController extends AppController
             'contain' => ['Edicts', 'Owners', 'Appraisals', 'Confidentials', 'Evidences', 'Pitches'],
         ]);
         
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1 && $this->Auth->user('role_id') != 2 && $this->Auth->user('role_id') != 5) {
+        if($this->Auth->user('role_id') != 1 && $this->Auth->user('role_id') != 2 && $this->Auth->user('role_id') != 5) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
 
@@ -111,7 +111,7 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Users'],
         ]);
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($this->Auth->user('role_id') != 1) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -142,7 +142,7 @@ class IdeasController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $idea = $this->Ideas->get($id);
 
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($this->Auth->user('role_id') != 1) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
 
@@ -246,8 +246,8 @@ class IdeasController extends AppController
 
     public function addIdeas($id = null)
     {
-        //Checagem caso o usuário tente passar outro id pela URL
-        if ($id != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        //Checagem caso o user não seja candidato ou o candidato tente passar outro id pela URL
+        if ($id != $this->Auth->user('id') || $this->Auth->user('role_id') != 3) {
             return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
 
@@ -287,7 +287,7 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Users'],
         ]);
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') || $this->Auth->user('role_id') != 3) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -308,7 +308,7 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Users'],
         ]);
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') || $this->Auth->user('role_id') != 3) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -329,7 +329,7 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id, [
             'contain' => ['Users'],
         ]);
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') || $this->Auth->user('role_id') != 3) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -350,7 +350,7 @@ class IdeasController extends AppController
         $idea = $this->Ideas->get($id);
         $idea->status = 2;
 
-        if($idea->toArray()['user_id'] != $this->Auth->user('id') && $this->Auth->user('role_id') != 1) {
+        if($idea->toArray()['user_id'] != $this->Auth->user('id') || $this->Auth->user('role_id') != 3) {
             $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
         }
         

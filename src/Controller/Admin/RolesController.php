@@ -20,6 +20,9 @@ class RolesController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $this->paginate = [
             'limit' => 5
         ];
@@ -37,6 +40,7 @@ class RolesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function view($id = null)
     {
         $role = $this->Roles->get($id, [
@@ -45,12 +49,13 @@ class RolesController extends AppController
 
         $this->set(compact('role'));
     }
-
+    */
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+    /*
     public function add()
     {
         $role = $this->Roles->newEmptyEntity();
@@ -65,6 +70,7 @@ class RolesController extends AppController
         }
         $this->set(compact('role'));
     }
+    */
 
     /**
      * Edit method
@@ -73,6 +79,7 @@ class RolesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function edit($id = null)
     {
         $role = $this->Roles->get($id, [
@@ -89,6 +96,7 @@ class RolesController extends AppController
         }
         $this->set(compact('role'));
     }
+    */
 
     /**
      * Delete method
@@ -97,6 +105,7 @@ class RolesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -109,4 +118,5 @@ class RolesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    */
 }

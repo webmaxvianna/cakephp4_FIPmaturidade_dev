@@ -20,6 +20,9 @@ class EdictsController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $edicts = $this->paginate($this->Edicts);
         $this->set(compact('edicts'));
         $this->set("title_for_layout", "Editais"); //Titulo da Página
@@ -34,6 +37,9 @@ class EdictsController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $edict = $this->Edicts->get($id, [
             'contain' => ['Owners', 'Users', 'Categories', 'Parameters', 'Tasks', 'Ideas'],
         ]);

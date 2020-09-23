@@ -18,6 +18,7 @@ class ConfidentialsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    /*
     public function index()
     {
         $this->paginate = [
@@ -27,6 +28,7 @@ class ConfidentialsController extends AppController
 
         $this->set(compact('confidentials'));
     }
+    */
 
     /**
      * View method
@@ -35,6 +37,7 @@ class ConfidentialsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function view($id = null)
     {
         $confidential = $this->Confidentials->get($id, [
@@ -43,12 +46,14 @@ class ConfidentialsController extends AppController
 
         $this->set(compact('confidential'));
     }
+    */
 
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+    /*
     public function add()
     {
         $confidential = $this->Confidentials->newEmptyEntity();
@@ -64,6 +69,7 @@ class ConfidentialsController extends AppController
         $ideas = $this->Confidentials->Ideas->find('list', ['limit' => 200]);
         $this->set(compact('confidential', 'ideas'));
     }
+    */
 
     /**
      * Edit method
@@ -72,6 +78,7 @@ class ConfidentialsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function edit($id = null)
     {
         $confidential = $this->Confidentials->get($id, [
@@ -89,6 +96,7 @@ class ConfidentialsController extends AppController
         $ideas = $this->Confidentials->Ideas->find('list', ['limit' => 200]);
         $this->set(compact('confidential', 'ideas'));
     }
+    */
 
     /**
      * Delete method
@@ -97,6 +105,7 @@ class ConfidentialsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -109,4 +118,5 @@ class ConfidentialsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    */
 }
