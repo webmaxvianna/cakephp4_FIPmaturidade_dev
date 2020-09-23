@@ -1,0 +1,24 @@
+.nav-sidebar > .nav-item > .nav-link {
+    font-size: large;
+
+}
+
+.nav-sidebar > .nav-item .nav-icon.fa, 
+.nav-sidebar > .nav-item .nav-icon.fas, 
+.nav-sidebar > .nav-item .nav-icon.far, 
+.nav-sidebar > .nav-item .nav-icon.fab, 
+.nav-sidebar > .nav-item .nav-icon.glyphicon, 
+.nav-sidebar > .nav-item .nav-icon.ion {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+.brand-link {
+
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini .sidebar-collapse .layout-fixed .brand-link {
+
+    }
+}
