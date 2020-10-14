@@ -64,6 +64,14 @@
                                 echo $this->Form->control('username', ['label' => 'Nome de usuário <small>(username)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('role_id', ['label' => 'Função administrativa', 'class' => 'form-control mb-2']);
+                                if ($user->role->funcao == 'Candidato') {
+                                    echo $this->Form->control('modalidade', [
+                                        'label' => 'Modalidade', 
+                                        'type' => 'select',
+                                        'options' => ['Empresa' => 'Empresa', 'Estudante' => 'Estudante'],
+                                        'class' => 'form-control mb-2'
+                                        ]); 
+                                }
                                 echo $this->Form->control('status', [
                                     'options' => ['1' => 'Ativo', '0' => 'Inativo'],
                                     'type' => 'select',

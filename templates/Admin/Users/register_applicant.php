@@ -31,6 +31,12 @@
               echo $this->Form->control('email', ['label' => 'Email', 'class' => 'form-control mb-2']);
               echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
               echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha', 'class' => 'form-control mb-2', 'type' => 'password']);
+              echo $this->Form->control('sexo', [
+                'label' => 'Modalidade', 
+                'type' => 'select',
+                'options' => ['Empresa' => 'Empresa', 'Estudante' => 'Estudante'],
+                'class' => 'form-control mb-3'
+                ]);
           ?>
           <div class="g-recaptcha" data-sitekey="6LeCPM8ZAAAAALzPJYW-NcH_9P0pg5oScTEvryiz"></div>
           <div class="col-md-6 offset-md-3">

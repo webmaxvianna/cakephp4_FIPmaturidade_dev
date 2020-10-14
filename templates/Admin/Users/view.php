@@ -33,6 +33,9 @@
             <div class="col-sm-4 invoice-col">
               <b>Nome de usuário:</b> <?= h($user->username) ?><br>
               <b>Função:</b> <?= h($user->role->funcao) ?><br>
+              <?php if ($user->role->funcao == 'Candidato') : ?>
+                <b>Modalidade:</b> <?= h($user->modalidade) ?><br>
+              <?php endif; ?>
               <b>Email:</b> <?= $user->email ?> <?= h($user->confirmacao_email) ? '<i class="text-success fas fa-check"></i>' : '' ?><br>
               <b>Data de nascimento:</b> <?= h($user->data_nascimento) ?><br>
               <b>Sexo:</b> <?= h($user->sexo) ?><br>

@@ -18,7 +18,7 @@
           &nbsp;&nbsp;<i class="fas fa-chevron-circle-down"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header"><u>Perfil: <?= strtoupper($userLogged->role->funcao) ?></u></span>
+          <span class="dropdown-item dropdown-header"><u>Perfil: <?= strtoupper($userLogged->role->funcao) ?><?= ($userLogged->role->funcao == 'Candidato') ? ' / '.strtoupper($userLogged->modalidade) : ''; ?></u></span>
           <div class="dropdown-divider"></div>
             <?= $this->Html->link('<i class="fas fa-user mr-2"></i>Editar Dados Pessoais', ['controller' => 'users', 'action' => 'edit_profile', $userLogged->id], ['class' => 'dropdown-item', 'escape' => false]) ?>
           <div class="dropdown-divider"></div>
