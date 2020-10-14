@@ -29,6 +29,9 @@ class UsersController extends AppController
 
     public function view($id = null)
     {
+        if($this->Auth->user('role_id') != 1) {
+            return $this->redirect(['controller' => 'Dashboards', 'action' => 'index']);
+        }
         $user = $this->Users->get($id, [
             'contain' => ['Roles', 'MyEdicts', 'Edicts', 'MyIdeas', 'Ideas', 'Characteristics', 'Interests', 'Specialties', 'Tasks', 'Resumes', 'Verifications'],
         ]);
@@ -186,7 +189,7 @@ class UsersController extends AppController
                 $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
                 $usuario['email'] = strtolower($usuario['email']);
                 $user = $this->Users->patchEntity($user, $usuario);
-                $usuario['role_id'] = '3'; // ID do Candidato
+                $user['role_id'] = '3'; // ID do Candidato
                 if ($this->Users->save($user)) {
                     $this->Flash->success_sm(__('O candidato foi cadastrado.'));
                     $this->getMailer('Users')->send('newApplicant', [$user]); // Envio de email para Novo candidato
@@ -201,6 +204,10 @@ class UsersController extends AppController
 
     public function sendConfirmationEmail($id = null)
     {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'dashboards', 'action' => 'index']);
+        }
         $user = $this->Users->get($id)->toArray();
         $this->getMailer('Users')->send('sendConfirmationEmail', [$user]); // Envio de email para confirmação de endereço de email
         $this->Flash->success(__('Enviamos, para "' . $user['email'] . '", um link para confirmação de email.'));
