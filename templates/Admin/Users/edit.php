@@ -222,6 +222,22 @@
                     </div>
                 </div>
             </div>
+        </div>    
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Integrantes</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('integrantes', ['label' => 'Nome dos integrates <small>(exceto o nome do candidato)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>      
         <?php endif; ?>
         <!-- Visível apenas para CANDIDATO -->

@@ -72,6 +72,13 @@
                 <b>Currículo Lattes do Professor:</b> <?= h($user->professor_lattes) ?><br>
               </div>
             <?php endif; ?>
+
+            <!-- /.col -->
+            <?php if ($user->role->funcao == 'Candidato') : ?>
+              <div class="col-sm-12 invoice-col">              
+                <b>Nome dos integrantes:</b> <?= str_replace('<br />', ' / ', nl2br(h($user->integrantes))) ?><br>
+              </div>
+            <?php endif; ?>
             <!-- /.col -->
           </div>
           <!-- /.row -->
