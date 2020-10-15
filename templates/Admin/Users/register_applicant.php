@@ -38,7 +38,7 @@
                 'class' => 'form-control mb-3'
                 ]);
           ?>
-          <div class="g-recaptcha" data-sitekey="6LeCPM8ZAAAAALzPJYW-NcH_9P0pg5oScTEvryiz"></div>
+          <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
           <div class="col-md-6 offset-md-3">
               <?= $this->Form->button(__('Registrar'),['class'=>'btn btn-block btn-primary my-2 w-15']) ?>
           </div>

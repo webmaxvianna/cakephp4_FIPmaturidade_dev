@@ -181,7 +181,7 @@ class UsersController extends AppController
                 $this->Flash->error_sm(__('Por favor, confirme o captcha.'));
             }
             else {
-                $resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeCPM8ZAAAAAOmbVeHPdFEBHr2HfJZiReA9kDcJ&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+                $resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
             }
             if ($resposta != null && $resposta.success) {
                 $user = $this->Users->patchEntity($user, $this->request->getData());
