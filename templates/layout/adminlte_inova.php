@@ -47,6 +47,8 @@
   <?php
     if ($userLogged->role->funcao != 'Gestor') {
       echo $this->Html->css(['custom-style']); 
+    } else {
+      echo $this->Html->css(['custom-manager-style']); 
     }    
   ?>
 

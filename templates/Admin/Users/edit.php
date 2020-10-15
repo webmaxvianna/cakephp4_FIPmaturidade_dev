@@ -64,6 +64,14 @@
                                 echo $this->Form->control('username', ['label' => 'Nome de usuário <small>(username)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('role_id', ['label' => 'Função administrativa', 'class' => 'form-control mb-2']);
+                                if ($user->role->funcao == 'Candidato') {
+                                    echo $this->Form->control('modalidade', [
+                                        'label' => 'Modalidade', 
+                                        'type' => 'select',
+                                        'options' => ['Empresa' => 'Empresa', 'Estudante' => 'Estudante'],
+                                        'class' => 'form-control mb-2'
+                                        ]); 
+                                }
                                 echo $this->Form->control('status', [
                                     'options' => ['1' => 'Ativo', '0' => 'Inativo'],
                                     'type' => 'select',
@@ -209,6 +217,22 @@
                             <?php
                                 echo $this->Form->control('professor', ['label' => 'Nome do Professor <small>(opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('professor_lattes', ['label' => 'Currículo Lattes <small>(link) (opcional)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card card-secondary">
+                    <div class="card-header cursor-pointer" data-toggle="collapse" href="#body4">
+                        <h3 class="card-title">Integrantes</h3>
+                    </div>
+                    <div class="card-body collapse show" id="body4">
+                        <div class="form-group">
+                            <?php
+                                echo $this->Form->control('integrantes', ['label' => 'Nome dos integrates <small>(exceto o nome do candidato)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>
                     </div>

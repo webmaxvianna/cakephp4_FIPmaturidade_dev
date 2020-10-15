@@ -30,6 +30,19 @@ class UsersMailer extends Mailer
                 ->setTemplate('tpl_new_applicant'); 
     }
 
+    public function newUser($user, $role)
+    {
+        $this
+            ->setTo($user->email)
+            ->setProfile('email_profile')
+            ->setEmailFormat('html')
+            ->setSubject(sprintf('Bem-vindo! (Sistema de Maturidade)'))
+            ->setViewVars(['nome' => $user->nome_completo, 'username' => $user->username, 'email' => $user->email, 'funcao' => $role->funcao])
+            ->viewBuilder()
+                ->setLayout('default')
+                ->setTemplate('tpl_new_user'); 
+    }
+
     public function recoveryPassword($user)
     {
         $this        

@@ -35,8 +35,6 @@
                                 echo $this->Form->control('sobrenome', ['label' => 'Sobrenome','class' => 'form-control mb-2']);
                                 echo $this->Form->control('email', ['label' => 'Email','class' => 'form-control mb-2']);
                                 echo $this->Form->control('username', ['label' => 'Nome de usuário <small>(username)</small>','class' => 'form-control mb-2', 'escape' => false]);
-                                echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>','class' => 'form-control mb-2', 'escape' => false]);
-                                echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha','class' => 'form-control mb-2', 'type' => 'password']);
                             ?>
                         </div>
                     </div>

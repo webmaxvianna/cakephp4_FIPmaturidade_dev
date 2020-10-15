@@ -94,6 +94,8 @@ class User extends Entity
         'pais' => true,
         'professor' => true,
         'professor_lattes' => true,
+        'integrantes' => true,
+        'modalidade' => true,
         'role_id' => true,
         'created' => true,
         'modified' => true,

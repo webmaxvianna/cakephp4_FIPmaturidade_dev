@@ -33,6 +33,9 @@
             <div class="col-sm-4 invoice-col">
               <b>Nome de usuário:</b> <?= h($user->username) ?><br>
               <b>Função:</b> <?= h($user->role->funcao) ?><br>
+              <?php if ($user->role->funcao == 'Candidato') : ?>
+                <b>Modalidade:</b> <?= h($user->modalidade) ?><br>
+              <?php endif; ?>
               <b>Email:</b> <?= $user->email ?> <?= h($user->confirmacao_email) ? '<i class="text-success fas fa-check"></i>' : '' ?><br>
               <b>Data de nascimento:</b> <?= h($user->data_nascimento) ?><br>
               <b>Sexo:</b> <?= h($user->sexo) ?><br>
@@ -67,6 +70,13 @@
               <div class="col-sm-12 invoice-col">              
                 <b>Professor Orientador:</b> <?= h($user->professor) ?><br>
                 <b>Currículo Lattes do Professor:</b> <?= h($user->professor_lattes) ?><br>
+              </div>
+            <?php endif; ?>
+
+            <!-- /.col -->
+            <?php if ($user->role->funcao == 'Candidato') : ?>
+              <div class="col-sm-12 invoice-col">              
+                <b>Nome dos integrantes:</b> <?= str_replace('<br />', ' / ', nl2br(h($user->integrantes))) ?><br>
               </div>
             <?php endif; ?>
             <!-- /.col -->

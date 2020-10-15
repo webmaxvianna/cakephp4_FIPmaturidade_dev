@@ -48,11 +48,17 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $usuario = $this->request->getData();
-            $usuario['nome_completo'] = ucwords(strtolower($usuario['nome'])) . " " . ucwords(strtolower($usuario['sobrenome']));
-            $usuario['email'] = strtolower($usuario['email']);
+            $usuario['nome'] = ucwords(strtolower($usuario['nome']));
+            $usuario['sobrenome'] = ucwords(strtolower($usuario['sobrenome']));
+            $usuario['nome_completo'] = $usuario['nome'] . " " . $usuario['sobrenome'];
+            $usuario['email'] = strtolower($usuario['email']);           
+            $usuario['password'] = '123456';
+            $this->loadModel('Roles');
+            $role = $this->Roles->findById($usuario['role_id'])->first();
             $user = $this->Users->patchEntity($user, $usuario);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('O usuário foi cadastrado.'));
+                $this->getMailer('Users')->send('newUser', [$user, $role]); // Envio de email para Novo candidato
+                $this->Flash->success(__('O usuário foi cadastrado. Um email foi enviado para "'.$user->email.'"'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('O usuário não foi cadastrado. Por favor, tente novamente.'));
@@ -175,7 +181,7 @@ class UsersController extends AppController
                 $this->Flash->error_sm(__('Por favor, confirme o captcha.'));
             }
             else {
-                $resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+                $resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeCPM8ZAAAAAOmbVeHPdFEBHr2HfJZiReA9kDcJ&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
             }
             if ($resposta != null && $resposta.success) {
                 $user = $this->Users->patchEntity($user, $this->request->getData());

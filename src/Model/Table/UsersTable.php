@@ -280,6 +280,15 @@ class UsersTable extends Table
             ->scalar('professor_lattes')
             ->maxLength('professor_lattes', 255)
             ->allowEmptyString('professor_lattes');
+
+        $validator
+            ->scalar('integrantes')
+            ->allowEmptyString('integrantes');
+
+        $validator
+            ->scalar('modalidade')
+            ->maxLength('modalidade', 45)
+            ->allowEmptyString('modalidade');
         
         return $validator;
     }
