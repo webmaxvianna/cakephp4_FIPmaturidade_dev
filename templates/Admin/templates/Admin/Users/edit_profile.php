@@ -92,7 +92,7 @@
                                 ?>
                             </p>
                             <p>
-                                Autorização do responsável: 
+                                Se menor, autorização do responsável: 
                                 <?php
                                     if(isset($user->verification->autorizacao_pais)) {
                                         echo $this->Html->link('Ver documento', $user->verification->autorizacao_pais, ['fullBase' => true, 'target' => '_blank']);
