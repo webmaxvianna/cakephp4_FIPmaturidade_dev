@@ -29,6 +29,7 @@
                                 echo $this->Form->control('verification.declaracao', ['type' => 'file', 'label' => 'Declaração<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('verification.identidade_frente', ['type' => 'file', 'label' => 'Documento de identidade - frente (RG ou CPF)<small> (imagem .jpg ou .png)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('verification.identidade_verso', ['type' => 'file', 'label' => 'Documento de identidade - verso (RG ou CPF)<small> (imagem .jpg ou .png)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
+                                echo $this->Form->control('verification.recomendacao', ['type' => 'file', 'label' => 'Carta de recomendação<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                                 echo $this->Form->control('verification.autorizacao_pais', ['type' => 'file', 'label' => 'Autorização dos pais<small> (imagem ou pdf)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
                             ?>
                         </div>

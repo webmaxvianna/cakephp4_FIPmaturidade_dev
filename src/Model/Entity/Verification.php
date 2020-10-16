@@ -39,6 +39,7 @@ class Verification extends Entity
         'declaracao' => true,
         'autorizacao_pais' => true,
         'foto_perfil' => true,
+        'recomendacao' => true,
         'user_id' => true,
         'created' => true,
         'modified' => true,

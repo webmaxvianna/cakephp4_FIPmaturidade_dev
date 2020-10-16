@@ -129,6 +129,28 @@
               </p>
               <hr/>
               <p class="ml-3">
+                Carta de Recomendação<br/>
+                <?php
+                  if (isset($user->verification->recomendacao)) {
+                    echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->recomendacao, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]); 
+                  } else {
+                    echo '<button class="btn btn-default btn-sm mr-1" disabled="disabled">Visualizar<i class="far fa-file ml-1"></i></button>';
+                  }
+                ?> 
+              </p>
+              <hr/>
+              <p class="ml-3">
+                Declaração<br/>
+                <?php
+                  if (isset($user->verification->declaracao)) {
+                    echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->declaracao, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]); 
+                  } else {
+                    echo '<button class="btn btn-default btn-sm mr-1" disabled="disabled">Visualizar<i class="far fa-file ml-1"></i></button>';
+                  }
+                ?> 
+              </p>
+              <hr/>
+              <p class="ml-3">
                 Autorização dos Pais ou Responsável<br/>
                 <?php
                   if (isset($user->verification->autorizacao_pais)) {

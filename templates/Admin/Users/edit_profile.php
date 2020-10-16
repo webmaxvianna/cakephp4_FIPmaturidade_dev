@@ -177,7 +177,29 @@
                                 ?>
                             </p>
                             <p>
-                                Autorização do responsável: 
+                                Carta de Recomendação: 
+                                <?php
+                                    if($user->verification->recomendacao) {
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->recomendacao, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);
+                                        echo $this->Html->link('Alterar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeLetterOfRecommendation', $userLogged->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]);
+                                    } else {
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeLetterOfRecommendation', $userLogged->id], ['class' => 'btn btn-primary btn-sm', 'escape' => false]);
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Declaração: 
+                                <?php
+                                    if($user->verification->declaracao) {
+                                        echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->declaracao, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);
+                                        echo $this->Html->link('Alterar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeOfAgreement', $userLogged->id], ['class' => 'btn btn-warning btn-sm', 'escape' => false]);
+                                    } else {
+                                        echo $this->Html->link('Enviar<i class="fas fa-file-upload ml-1"></i>', ['action' => 'changeOfAgreement', $userLogged->id], ['class' => 'btn btn-primary btn-sm', 'escape' => false]);
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                                Se menor, autorização do responsável:  
                                 <?php
                                     if($user->verification->autorizacao_pais) {
                                         echo $this->Html->link('Visualizar<i class="far fa-file ml-1"></i>', $user->verification->autorizacao_pais, ['fullBase' => true, 'class' => 'btn btn-success btn-sm mr-1', 'target' => '_blank', 'escape' => false]);

@@ -119,6 +119,10 @@ class UsersController extends AppController
             $autorizacao_pais = WWW_ROOT . $user->verification->autorizacao_pais; }
         if (isset($user->verification->residencia)) { 
             $residencia = WWW_ROOT . $user->verification->residencia; }
+        if (isset($user->verification->recomendacao)) { 
+            $recomendacao = WWW_ROOT . $user->verification->recomendacao; }
+        if (isset($user->verification->declaracao)) { 
+            $declaracao = WWW_ROOT . $user->verification->declaracao; }
         if (isset($user->verification->identidade_frente)) { 
             $identidade_frente = WWW_ROOT . $user->verification->identidade_frente; }
         if (isset($user->verification->identidade_verso)) { 
@@ -129,6 +133,8 @@ class UsersController extends AppController
             if (isset($foto)) { unlink($foto); } 
             if (isset($autorizacao_pais)) { unlink($autorizacao_pais); } 
             if (isset($residencia)) { unlink($residencia); } 
+            if (isset($recomendacao)) { unlink($recomendacao); } 
+            if (isset($declaracao)) { unlink($declaracao); }
             if (isset($identidade_frente)) { unlink($identidade_frente); } 
             if (isset($identidade_verso)) { unlink($identidade_verso); }
              
@@ -499,6 +505,84 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
     }
+
+    public function changeLetterOfRecommendation($id = null)
+    {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeLetterOfRecommendation', $this->Auth->user('id')]);
+        }
+
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->recomendacao)) {
+                $imagedb = WWW_ROOT . $user->verification->recomendacao;
+            }
+            $file = $this->request->getData('verification.recomendacao');
+            if ($file->getSize() > (1024 * 1024 * 10)) {                
+                $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeLetterOfRecommendation', $id]);
+            }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "application/pdf");
+            if (!in_array($file->getClientMediaType(), $valid_extensions)) {
+                $this->Flash->warning(__('Apenas arquivos PDF, JPG ou PNG são permitdos.'));
+                return $this->redirect(['action' => 'changeProofOfResidence', $id]);
+            }
+            $userData = $this->request->getData();
+            $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+            $userData['verification']['recomendacao'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-recomendacao.' . $ext;
+            $user = $this->Users->patchEntity($user, $userData);
+            unset($user['role_id']);
+            if ($this->Users->save($user)) {
+                if (isset($imagedb)) { unlink($imagedb); }                
+                $this->Flash->success(__('A "Carta de Recomendação" foi salva.'));
+                $path = WWW_ROOT . 'docs' . DS . 'comprovantes' . DS . $user->id . '-' . $user->username . '-recomendacao.' . $ext;
+                $file->moveTo($path);
+                return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('A "Carta de Recomendação" não foi salva. Por favor, tente novamente.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function changeOfAgreement($id = null)
+    {
+        if ($id != $this->Auth->user('id')) {
+            $this->Flash->error(__('Você não tem permissão para alterar o ID: "'.$id.'"'));
+            return $this->redirect(['controller' => 'users', 'action' => 'changeProofOfResidence', $this->Auth->user('id')]);
+        }
+
+        $user = $this->Users->get($id, ['contain' => ['Verifications']]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($user->verification->declaracao)) {
+                $imagedb = WWW_ROOT . $user->verification->declaracao;
+            }
+            $file = $this->request->getData('verification.declaracao');
+            if ($file->getSize() > (1024 * 1024 * 10)) {                
+                $this->Flash->warning(__('Apenas arquivos menores que 10 MB são permitdos.'));
+                return $this->redirect(['action' => 'changeProofOfResidence', $id]);
+            }
+            $valid_extensions = array("image/png", "image/jpeg", "image/jpg", "application/pdf");
+            if (!in_array($file->getClientMediaType(), $valid_extensions)) {
+                $this->Flash->warning(__('Apenas arquivos PDF, JPG ou PNG são permitdos.'));
+                return $this->redirect(['action' => 'changeProofOfResidence', $id]);
+            }
+            $userData = $this->request->getData();
+            $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+            $userData['verification']['declaracao'] = '/docs/comprovantes/' . $user->id . '-' . $user->username . '-declaracao.' . $ext;
+            $user = $this->Users->patchEntity($user, $userData);
+            unset($user['role_id']);
+            if ($this->Users->save($user)) {
+                if (isset($imagedb)) { unlink($imagedb); }                
+                $this->Flash->success(__('A "Declaração" foi salva.'));
+                $path = WWW_ROOT . 'docs' . DS . 'comprovantes' . DS . $user->id . '-' . $user->username . '-declaracao.' . $ext;
+                $file->moveTo($path);
+                return $this->redirect(['action' => 'editProfile', $this->Auth->user('id')]);
+            }
+            $this->Flash->error(__('A "Declaração" não foi salva. Por favor, tente novamente.'));
+        }
+        $this->set(compact('user'));
+    }    
 
     public function changeIdentityCardFront($id = null)
     {

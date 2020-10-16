@@ -92,6 +92,16 @@
                                 ?>
                             </p>
                             <p>
+                                Carta de Recomendação: 
+                                <?php
+                                    if(isset($user->verification->recomendacao)) {
+                                        echo $this->Html->link('Ver documento', $user->verification->recomendacao, ['fullBase' => true, 'target' => '_blank']);
+                                    } else {
+                                        echo "Não enviado!";
+                                    }
+                                ?>
+                            </p>
+                            <p>
                                 Se menor, autorização do responsável: 
                                 <?php
                                     if(isset($user->verification->autorizacao_pais)) {
