@@ -45,6 +45,50 @@
               </div>
               <!-- /.card-body -->
             </div>
+            <?php
+              switch ($userLogged->role->funcao) {
+                case 'Candidato':
+                  if($recados->candidatos) {
+                    echo '<div class="callout callout-danger">';
+                    echo '<p class="lead">';
+                    echo 'Avisos:<br>';
+                    echo $recados->candidatos;
+                    echo '</p>';
+                    echo '</div>';
+                  }
+                break;
+                case 'Avaliador':
+                  if($recados->avaliadores) {
+                    echo '<div class="callout callout-danger">';
+                    echo '<p class="lead">';
+                    echo 'Avisos:<br>';
+                    echo $recados->avaliadores;
+                    echo '</p>';
+                    echo '</div>';
+                  }
+                break;
+                case 'Jurado':
+                  if($recados->jurados) {
+                    echo '<div class="callout callout-danger">';
+                    echo '<p class="lead">';
+                    echo 'Avisos:<br>';
+                    echo $recados->jurados;
+                    echo '</p>';
+                    echo '</div>';
+                  }
+                break;
+                case 'Consultor':
+                  if($recados->consultores) {
+                    echo '<div class="callout callout-danger">';
+                    echo '<p class="lead">';
+                    echo 'Avisos:<br>';
+                    echo $recados->consultores;
+                    echo '</p>';
+                    echo '</div>';
+                  }
+                break;
+              }
+            ?>
             <div class="callout callout-info">
               <h5>Primeiros passos:</h5>
               <ul class="list-unstyled">

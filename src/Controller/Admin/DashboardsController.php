@@ -137,5 +137,28 @@ class DashboardsController extends AppController
         } else {
             $this->set('ideia', false);
         } 
+
+        $this->loadModel('Messages');
+        $recados = $this->Messages->find('all')->first();
+        $this->set(compact('recados'));
+    }
+
+    public function recados()
+    {
+        $this->loadModel('Messages');
+        $recados = $this->Messages->find('all')->first();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if($recados == null) {
+                $recados = $this->Messages->newEmptyEntity();
+            }
+            $recados = $this->Messages->patchEntity($recados, $this->request->getData());
+            if ($this->Messages->save($recados)) {
+                $this->Flash->success(__('Os recados foram salvos.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
+        }        
+        $this->set(compact('recados'));
     }
 }
