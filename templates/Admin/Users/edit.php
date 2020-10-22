@@ -68,7 +68,7 @@
                                     echo $this->Form->control('modalidade', [
                                         'label' => 'Modalidade', 
                                         'type' => 'select',
-                                        'options' => ['Empresa' => 'Empresa', 'Estudante' => 'Estudante'],
+                                        'options' => ['Comunidade' => 'Comunidade', 'Academia' => 'Academia'],
                                         'class' => 'form-control mb-2'
                                         ]); 
                                 }

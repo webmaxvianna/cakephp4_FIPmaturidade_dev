@@ -31,10 +31,10 @@
               echo $this->Form->control('email', ['label' => 'Email', 'class' => 'form-control mb-2']);
               echo $this->Form->control('password', ['label' => 'Senha <small>(password)</small>', 'class' => 'form-control mb-2', 'escape' => false]);
               echo $this->Form->control('confirm_password', ['label' => 'Confirmar senha', 'class' => 'form-control mb-2', 'type' => 'password']);
-              echo $this->Form->control('sexo', [
+              echo $this->Form->control('modalidade', [
                 'label' => 'Modalidade', 
                 'type' => 'select',
-                'options' => ['Empresa' => 'Empresa', 'Estudante' => 'Estudante'],
+                'options' => ['Comunidade' => 'Comunidade', 'Academia' => 'Academia'],
                 'class' => 'form-control mb-3'
                 ]);
           ?>

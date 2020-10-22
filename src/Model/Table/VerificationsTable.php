@@ -95,6 +95,11 @@ class VerificationsTable extends Table
             ->maxLength('foto_perfil', 255)
             ->allowEmptyString('foto_perfil');
 
+        $validator
+            ->scalar('recomendacao')
+            ->maxLength('recomendacao', 255)
+            ->allowEmptyString('recomendacao');
+
         return $validator;
     }
 

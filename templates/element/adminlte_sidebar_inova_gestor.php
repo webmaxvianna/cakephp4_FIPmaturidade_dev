@@ -25,6 +25,15 @@
             </a>
           </li>
 
+          <li class="nav-item has-treeview">
+            <a href="<?= $this->Url->build(['controller' => 'dashboards', 'action' => 'recados']) ?>" class="nav-link">
+              <i class="nav-icon fa fa-comments"></i>
+              <p>
+                Recados
+              </p>
+            </a>
+          </li>
+
           <li class="nav-header">Atores do Sistema</li>
           <li class="nav-item">
             <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'index']) ?>" class="nav-link">

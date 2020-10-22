@@ -17,10 +17,12 @@ class DashboardsController extends AppController
         // debug($verification);exit;
         if ($verification) {
             if ($verification->residencia) { $residencia = true; } else { $residencia = false; } 
+            if ($verification->recomendacao) { $recomendacao = true; } else { $recomendacao = false; }
+            if ($verification->declaracao) { $declaracao = true; } else { $declaracao = false; } 
             if ($verification->autorizacao_pais) { $autorizacao_pais = true; } else { $autorizacao_pais = false; } 
             if ($verification->identidade_frente) { $identidade_frente = true; } else { $identidade_frente = false; } 
             if ($verification->identidade_verso) { $identidade_verso = true; } else { $identidade_verso = false; } 
-            if ($residencia && $autorizacao_pais && $identidade_frente && $identidade_verso) {
+            if ($residencia && $recomendacao && $declaracao && $autorizacao_pais && $identidade_frente && $identidade_verso) {
                 $this->set('documentos', true);
             } else {
                 $this->set('documentos', false);
@@ -135,5 +137,28 @@ class DashboardsController extends AppController
         } else {
             $this->set('ideia', false);
         } 
+
+        $this->loadModel('Messages');
+        $recados = $this->Messages->find('all')->first();
+        $this->set(compact('recados'));
+    }
+
+    public function recados()
+    {
+        $this->loadModel('Messages');
+        $recados = $this->Messages->find('all')->first();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if($recados == null) {
+                $recados = $this->Messages->newEmptyEntity();
+            }
+            $recados = $this->Messages->patchEntity($recados, $this->request->getData());
+            if ($this->Messages->save($recados)) {
+                $this->Flash->success(__('Os recados foram salvos.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Ocorreu um erro. Por favor, tente novamente.'));
+        }        
+        $this->set(compact('recados'));
     }
 }
