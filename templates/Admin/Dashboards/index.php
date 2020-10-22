@@ -50,8 +50,8 @@
                 case 'Candidato':
                   if($recados->candidatos) {
                     echo '<div class="callout callout-danger">';
-                    echo '<p class="lead">';
-                    echo 'Avisos:<br>';
+                    echo '<h4 class="text-danger"><i class="far fa-comment"></i> Recados</h4>';
+                    echo '<p>';
                     echo $recados->candidatos;
                     echo '</p>';
                     echo '</div>';
@@ -60,8 +60,8 @@
                 case 'Avaliador':
                   if($recados->avaliadores) {
                     echo '<div class="callout callout-danger">';
-                    echo '<p class="lead">';
-                    echo 'Avisos:<br>';
+                    echo '<h3 class="text-danger"><i class="far fa-comment"></i> Recados</h3>';
+                    echo '<p>';
                     echo $recados->avaliadores;
                     echo '</p>';
                     echo '</div>';
@@ -70,8 +70,8 @@
                 case 'Jurado':
                   if($recados->jurados) {
                     echo '<div class="callout callout-danger">';
-                    echo '<p class="lead">';
-                    echo 'Avisos:<br>';
+                    echo '<h3 class="text-danger"><i class="far fa-comment"></i> Recados</h3>';
+                    echo '<p>';
                     echo $recados->jurados;
                     echo '</p>';
                     echo '</div>';
@@ -80,8 +80,8 @@
                 case 'Consultor':
                   if($recados->consultores) {
                     echo '<div class="callout callout-danger">';
-                    echo '<p class="lead">';
-                    echo 'Avisos:<br>';
+                    echo '<h5 class="text-danger"><i class="far fa-comment"></i> Recados</h5>';
+                    echo '<p>';
                     echo $recados->consultores;
                     echo '</p>';
                     echo '</div>';
@@ -90,7 +90,7 @@
               }
             ?>
             <div class="callout callout-info">
-              <h5>Primeiros passos:</h5>
+              <h4>Primeiros passos:</h4>
               <ul class="list-unstyled">
                 <li><?= ($userLogged->confirmacao_email == 1) ? '<i class="text-success fas fa-check-square"></i>&nbsp;&nbsp;' : '<i class="text-default far fa-square"></i>&nbsp;&nbsp;' ?>Confirme seu endereço de email</li>
                 <li><?= $dados_pessoais ? '<i class="text-success fas fa-check-square"></i>&nbsp;&nbsp;' : '<i class="text-default far fa-square"></i>&nbsp;&nbsp;' ?>Complete o preenchimento dos seus dados pessoais</li>

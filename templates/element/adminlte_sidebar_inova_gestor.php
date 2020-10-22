@@ -26,7 +26,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="<?= $this->Url->build(['controller' => 'dashboards', 'action' => 'recados']) ?>" class="nav-link">
+            <a href="<?= $this->Url->build(['controller' => 'messages', 'action' => 'index']) ?>" class="nav-link">
               <i class="nav-icon fa fa-comments"></i>
               <p>
                 Recados
